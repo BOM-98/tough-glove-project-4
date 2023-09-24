@@ -1,1 +1,1 @@
-web: guincorn tough_glove.wsgi
+web: gunicorn tough_glove.wsgi
