@@ -44,7 +44,10 @@ INSTALLED_APPS = [
     "cloudinary_storage",
     "django.contrib.staticfiles",
     "cloudinary",
+    
+    #my apps
     "layout",
+    "layout.booking_functions",
 ]
 
 MIDDLEWARE = [
