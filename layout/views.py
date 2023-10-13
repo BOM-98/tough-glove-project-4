@@ -6,11 +6,13 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User, Group
 
 # Local application/library specific imports
 from .forms import CreateUserForm
 from layout.booking_functions.availability import get_available_classes
+from .decorators import unauthenticated_user, allowed_users
 
 
 
@@ -18,21 +20,26 @@ from layout.booking_functions.availability import get_available_classes
 def homepage(request):
     return render(request, "layout/homepage.html")
 
+@unauthenticated_user
 def register_view(request):
-    form = CreateUserForm()
     
+    form = CreateUserForm()
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            form.save()
-            user = form.cleaned_data.get('username')
-            messages.success(request, "Account created successfully for " + user)
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            group = Group.objects.get(name='member')
+            user.groups.add(group)
+            messages.success(request, "Account created successfully for " + username)
             return redirect('login')
-    
+
     context = {'form': form}
     return render(request, "accounts/register.html", context)
 
+@unauthenticated_user
 def login_view(request):
+    
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -54,6 +61,12 @@ def login_view(request):
     context = {}
     return render(request, "accounts/login.html", context)
 
+def logout_user(request):
+    logout(request)
+    return redirect('homepage')
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['member', 'admin'])
 def available_classes_view(request):
     available_classes = get_available_classes()
-    return render(request, 'available_classes.html', {'available_classes': available_classes})
+    return render(request, 'layout/available_classes.html', {'available_classes': available_classes})

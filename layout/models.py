@@ -6,7 +6,8 @@ from cloudinary.models import CloudinaryField
 STATUS = ((0, "Draft"), (1, "Publish"))
 CLASSES = ((0, "Group"), (1, "Private"))
 
-class Users(models.Model):
+class Member(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
     email = models.EmailField(max_length=200, unique=True)

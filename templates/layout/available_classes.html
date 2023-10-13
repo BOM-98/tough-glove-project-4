@@ -1,16 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends "layout/base.html" %}
+
+{% block title %}Tough Glove | Available Classes {% endblock %}
+
+{% block content %}
     <h1>Available Classes</h1>
 
     {% for class in classes %}
         <p>{{ class.name }}</p>
     {% endfor %}
 
-</body>
-</html>
+{% endblock %}
