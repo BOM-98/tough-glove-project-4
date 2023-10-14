@@ -14,7 +14,7 @@
             <div class="overflow-hidden card table-nowrap table-card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h2 class="mb-0">Tough Glove Members</h2>
-                    <a href="#!" class="btn btn-light btn-sm">View All</a>
+                    <a href="{% url 'create_member' %}" class="btn btn-light btn-sm">Create New Member</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table mb-0">
@@ -50,8 +50,8 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" style="">
                                             <a href="#!" class="dropdown-item">{{ user.first_name}}'s Bookings</a>
-                                            <a href="#!" class="dropdown-item">Update {{ user.first_name}}</a>
-                                            <a href="#!" class="dropdown-item">Delete {{ user.first_name}}</a>
+                                            <a href="{% url 'update_member' user.id %}" class="dropdown-item">Update {{ user.first_name}}</a>
+                                            <a href="{% url 'delete_member' user.id %}" class="dropdown-item">Delete {{ user.first_name}}</a>
                                         </div>
                                     </div>
                                 </td>

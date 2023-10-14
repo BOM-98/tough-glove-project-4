@@ -1,0 +1,22 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Tough Glove | Delete Member {% endblock %}
+
+{% block extra_head %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css"
+    rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="registration-form">
+    <form method="POST" action="{% url 'delete_member' user.id %}">
+        {% csrf_token %}
+        <h1 class="text-center">Delete {{ user.first_name }} </h1>
+        <p class="text-center">Are you sure you want to delete {{ user.first_name }} {{ user.last_name }}?</p>
+        <a href="{% url 'members' %}" class="btn btn-secondary">Cancel</a>
+        <input type="submit" value="Delete Account" class="btn btn-danger">
+    </form>
+</div>
+
+{% endblock content %}

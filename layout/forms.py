@@ -18,4 +18,15 @@ class CreateUserForm(UserCreationForm):
             'last_name': forms.TextInput(attrs={'placeholder': 'Last Name', 'class': 'form-control item'}),
             'email': forms.EmailInput(attrs={'placeholder': 'Email', 'class': 'form-control item'}),
         }
+        
+class UpdateUserForm(forms.ModelForm):
+    class Meta: 
+        model = User
+        fields = ['first_name', 'last_name', 'username', 'email']
+        widgets = {
+            'username': forms.TextInput(attrs={'placeholder': 'Username', 'class': 'form-control item'}),
+            'first_name': forms.TextInput(attrs={'placeholder': 'First Name', 'class': 'form-control item'}),
+            'last_name': forms.TextInput(attrs={'placeholder': 'Last Name', 'class': 'form-control item'}),
+            'email': forms.EmailInput(attrs={'placeholder': 'Email', 'class': 'form-control item'}),
+        }
 

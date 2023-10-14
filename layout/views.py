@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
 
 # Local application/library specific imports
-from .forms import CreateUserForm
+from .forms import *
 from layout.booking_functions.availability import get_available_classes
 from .decorators import unauthenticated_user, allowed_users
 from .models import *
@@ -34,6 +34,23 @@ def register_view(request):
             user.groups.add(group)
             messages.success(request, "Account created successfully for " + username)
             return redirect('login')
+
+    context = {'form': form}
+    return render(request, "accounts/register.html", context)
+
+@allowed_users(allowed_roles=['admin'])
+def create_member_view(request):
+    
+    form = CreateUserForm()
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            group = Group.objects.get(name='member')
+            user.groups.add(group)
+            messages.success(request, "Account created successfully for " + username)
+            return redirect('members')
 
     context = {'form': form}
     return render(request, "accounts/register.html", context)
@@ -72,9 +89,34 @@ def available_classes_view(request):
     available_classes = get_available_classes()
     return render(request, 'layout/available_classes.html', {'available_classes': available_classes})
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
 def members_view(request):
     members = Members.objects.all()
     users = User.objects.all()
     user_count = User.objects.count()
     context = {'members': members, 'users': users, 'user_count': user_count}
     return render(request, 'accounts/members.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['member', 'admin'])
+def update_member_view(request, pk):
+    user = User.objects.get(id=pk)
+    form = UpdateUserForm(instance=user)
+    if request.method == 'POST':
+        form = UpdateUserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('members')
+    context = {'form': form, 'user': user}
+    return render(request, 'accounts/update_member.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def delete_member_view(request, pk):
+    user = User.objects.get(id=pk)
+    if request.method == 'POST':
+        user.delete()
+        return redirect('members')
+    context = {'user': user}
+    return render(request, 'accounts/delete_member.html', context)
