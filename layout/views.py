@@ -13,6 +13,7 @@ from django.contrib.auth.models import User, Group
 from .forms import CreateUserForm
 from layout.booking_functions.availability import get_available_classes
 from .decorators import unauthenticated_user, allowed_users
+from .models import *
 
 
 
@@ -70,3 +71,10 @@ def logout_user(request):
 def available_classes_view(request):
     available_classes = get_available_classes()
     return render(request, 'layout/available_classes.html', {'available_classes': available_classes})
+
+def members_view(request):
+    members = Members.objects.all()
+    users = User.objects.all()
+    user_count = User.objects.count()
+    context = {'members': members, 'users': users, 'user_count': user_count}
+    return render(request, 'accounts/members.html', context)

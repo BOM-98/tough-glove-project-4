@@ -6,16 +6,13 @@ from cloudinary.models import CloudinaryField
 STATUS = ((0, "Draft"), (1, "Publish"))
 CLASSES = ((0, "Group"), (1, "Private"))
 
-class Member(models.Model):
+class Members(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=200)
-    last_name = models.CharField(max_length=200)
-    email = models.EmailField(max_length=200, unique=True)
     date_joined = models.DateTimeField(auto_now_add=True)
-    phone_number = models.CharField(max_length=200, unique=True)
+    phone_number = models.CharField(max_length=20, unique=True)
     
     class Meta:
-        verbose_name_plural = 'Users'
+        verbose_name_plural = 'Members'
         ordering = ['-date_joined']
         
     def __str__(self):

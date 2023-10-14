@@ -1,9 +1,14 @@
 from django.contrib import admin
-from .models import Users, Classes, Bookings, BlogPosts
+from .models import Members, Classes, Bookings, BlogPosts, Comments
 
-admin.site.register(Users)
+
+
+# Register your models here.
+class MyModelAdmin(admin.ModelAdmin):
+    list_display = ['title', 'slug', 'author', 'updated_on', 'category']
+        
+admin.site.register(Members)
 admin.site.register(Classes)
 admin.site.register(Bookings)
 admin.site.register(BlogPosts)
-
-# Register your models here.
+admin.site.register(Comments)
