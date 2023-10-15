@@ -120,3 +120,15 @@ def delete_member_view(request, pk):
         return redirect('members')
     context = {'user': user}
     return render(request, 'accounts/delete_member.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def admin_dashboard_view(request):
+    users = User.objects.all()
+    members = Members.objects.all()
+    user_count = User.objects.count()
+    classes_count = Classes.objects.count()
+    pt_classes_count = Classes.objects.filter(class_type=1).count()
+    available_classes = get_available_classes()
+    context = {'users': users, 'members': members, 'user_count': user_count, 'classes_count': classes_count, 'pt_classes_count': pt_classes_count, 'available_classes': available_classes}
+    return render(request, 'layout/admin_dashboard.html', context)
