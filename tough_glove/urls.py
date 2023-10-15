@@ -30,4 +30,5 @@ urlpatterns = [
     path("update_member/<str:pk>/", update_member_view, name="update_member"),
     path("delete_member/<str:pk>/", delete_member_view, name="delete_member"),
     path("admin_dashboard/", admin_dashboard_view, name="admin_dashboard"),
+    path("class_manager/", class_manager_view, name="class_manager"),
 ]

@@ -132,3 +132,15 @@ def admin_dashboard_view(request):
     available_classes = get_available_classes()
     context = {'users': users, 'members': members, 'user_count': user_count, 'classes_count': classes_count, 'pt_classes_count': pt_classes_count, 'available_classes': available_classes}
     return render(request, 'layout/admin_dashboard.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def class_manager_view(request):
+    if request.method == 'POST':
+        form = CreateClassForm()
+        if form.is_valid():
+            form.save()
+            return redirect('layout/admin_dashboard.html')
+    classes = Classes.objects.all()
+    context = {'classes': classes, 'form' : CreateClassForm()}
+    return render(request, 'classes/class_manager.html', context)

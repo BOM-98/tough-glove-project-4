@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 
-from .models import Classes, Bookings
+from .models import *
 
 class CreateUserForm(UserCreationForm):
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'class': 'form-control item'}))
@@ -28,5 +28,19 @@ class UpdateUserForm(forms.ModelForm):
             'first_name': forms.TextInput(attrs={'placeholder': 'First Name', 'class': 'form-control item'}),
             'last_name': forms.TextInput(attrs={'placeholder': 'Last Name', 'class': 'form-control item'}),
             'email': forms.EmailInput(attrs={'placeholder': 'Email', 'class': 'form-control item'}),
+        }
+        
+class CreateClassForm(forms.ModelForm):
+    class Meta: 
+        model = Classes
+        fields = ['class_name', 'class_description', 'class_type', 'class_date', 'class_start_time', 'class_end_time', 'slots_available']
+        widgets = {
+            'class_name': forms.TextInput(attrs={'placeholder': 'Class Name', 'class': 'form-control item'}),
+            'class_description': forms.Textarea(attrs={'placeholder': 'Class Description', 'class': 'form-control item'}),
+            'class_type': forms.Select(attrs={'placeholder': 'Class Type', 'class': 'form-control item'}),
+            'class_date': forms.DateInput(attrs={'placeholder': 'Class Date', 'class': 'form-control item'}),
+            'class_start_time': forms.TimeInput(attrs={'placeholder': 'Class Start Time', 'class': 'form-control item'}),
+            'class_end_time': forms.TimeInput(attrs={'placeholder': 'Class End Time', 'class': 'form-control item'}),
+            'slots_available': forms.NumberInput(attrs={'placeholder': 'Slots Available', 'class': 'form-control item'}),
         }
 
