@@ -9,6 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
 
+
 # Local application/library specific imports
 from .forms import *
 from layout.booking_functions.availability import get_available_classes
@@ -129,18 +130,19 @@ def admin_dashboard_view(request):
     user_count = User.objects.count()
     classes_count = Classes.objects.count()
     pt_classes_count = Classes.objects.filter(class_type=1).count()
+    group_classes_count = Classes.objects.filter(class_type=0).count()
     available_classes = get_available_classes()
-    context = {'users': users, 'members': members, 'user_count': user_count, 'classes_count': classes_count, 'pt_classes_count': pt_classes_count, 'available_classes': available_classes}
+    context = {'users': users, 'members': members, 'user_count': user_count, 'classes_count': classes_count, 'pt_classes_count': pt_classes_count, 'group_classes_count': group_classes_count, 'available_classes': available_classes}
     return render(request, 'layout/admin_dashboard.html', context)
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def class_manager_view(request):
     if request.method == 'POST':
-        form = CreateClassForm()
+        form = CreateClassForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('layout/admin_dashboard.html')
+            return redirect('admin_dashboard')
     classes = Classes.objects.all()
     context = {'classes': classes, 'form' : CreateClassForm()}
     return render(request, 'classes/class_manager.html', context)

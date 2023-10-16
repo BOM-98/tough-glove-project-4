@@ -2,6 +2,7 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+from bootstrap_datepicker_plus.widgets import DatePickerInput, TimePickerInput
 
 from .models import *
 
@@ -38,9 +39,9 @@ class CreateClassForm(forms.ModelForm):
             'class_name': forms.TextInput(attrs={'placeholder': 'Class Name', 'class': 'form-control item'}),
             'class_description': forms.Textarea(attrs={'placeholder': 'Class Description', 'class': 'form-control item'}),
             'class_type': forms.Select(attrs={'placeholder': 'Class Type', 'class': 'form-control item'}),
-            'class_date': forms.DateInput(attrs={'placeholder': 'Class Date', 'class': 'form-control item'}),
-            'class_start_time': forms.TimeInput(attrs={'placeholder': 'Class Start Time', 'class': 'form-control item'}),
-            'class_end_time': forms.TimeInput(attrs={'placeholder': 'Class End Time', 'class': 'form-control item'}),
+            'class_date': DatePickerInput(format='%Y-%m-%d', attrs={'placeholder': 'Class Date', 'class': 'form-control item'}),
+            'class_start_time': TimePickerInput(format='%H:%M', attrs={'placeholder': 'Class Start Time', 'class': 'form-control item'}),
+            'class_end_time': TimePickerInput(format='%H:%M', attrs={'placeholder': 'Class End Time', 'class': 'form-control item'}),
             'slots_available': forms.NumberInput(attrs={'placeholder': 'Slots Available', 'class': 'form-control item'}),
         }
 

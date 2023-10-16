@@ -1,9 +1,12 @@
 {% extends "layout/base.html" %}
+{% load static %}
 
 {% block title %}Tough Glove | Class Manager {% endblock %}
 
 {% block extra_head %}
+<!-- icon library -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+{{ form.media.css }}
 {% endblock %}
 
 {% block content %}
@@ -29,7 +32,7 @@
                 {{ form.class_date }}
             </div>
             <div class="form-group mb-3">
-                {{ form.start_time }}
+                {{ form.class_start_time }}
             </div>
             <div class="fform-group mb-3">
                 {{ form.class_end_time }}
@@ -54,3 +57,7 @@
     </div>
 
 {% endblock content %}
+
+{% block extra_js %}
+{{ form.media.js }}
+{% endblock extra_js %}

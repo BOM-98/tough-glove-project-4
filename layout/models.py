@@ -22,11 +22,11 @@ class Classes(models.Model):
     class_name = models.CharField(max_length=200)
     class_description = models.TextField()
     class_type = models.IntegerField(choices=CLASSES, default=0)
-    class_date = models.DateTimeField()
+    class_date = models.DateField()
     class_start_time = models.TimeField()
     class_end_time = models.TimeField()
     slots_available = models.IntegerField()
-    slots_filled = models.IntegerField()
+    slots_filled = models.IntegerField(default=1)
     
     class Meta:
         verbose_name_plural = 'Classes'
@@ -34,7 +34,7 @@ class Classes(models.Model):
         unique_together = ['class_date', 'class_start_time', 'class_end_time']
         
     def __str__(self):
-        return self.class_name + " " + self.class_type + " " + self.class_date
+        return self.class_name
     
 class Bookings(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
