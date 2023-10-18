@@ -26,7 +26,7 @@ class Classes(models.Model):
     class_start_time = models.TimeField()
     class_end_time = models.TimeField()
     slots_available = models.IntegerField()
-    slots_filled = models.IntegerField(default=1)
+    slots_filled = models.IntegerField(default=0)
     
     class Meta:
         verbose_name_plural = 'Classes'

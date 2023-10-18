@@ -31,4 +31,6 @@ urlpatterns = [
     path("delete_member/<str:pk>/", delete_member_view, name="delete_member"),
     path("admin_dashboard/", admin_dashboard_view, name="admin_dashboard"),
     path("class_manager/", class_manager_view, name="class_manager"),
+    path("update_class/<str:pk>/", update_class_view, name="update_class"),
+    path("delete_class/<str:pk>/", delete_class_view, name="delete_class"),
 ]

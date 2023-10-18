@@ -126,13 +126,14 @@ def delete_member_view(request, pk):
 @allowed_users(allowed_roles=['admin'])
 def admin_dashboard_view(request):
     users = User.objects.all()
+    classes = Classes.objects.all()
     members = Members.objects.all()
     user_count = User.objects.count()
     classes_count = Classes.objects.count()
     pt_classes_count = Classes.objects.filter(class_type=1).count()
     group_classes_count = Classes.objects.filter(class_type=0).count()
     available_classes = get_available_classes()
-    context = {'users': users, 'members': members, 'user_count': user_count, 'classes_count': classes_count, 'pt_classes_count': pt_classes_count, 'group_classes_count': group_classes_count, 'available_classes': available_classes}
+    context = {'users': users, 'classes': classes, 'members': members, 'user_count': user_count, 'classes_count': classes_count, 'pt_classes_count': pt_classes_count, 'group_classes_count': group_classes_count, 'available_classes': available_classes}
     return render(request, 'layout/admin_dashboard.html', context)
 
 @login_required(login_url='login')
@@ -146,3 +147,25 @@ def class_manager_view(request):
     classes = Classes.objects.all()
     context = {'classes': classes, 'form' : CreateClassForm()}
     return render(request, 'classes/class_manager.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def update_class_view(request, pk):
+    update_class = Classes.objects.get(id=pk)
+    form = UpdateClassForm(request.POST, instance = update_class)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('admin_dashboard')
+    context = {'class': update_class, 'form' : form}
+    return render(request, 'classes/class_manager.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def delete_class_view(request, pk):
+    delete_class = Classes.objects.get(id=pk)
+    if request.method == 'POST':
+        delete_class.delete()
+        return redirect('admin_dashboard')
+    context = {'class': delete_class}
+    return render(request, 'classes/delete_class.html', context)
