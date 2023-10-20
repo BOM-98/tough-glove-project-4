@@ -40,9 +40,13 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>{{ class.class_type }}</td>
+                                <td>{% if class.class_type == 0 %}
+                                        Group
+                                    {% else %}
+                                        Private
+                                    {% endif %}</td>
                                 <td> <span class="d-inline-block align-middle">{{ class.class_date }}</span></td>
-                                <td><span>{{ class.class_time }}</span></td>
+                                <td><span>{{ class.class_start_time }}</span></td>
                                 <td>{{ class.slots_available }}</td>
                                 <td>{{ class.slots_filled }}</td>
                                 <td class="text-end">
@@ -52,7 +56,7 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" style="">
                                             <a href="{% url 'update_class' user.id %}" class="dropdown-item">Update {{ class.class_name }}</a>
-                                            <a href="{% url 'delete_class' user.id %}" class="dropdown-item">Delete {{ class.class_type }}</a>
+                                            <a href="{% url 'delete_class' user.id %}" class="dropdown-item">Delete {{ class.class_name }}</a>
                                         </div>
                                     </div>
                                 </td>
