@@ -18,7 +18,7 @@
             <div class="form-icon">
                 <span><i class="icon icon-calendar"></i></span>
             </div>
-            <h2 class="text-center mb-4">Create A Class</h2>
+            <h2 class="text-center mb-4">Update Class</h2>
             <div class="form-group mb-3">
                 {{ form.class_name }}
             </div>
@@ -34,10 +34,10 @@
             <div class="form-group mb-3">
                 {{ form.class_start_time }}
             </div>
-            <div class="fform-group mb-3">
+            <div class="form-group mb-3">
                 {{ form.class_end_time }}
             </div>
-            <div class="fform-group mb-3">
+            <div class="form-group mb-3">
                 {{ form.slots_available }}
             </div>
             {% for field, errors in form.errors.items %}

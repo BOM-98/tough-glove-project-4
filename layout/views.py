@@ -138,7 +138,7 @@ def admin_dashboard_view(request):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
-def class_manager_view(request):
+def create_class_view(request):
     if request.method == 'POST':
         form = CreateClassForm(request.POST)
         if form.is_valid():
@@ -146,19 +146,20 @@ def class_manager_view(request):
             return redirect('admin_dashboard')
     classes = Classes.objects.all()
     context = {'classes': classes, 'form' : CreateClassForm()}
-    return render(request, 'classes/class_manager.html', context)
+    return render(request, 'classes/create_class.html', context)
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def update_class_view(request, pk):
     update_class = Classes.objects.get(id=pk)
-    form = UpdateClassForm(request.POST, instance = update_class)
+    form = UpdateClassForm(instance = update_class)
     if request.method == 'POST':
+        form = UpdateClassForm(request.POST, instance = update_class)
         if form.is_valid():
             form.save()
             return redirect('admin_dashboard')
     context = {'class': update_class, 'form' : form}
-    return render(request, 'classes/class_manager.html', context)
+    return render(request, 'classes/update_class.html', context)
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
@@ -169,3 +170,13 @@ def delete_class_view(request, pk):
         return redirect('admin_dashboard')
     context = {'class': delete_class}
     return render(request, 'classes/delete_class.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['member', 'admin'])
+def classes_view(request):
+    classes = Classes.objects.all()
+    classes_count = Classes.objects.count()
+    available_classes = get_available_classes()
+    users = User.objects.all()
+    context = {'classes': classes, 'classes_count': classes_count, 'available_classes': available_classes, 'users': users}
+    return render(request, 'classes/classes.html', context)

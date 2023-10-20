@@ -1,0 +1,19 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block title %}Tough Glove | Delete Class {% endblock %}
+
+{% block content %}
+    <h1 class="text-center mt-4">Update Class</h1>
+    <p class="text-center">Are you sure you want to delete {{ class.class_name }}?</p>
+    <p class="text-center">This action cannot be undone.</p>
+    <div class = "card card-confirm-delete">
+        <form method="POST" action = "">
+            {% csrf_token %}
+            <a href="{% url 'admin_dashboard' %}" class="btn btn-primary btn-block create-account">Cancel</a>
+            <div class="form-group">
+                <input type="submit" value ="Delete Class" class="btn btn-danger btn-block create-account">
+            </div>
+        </form>
+    </div>
+{% endblock content %}

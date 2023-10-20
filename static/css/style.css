@@ -95,6 +95,13 @@ body {
     box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
 }
 
+.card-confirm-delete {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    max-width: 100px;
+}
+
 .avatar.sm {
     width: 2.25rem;
     height: 2.25rem;
