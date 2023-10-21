@@ -186,13 +186,19 @@ def classes_view(request):
 def book_class_view(request, pk):
     # Get the class object
     class_instance = Classes.objects.get(id=pk)
-    # Create a new booking
     if request.method == 'POST':
         form = BookingForm(request.POST)
-        
         if form.is_valid():
-            form.save()
+            #create new booking
+            booking = form.save(commit=False) # create a new booking object
+            booking.user = request.user.id # set the user
+            booking.class_id = class_instance.id # set the class
+            booking.save() # save the booking
             return redirect('classes')
-    booking = Bookings(user=request.user, class_id=class_instance)
-    booking.save()
-    return render(request, 'classes/book_class.html')
+    else:
+        #pre-populate the form with the class and user
+        initial_data = {'class_id': class_instance.id, 'user': request.user.id}
+        form = BookingForm(initial_data)
+            
+    
+    return render(request, 'classes/book_class.html', {'form': form})

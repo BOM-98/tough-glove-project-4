@@ -62,8 +62,8 @@ class UpdateClassForm(forms.ModelForm):
 class BookingForm(forms.ModelForm):
     class Meta: 
         model = Bookings
-        fields = ['class_id', 'user']
+        fields = ['class_id','user']
         widgets = {
-            'class_id': forms.HiddenInput(),
-            'user': forms.HiddenInput(),
+            'class_id': forms.Select(attrs={'placeholder': 'Class', 'class': 'form-control item'}),
+            'user': forms.Select(attrs={'placeholder': 'User', 'class': 'form-control item'}),
         }
