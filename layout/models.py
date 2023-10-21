@@ -46,7 +46,7 @@ class Bookings(models.Model):
         ordering = ['-booking_date']
         
     def __str__(self):
-        return self.user + " " + self.class_id + " " + self.booking_date
+        return str(self.class_id) + " - " + str(self.user.username)
 
 class BlogPosts(models.Model):
     title = models.CharField(max_length=200)

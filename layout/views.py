@@ -183,16 +183,16 @@ def classes_view(request):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['member', 'admin'])
-def book_class_view(request, pk):
+def book_class_view(request, class_id):
     # Get the class object
-    class_instance = Classes.objects.get(id=pk)
+    class_instance = Classes.objects.get(id=class_id)
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
             #create new booking
             booking = form.save(commit=False) # create a new booking object
-            booking.user = request.user.id # set the user
-            booking.class_id = class_instance.id # set the class
+            booking.user = request.user # set the user
+            booking.class_id = class_instance # set the class
             booking.save() # save the booking
             return redirect('classes')
     else:
