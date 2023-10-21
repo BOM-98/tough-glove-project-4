@@ -59,3 +59,11 @@ class UpdateClassForm(forms.ModelForm):
             'slots_available': forms.NumberInput(attrs={'placeholder': 'Slots Available', 'class': 'form-control item'}),
         }
 
+class BookingForm(forms.ModelForm):
+    class Meta: 
+        model = Bookings
+        fields = ['class_id', 'user']
+        widgets = {
+            'class_id': forms.HiddenInput(),
+            'user': forms.HiddenInput(),
+        }

@@ -2,7 +2,7 @@
 
 # Related third-party imports
 from django.db import models
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
@@ -180,3 +180,14 @@ def classes_view(request):
     users = User.objects.all()
     context = {'classes': classes, 'classes_count': classes_count, 'available_classes': available_classes, 'users': users}
     return render(request, 'classes/classes.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['member', 'admin'])
+def book_class_view(request, pk):
+    # Get the class object
+    class_instance = get_object_or_404(Classes, id=pk)
+    
+    # Create a new booking
+    booking = Bookings(user=request.user, class_id=class_instance)
+    booking.save()
+    return redirect('homepage')

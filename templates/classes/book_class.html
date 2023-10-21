@@ -1,0 +1,14 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block title %}Tough Glove | Book A Class {% endblock %}
+
+{% block content %}
+    <h1 class="text-center mt-4">Book Class</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Book Class</button>
+        </form>
+
+{% endblock content %}
