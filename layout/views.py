@@ -185,9 +185,14 @@ def classes_view(request):
 @allowed_users(allowed_roles=['member', 'admin'])
 def book_class_view(request, pk):
     # Get the class object
-    class_instance = get_object_or_404(Classes, id=pk)
-    
+    class_instance = Classes.objects.get(id=pk)
     # Create a new booking
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        
+        if form.is_valid():
+            form.save()
+            return redirect('classes')
     booking = Bookings(user=request.user, class_id=class_instance)
     booking.save()
-    return redirect('homepage')
+    return render(request, 'classes/book_class.html')
