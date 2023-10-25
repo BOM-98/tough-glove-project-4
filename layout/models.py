@@ -44,6 +44,7 @@ class Bookings(models.Model):
     class Meta:
         verbose_name_plural = 'Bookings'
         ordering = ['-booking_date']
+        unique_together = ['user', 'class_id']
         
     def __str__(self):
         return str(self.class_id) + " - " + str(self.user.username)

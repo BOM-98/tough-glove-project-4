@@ -1,7 +1,7 @@
 # Standard library imports
 
 # Related third-party imports
-from django.db import models
+from django.db import models, IntegrityError
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -183,9 +183,9 @@ def classes_view(request):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['member', 'admin'])
-def book_class_view(request, class_id):
+def book_class_view(request, pk):
     # Get the class object
-    class_instance = Classes.objects.get(id=class_id)
+    class_instance = Classes.objects.get(id=pk)
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
@@ -193,8 +193,12 @@ def book_class_view(request, class_id):
             booking = form.save(commit=False) # create a new booking object
             booking.user = request.user # set the user
             booking.class_id = class_instance # set the class
-            booking.save() # save the booking
-            return redirect('classes')
+            try:
+                booking.save()
+                return redirect('classes')
+            except IntegrityError:
+                form.add_error(None, "You have already booked this class")
+            
     else:
         #pre-populate the form with the class and user
         initial_data = {'class_id': class_instance.id, 'user': request.user.id}

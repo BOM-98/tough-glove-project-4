@@ -34,5 +34,5 @@ urlpatterns = [
     path("update_class/<str:pk>/", update_class_view, name="update_class"),
     path("delete_class/<str:pk>/", delete_class_view, name="delete_class"),
     path("classes/", classes_view, name="classes"),
-    path("book_class/<str:class_id>/", book_class_view, name="book_class"),
+    path("book_class/<str:pk>/", book_class_view, name="book_class"),
 ]
