@@ -183,6 +183,16 @@ def classes_view(request):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['member', 'admin'])
+def user_bookings_view(request):
+    user = request.user
+    bookings = user.bookings_set.all()
+    classes = [booking.class_id for booking in bookings]
+    bookings_count = bookings.count()
+    context = {'bookings': bookings, 'bookings_count': bookings_count, 'user': user, 'classes': classes}
+    return render(request, 'classes/user_bookings.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['member', 'admin'])
 def book_class_view(request, pk):
     # Get the class object
     class_instance = Classes.objects.get(id=pk)
