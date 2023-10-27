@@ -11,7 +11,7 @@
             {% for field in form %}
                 {{ field }}
             {% endfor %}
-            <button class="">Cancel</button>
+            <button href="{% url 'classes' %}">Cancel</button>
             <button type="submit" class="">Book Class</button>
             {% for field, errors in form.errors.items %}
             <div class="alert alert-danger">

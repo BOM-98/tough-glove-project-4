@@ -193,8 +193,13 @@ def book_class_view(request, pk):
             booking = form.save(commit=False) # create a new booking object
             booking.user = request.user # set the user
             booking.class_id = class_instance # set the class
+            class_instance.slots_filled += 1 # increment the slots booked
+            class_instance.slots_available -= 1 # decrement the slots available
+            if class_instance.slots_available == 0:
+                form.add_error(None, "This class is now fully booked")
             try:
                 booking.save()
+                class_instance.save()
                 return redirect('classes')
             except IntegrityError:
                 form.add_error(None, "You have already booked this class")

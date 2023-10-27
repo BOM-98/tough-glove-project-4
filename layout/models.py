@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 from cloudinary.models import CloudinaryField
 
 # Create your models here.
@@ -82,3 +84,24 @@ class Comments(models.Model):
         
     def __str__(self):
         return self.post + " " + self.author + " " + self.comment_date
+    
+    
+    
+@receiver(post_delete, sender=Bookings)
+def decrement_slots(sender, instance, **kwargs):
+    """
+    Signal handler to decrement the number of filled slots and increment the 
+    number of available slots for a class when a booking is deleted.
+
+    Args:
+        sender (Model): The model class that sent the signal.
+        instance (Bookings): The instance of the Bookings model being deleted.
+        **kwargs: Additional keyword arguments provided by the signal.
+
+    Returns:
+        None
+    """
+    class_instance = instance.class_id
+    class_instance.slots_available += 1
+    class_instance.slots_filled -= 1
+    class_instance.save()
