@@ -205,14 +205,17 @@ def book_class_view(request, pk):
             booking.class_id = class_instance # set the class
             class_instance.slots_filled += 1 # increment the slots booked
             class_instance.slots_available -= 1 # decrement the slots available
-            if class_instance.slots_available == 0:
-                form.add_error(None, "This class is now fully booked")
-            try:
-                booking.save()
-                class_instance.save()
+            if "cancel" in request.POST:
                 return redirect('classes')
-            except IntegrityError:
-                form.add_error(None, "You have already booked this class")
+            else:
+                if class_instance.slots_available == 0:
+                    form.add_error(None, "This class is now fully booked")
+                try:
+                    booking.save()
+                    class_instance.save()
+                    return redirect('classes')
+                except IntegrityError:
+                    form.add_error(None, "You have already booked this class")
             
     else:
         #pre-populate the form with the class and user
@@ -221,3 +224,18 @@ def book_class_view(request, pk):
             
     
     return render(request, 'classes/book_class.html', {'form': form})
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['member', 'admin'])
+def cancel_booking_view(request, pk):
+    # get booking object
+    booking_instance = Bookings.objects.get(id=pk)
+    if request.method == 'POST':
+        if "cancel" in request.POST:
+            return redirect('user_bookings')
+        else:
+            booking_instance.delete()
+            return redirect('user_bookings')
+    context = {'booking': booking_instance}
+    return render(request, 'classes/cancel_booking.html', context)

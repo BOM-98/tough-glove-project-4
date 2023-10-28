@@ -1,18 +1,15 @@
 {% extends "layout/base.html" %}
 {% load static %}
 
-{% block title %}Tough Glove | Book A Class {% endblock %}
+{% block title %}Tough Glove | Cancel Booking {% endblock %}
 
 {% block content %}
-    <h1 class="text-center mt-4">Book Class</h1>
+    <h1 class="text-center mt-4">Cancel Booking</h1>
     <div class="registration-form">
         <form method="post" action ="">
             {% csrf_token %}
-            {% for field in form %}
-                {{ field }}
-            {% endfor %}
-            <input type="submit" name="cancel" value="cancel"></button>
-            <button type="submit" class="">Book Class</button>
+            <input type="button" name= "cancel" value ="cancel" href="{% url 'classes' %}">Do Not Cancel</button>
+            <input type="submit" name= "confirm" value ="confirm" class="">Confirm Cancellation</button>
             {% for field, errors in form.errors.items %}
             <div class="alert alert-danger">
                 <ul>
