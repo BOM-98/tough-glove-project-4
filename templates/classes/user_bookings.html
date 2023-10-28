@@ -47,7 +47,13 @@
                                 <td> <span class="d-inline-block align-middle">{{ class.class_date }}</span></td>
                                 <td><span>{{ class.class_start_time }}</span></td>
                                 <td class="text-end">
-                                            <a href="{% url 'delete_class' class.id %}" class="dropdown-item"><button type="button" class="btn btn-danger btn-block create-account">Cancel</button></a>
+                                    {% if bookings %}
+                                        {% for booking in bookings %}
+                                            {% if booking.class_id == class and booking.user == user %}
+                                                <a href="{% url 'cancel_booking' booking.id %}" class="dropdown-item"><button type="button" class="btn btn-danger btn-block create-account">Cancel</button></a>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
                                 </td>
                             </tr>
                             {% endfor %}

@@ -18,7 +18,7 @@ class Members(models.Model):
         ordering = ['-date_joined']
         
     def __str__(self):
-        return self.first_name + " " + self.last_name + " " + self.email
+        return self.user.get_full_name() + " " + self.user.email
 
 class Classes(models.Model):
     class_name = models.CharField(max_length=200)
@@ -34,9 +34,6 @@ class Classes(models.Model):
         verbose_name_plural = 'Classes'
         ordering = ['-class_date']
         unique_together = ['class_date', 'class_start_time', 'class_end_time']
-        
-    def __str__(self):
-        return self.class_name
     
 class Bookings(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -47,9 +44,6 @@ class Bookings(models.Model):
         verbose_name_plural = 'Bookings'
         ordering = ['-booking_date']
         unique_together = ['user', 'class_id']
-        
-    def __str__(self):
-        return str(self.class_id) + " - " + str(self.user.username)
 
 class BlogPosts(models.Model):
     title = models.CharField(max_length=200)
@@ -83,7 +77,7 @@ class Comments(models.Model):
         ordering = ['-comment_date']
         
     def __str__(self):
-        return self.post + " " + self.author + " " + self.comment_date
+        return str(self.post) + " " + str(self.author) + " " + self.comment_date
     
     
     
