@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
+from django.http import JsonResponse
 
 
 # Local application/library specific imports
@@ -239,3 +240,15 @@ def cancel_booking_view(request, pk):
             return redirect('user_bookings')
     context = {'booking': booking_instance}
     return render(request, 'classes/cancel_booking.html', context)
+
+def get_classes(request):
+    classes = Classes.objects.all()
+    class_list = [
+        {
+            "title": class_instance.class_name,
+            "start": f"{class_instance.class_date} {class_instance.class_start_time}",
+            "end": f"{class_instance.class_date} {class_instance.class_end_time}",
+        }
+        for class_instance in classes
+    ]
+    return JsonResponse(class_list, safe=False)

@@ -37,4 +37,5 @@ urlpatterns = [
     path("book_class/<str:pk>/", book_class_view, name="book_class"),
     path("cancel_booking/<str:pk>/", cancel_booking_view, name="cancel_booking"),
     path("user_bookings/", user_bookings_view, name="user_bookings"),
+    path('get_classes/', get_classes, name='get_classes'),
 ]
