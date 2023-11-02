@@ -3,7 +3,6 @@ body {
 }
 
 .container-fluid {
-    background-color: #202020; /* Dark background */
     position: relative;
 }
 
@@ -28,4 +27,21 @@ body {
     z-index: -1;  /* Places it behind other content */
     white-space: nowrap;  /* Prevents the text from wrapping to the next line */
     letter-spacing: 10px;  /* Adds spacing between letters */
+}
+
+.bg-dark {
+    background-color: #000;
+}
+
+.text-danger {
+    color: #ff0000;
+}
+
+.border-danger {
+    border-color: #ff0000;
+}
+
+.bg-light {
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
