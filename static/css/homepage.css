@@ -1,0 +1,31 @@
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+.container-fluid {
+    background-color: #202020; /* Dark background */
+    position: relative;
+}
+
+.nav-link:hover {
+    color: #ff0000; /* Red color on hover */
+}
+
+.display-2 {
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+/* Additional styles for the large letters in the background */
+.hero-large-letters {
+    font-size: 20rem;  /* Adjust this size as needed */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);  /* Centers the text both vertically and horizontally */
+    opacity: 0.1;  /* Lower opacity to make it look like a watermark */
+    z-index: -1;  /* Places it behind other content */
+    white-space: nowrap;  /* Prevents the text from wrapping to the next line */
+    letter-spacing: 10px;  /* Adds spacing between letters */
+}
