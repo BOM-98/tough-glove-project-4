@@ -3,6 +3,10 @@ body {
     margin-top: 20px;
 }
 
+.nav-link:hover {
+    color: #ff0000; /* Red color on hover */
+}
+
 /* ======= Registration Form ======= */
 
 .registration-form {
@@ -140,3 +144,4 @@ table th {
         line-height: 70px;
     }
 }
+
