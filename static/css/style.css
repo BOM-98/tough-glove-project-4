@@ -252,6 +252,64 @@ table th {
     font-size: 0.9rem;
 }
 
+.reviews-section {
+    background-color: #000;
+    color: #fff;
+    padding: 50px;
+    min-height: 50vh;
+  }
+  
+  .section-title {
+    color: #ff0000;
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .review {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+  }
+
+  .carousel-inner {
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .review-text {
+    font-size: 1em;
+    line-height: 1.5;
+    color: #ccc;
+  }
+  
+  .carousel-inner:before {
+    content: '“';
+    font-size: 2em;
+    color: #ff0000;
+    position: absolute;
+    left: -20px;
+    top: -20px;
+  }
+  
+  .review-author strong {
+    display: block;
+    margin-top: 20px;
+    font-size: 1.2em;
+  }
+  
+  .author-details {
+    font-size: 0.8em;
+    color: #777;
+  }
+
+
+
+#testimonial-carousel .carousel-indicators .active {
+    background-color: #333; /* Active indicator color, should contrast with the regular color */
+}
+
 /* ======= Media Queries ======= */
 
 @media (max-width: 576px) {
