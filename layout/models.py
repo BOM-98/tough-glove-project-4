@@ -78,9 +78,7 @@ class Comments(models.Model):
         
     def __str__(self):
         return str(self.post) + " " + str(self.author) + " " + self.comment_date
-    
-    
-    
+      
 @receiver(post_delete, sender=Bookings)
 def decrement_slots(sender, instance, **kwargs):
     """

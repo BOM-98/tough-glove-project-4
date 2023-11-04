@@ -1,10 +1,40 @@
 body {
+    font-family: 'Arial', sans-serif;
     background-color: #dee9ff;
     margin-top: 20px;
 }
 
+.container-fluid {
+    position: relative;
+}
+
 .nav-link:hover {
     color: #ff0000; /* Red color on hover */
+}
+
+/* Homepage styles */
+
+.display-2 {
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.bg-dark {
+    background-color: #000;
+}
+
+.text-danger {
+    color: #ff0000;
+}
+
+.border-danger {
+    border-color: #ff0000;
+}
+
+.bg-light {
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* ======= Registration Form ======= */
@@ -131,6 +161,33 @@ table th {
     background-color: #eeecfd !important;
 }
 
+.bg-gray-dark {
+    background-color: #1d1d1d;
+}
+
+/* ======= Footer ======= */
+
+.footer a.text-light {
+    color: rgba(255, 255, 255, 0.8)!important;
+}
+
+.footer a.text-light:hover {
+    color: rgba(255, 255, 255, 1)!important;
+}
+
+.footer ul.list-unstyled li {
+    padding: 0.25rem 0;
+}
+
+.footer {
+    background-color: #000; /* This should match the color scheme of your website */
+}
+
+.bi {
+    font-size: 1.5rem; /* Bootstrap Icons size */
+}
+
+/* ======= Media Queries ======= */
 
 @media (max-width: 576px) {
     .registration-form form {

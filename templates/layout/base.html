@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
-<body class="d-flex flex-column h-100 bg-dark main-bg py-5">
+<body class="d-flex flex-column h-100 bg-dark main-bg py-4">
 
     <!-- Navigation -->
 
@@ -74,8 +74,59 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer mt-auto py-3 dark-bg">
-        <p class="m-0 text-center text-white">Tough Glove</p>
+    <footer class="text-light bg-gray-dark py-5">
+        <div class="container py-4 bg-gray-dark">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>TOUGH GLOVE</h5>
+                    <!-- Add logo or additional content here if necessary -->
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-unstyled">
+                        {% if user.is_authenticated %}
+                        <li>
+                            <a class="nav-link text-light" href="{% url 'admin_dashboard' %}">ADMIN DASHBOARD</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-light" href="{% url 'classes' %}">CLASSES</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-light" href="{% url 'members' %}">MEMBERS</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-light" aria-current="page" href="{% url 'user_bookings' %}">MY
+                                BOOKINGS</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-light" href="{% url 'logout' %}">LOGOUT</a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a class="nav-link text-light" href="{% url 'homepage' %}">HOMEPAGE</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-light" href="{% url 'register' %}">REGISTER</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-light" href="{% url 'login' %}">LOGIN</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>JOIN A CLASS NOW!</h5>
+                    <p>Stay motivated and engaged with a little help from a supportive community of other members</p>
+                    <a href="#" class="btn btn-danger">FREE TRIAL</a>
+                </div>
+            </div>
+            <div class="row border-top pt-3 mt-3">
+                <div class="col text-light text-center">
+                    <p>COPYRIGHT © 2023 TOUGH GLOVE. ALL RIGHTS RESERVED.</p>
+                    <a href="#" class="text-light me-2"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="text-light"><i class="bi bi-instagram"></i></a>
+                </div>
+            </div>
+        </div>
     </footer>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{% static 'js/script.js' %}"></script>
