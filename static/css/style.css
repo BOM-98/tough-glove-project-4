@@ -24,8 +24,17 @@ body {
     background-color: #000;
 }
 
+.bg-danger-2 {
+    background-color: #ff0000;
+}
+
 .text-danger {
     color: #ff0000;
+}
+
+.btn-red {
+    background-color: #ff0000;
+    border-color: #ff0000;
 }
 
 .border-danger {
@@ -185,6 +194,62 @@ table th {
 
 .bi {
     font-size: 1.5rem; /* Bootstrap Icons size */
+}
+
+/* ======= Trainer Cards ======= */
+.trainer-section {
+    background-color: #1c1c1c;
+    /* Dark background color */
+    color: white;
+}
+
+.trainer-card {
+    background-color: transparent; /* Set to transparent to match the image */
+    border-left: 4px solid #ff0000; /* Add red left border to match the image */
+    padding: 1rem;
+    margin-top: 2rem; /* Adjust margin to give space above the card text */
+}
+
+.trainer-image {
+   /* Replace the background-color with an actual image */
+   background-size: cover;
+   background-position: center;
+   height: 250px; /* Fixed height to match image */
+}
+
+.trainer-section h2 {
+    font-size: 3rem; /* Larger font size for section heading */
+    margin-bottom: 1rem; /* Add some margin below the heading */
+    color: #ff0000; /* Red color to match the image */
+    text-transform: uppercase; /* Uppercase for stylistic preference */
+    font-weight: bold; /* Make the heading bold */
+}
+
+.trainer-card h3.trainer-name {
+    font-size: 2rem; /* Larger font size for trainer names */
+    color: #ff0000; /* Red color for the names */
+    margin-bottom: 0.5rem;
+}
+
+.trainer-card p.trainer-title {
+    color: #aaa;
+    margin-bottom: 1rem;
+}
+
+.trainer-card p {
+    font-size: 1rem; /* Adjusted font size */
+    color: #ffffff; /* White text for readability */
+    line-height: 1.5; /* Improve line height for better readability */
+}
+
+.social-links span {
+    display: block;
+    color: #ddd;
+    margin-bottom: 0.25rem;
+}
+
+.social-links {
+    font-size: 0.9rem;
 }
 
 /* ======= Media Queries ======= */
