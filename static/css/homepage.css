@@ -22,6 +22,6 @@ section.membership-section .membership-card {
 }
 
 section.membership-section .membership-card-highlight {
-    background: linear-gradient(135deg, #591D1D, #DD0000);
+    background: linear-gradient(135deg, #af1b1b, #DD0000);
     min-height: 300px;
 }
