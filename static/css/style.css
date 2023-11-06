@@ -142,6 +142,12 @@ body {
     box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
 }
 
+#classes-header,
+.card-header {
+    background-color: #1c1c1c;
+    border-bottom: 1px solid #dee9ff;
+}
+
 .card-confirm-delete {
     display: flex;
     flex-direction: row;
@@ -167,7 +173,6 @@ body {
 
 table th {
     font-weight: 600;
-    background-color: #eeecfd !important;
 }
 
 .bg-gray-dark {
