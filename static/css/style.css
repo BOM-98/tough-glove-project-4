@@ -37,6 +37,10 @@ body {
     border-color: #ff0000;
 }
 
+.full-width-row {
+    width: 100%;
+}
+
 .border-danger {
     border-color: #ff0000;
 }

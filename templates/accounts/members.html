@@ -13,8 +13,8 @@
         <div class="col-12 mb-3 mb-lg-5">
             <div class="overflow-hidden card table-nowrap table-card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h2 class="mb-0">Tough Glove Members</h2>
-                    <a href="{% url 'create_member' %}" class="btn btn-light btn-sm">Create New Member</a>
+                    <h2 class="mb-0 text-danger">Tough Glove Members</h2>
+                    <a href="{% url 'create_member' %}" class="btn btn-danger btn-sm">CREATE NEW MEMBER</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table mb-0">
@@ -60,7 +60,7 @@
                         </tbody>
                         <tfoot class="mt-3 mb-3">
                             <tr>
-                              <td>Total Users: </td>
+                              <td id="full-width-row">Total Users: </td>
                               <td>{{ user_count }}</td>
                             </tr>
                           </tfoot>
