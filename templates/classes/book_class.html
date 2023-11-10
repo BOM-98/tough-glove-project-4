@@ -5,7 +5,7 @@
 
 {% block content %}
     <h1 class="text-center mt-4">Book Class</h1>
-    <div class="registration-form">
+    <div class="registration-form rounded-bottom">
         <form method="post" action ="">
             {% csrf_token %}
             {% for field in form %}
