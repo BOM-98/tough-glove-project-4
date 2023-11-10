@@ -4,7 +4,7 @@
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'css/admin.css' %}">
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 {% endblock %}
 
 {% block content %}
@@ -22,7 +22,7 @@
 
         <!-- Total Members Card -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card border-left-primary shadow  py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
@@ -40,7 +40,7 @@
 
         <!-- Total Classes Card -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
+            <div class="card border-left-success shadow  py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
@@ -98,16 +98,17 @@
     <div class="row">
 
         <!-- Area Chart -->
-        <div class="col-xl-6 col-lg-6">
-            <div class="card shadow mb-4">
+        <div class="col-xl-6 col-lg-6 dashboard-table">
+            <div class="card shadow mb-4 dashboard-table">
                 <!-- Card Header - Button -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-red">UPCOMING CLASSES</h6>
-                    <a href="{% url 'create_class' %}"><button type="button" class="btn btn-danger text-white btn-block create-account">CREATE CLASS</button></a>
+                    <a href="{% url 'create_class' %}"><button type="button"
+                            class="btn btn-danger text-white btn-block create-account">CREATE CLASS</button></a>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <div class="table-responsive">
+                    <div class="table-responsive dashboard-table">
                         <table class="table mb-0">
                             <thead class="small text-uppercase bg-body text-muted">
                                 <tr>
@@ -147,8 +148,8 @@
                                             <div class="dropdown-menu dropdown-menu-end">
                                                 <a href="{% url 'update_class' class.id %}" class="dropdown-item">Update
                                                     {{ class.class_name}}</a>
-                                                    <a href="{% url 'delete_class' class.id %}" class="dropdown-item">Delete
-                                                        {{ class.class_name}}</a>
+                                                <a href="{% url 'delete_class' class.id %}" class="dropdown-item">Delete
+                                                    {{ class.class_name}}</a>
                                             </div>
                                         </div>
                                     </td>
@@ -173,7 +174,8 @@
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-red">MEMBERS</h6>
-                        <a href="{% url 'create_member' %}"><button type="button" class="btn btn-danger text-white btn-block create-account">CREATE MEMBER</button></a>
+                    <a href="{% url 'create_member' %}"><button type="button"
+                            class="btn btn-danger text-white btn-block create-account">CREATE MEMBER</button></a>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -207,8 +209,8 @@
                                             <div class="dropdown-menu dropdown-menu-end" style="">
                                                 <a href="" class="dropdown-item">See Profile
                                                     {{ user.first_name }}</a>
-                                                    <a href="" class="dropdown-item">Delete
-                                                        {{ user.first_name }}</a>
+                                                <a href="" class="dropdown-item">Delete
+                                                    {{ user.first_name }}</a>
                                             </div>
                                         </div>
                                     </td>
@@ -253,6 +255,6 @@
 {% endblock content %}
 
 {% block extra_js %}
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
-    <script src="{% static 'js/calendar.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
+<script src="{% static 'js/calendar.js' %}"></script>
 {% endblock %}

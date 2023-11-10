@@ -109,6 +109,7 @@ def update_member_view(request, pk):
         form = UpdateUserForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
+            messages.success(request, 'This member has been updated successfully!')
             return redirect('members')
     context = {'form': form, 'user': user}
     return render(request, 'accounts/update_member.html', context)
@@ -119,6 +120,7 @@ def delete_member_view(request, pk):
     user = User.objects.get(id=pk)
     if request.method == 'POST':
         user.delete()
+        messages.success(request, 'This member has been deleted!')
         return redirect('members')
     context = {'user': user}
     return render(request, 'accounts/delete_member.html', context)
@@ -144,6 +146,7 @@ def create_class_view(request):
         form = CreateClassForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'class created successfully!')
             return redirect('admin_dashboard')
     classes = Classes.objects.all()
     context = {'classes': classes, 'form' : CreateClassForm()}
@@ -158,6 +161,7 @@ def update_class_view(request, pk):
         form = UpdateClassForm(request.POST, instance = update_class)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Your class has been updated successfully!')
             return redirect('admin_dashboard')
     context = {'class': update_class, 'form' : form}
     return render(request, 'classes/update_class.html', context)
@@ -168,6 +172,7 @@ def delete_class_view(request, pk):
     delete_class = Classes.objects.get(id=pk)
     if request.method == 'POST':
         delete_class.delete()
+        messages.success(request, 'Your class has been deleted successfully!')
         return redirect('admin_dashboard')
     context = {'class': delete_class}
     return render(request, 'classes/delete_class.html', context)
@@ -214,6 +219,7 @@ def book_class_view(request, pk):
                 try:
                     booking.save()
                     class_instance.save()
+                    messages.success(request, 'Your class has been booked successfully!')
                     return redirect('classes')
                 except IntegrityError:
                     form.add_error(None, "You have already booked this class")
@@ -240,6 +246,7 @@ def cancel_booking_view(request, pk):
             return redirect('user_bookings')
         else:
             booking_instance.delete()
+            messages.success(request, 'Your booking has been canceled!')
             return redirect('user_bookings')
     context = {'booking': booking_instance}
     return render(request, 'classes/cancel_booking.html', context)

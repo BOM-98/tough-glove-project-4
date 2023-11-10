@@ -7,6 +7,11 @@
   color: #ff0000 !important; /* Red text */
 }
 
+.dashboard-table {
+  max-height: 1000px;
+  overflow-y: auto;
+}
+
 .card .card-header {
   background-color: #212121; /* Even darker shade for the header */
   border-bottom: 1px solid #3a3a3a; /* Slightly lighter grey for separation */
@@ -33,3 +38,20 @@
   background-color: #323232; /* Dark grey background for the calendar */
   color: #cfcfcf; /* Light grey text for the calendar */
 }
+
+.fc-scrollgrid-sync-inner a {
+  color: #ff0000;
+}
+
+.fc .fc-now-indicator-line {
+  background: red; 
+}
+
+.fc .fc-now-indicator-arrow {
+  border-top-color: red; 
+}
+
+.fc .fc-daygrid-day-bg {
+  background: #1c1c1c; /* Dark background for the calendar */
+}
+
