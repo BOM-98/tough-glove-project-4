@@ -223,8 +223,11 @@ def book_class_view(request, pk):
         initial_data = {'class_id': class_instance.id, 'user': request.user.id}
         form = BookingForm(initial_data)
             
-    
-    return render(request, 'classes/book_class.html', {'form': form})
+    context = {
+        'form': form,
+        'class': class_instance,
+    }
+    return render(request, 'classes/book_class.html', context)
 
 
 @login_required(login_url='login')

@@ -10,14 +10,14 @@
         <p class="fs-4 text-danger">Are you sure you want to delete "{{ class.class_name }}"?</p>
         <p>This action cannot be undone.</p>
         <div class="d-flex flex-row justify-content-center">
-        <a href="{% url 'admin_dashboard' %}" class="btn btn-primary btn-block create-account me-3">Cancel</a>
-        <form method="POST" action="">
-            {% csrf_token %}
-            <div class="form-group">
-                <input type="submit" value="Delete Class" class="btn btn-danger btn-block create-account">
-            </div>
-        </form>
-    </div>
+            <a href="{% url 'admin_dashboard' %}" class="btn btn-primary btn-block create-account me-3">Cancel</a>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="submit" value="Delete Class" class="btn btn-danger btn-block create-account">
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock content %}

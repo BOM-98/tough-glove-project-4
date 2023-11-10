@@ -4,21 +4,27 @@
 {% block title %}Tough Glove | Cancel Booking {% endblock %}
 
 {% block content %}
-    <h1 class="text-center mt-4">Cancel Booking</h1>
-    <div class="registration-form">
-        <form method="post" action ="">
-            {% csrf_token %}
-            <input type="submit" name= "cancel" value ="cancel"></button>
-            <input type="submit" name= "confirm" value ="confirm" class="">Confirm Cancellation</button>
-            {% for field, errors in form.errors.items %}
-            <div class="alert alert-danger">
-                <ul>
-                    {% for error in errors %}
-                    <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-            {% endfor %}
-        </form>
-    </div>
+
+<div class="registration-form rounded-bottom">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <h1 class="text-center mt-4">Cancel Booking</h1>
+        <p class="text-center">Are you sure you want to cancel {{ booking.class_id.class_name }}?</p>
+        <p class="text-center">On {{ booking.class_id.class_date }} at {{ booking.class_id.class_start_time }}?</p>
+        <div class="d-flex flex-row justify-content-center">
+            <input type="submit" name="cancel" value="cancel" class="btn btn-primary me-3">
+            <input type="submit" name="confirm" value="confirm" class="btn btn-danger">
+        </div>
+        {% for field, errors in form.errors.items %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for error in errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </form>
+</div>
+
 {% endblock content %}
