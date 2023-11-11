@@ -1,6 +1,10 @@
-.card {
+.dark-card .card {
   background-color: #2a2a2a !important; /* Dark grey background */
   color: #cfcfcf !important; /* Light grey text */
+}
+
+#calendar-divider .card {
+  background-color: #ffffff !important;
 }
 
 .text-red {
@@ -34,24 +38,5 @@
   background-color: #1c1c1c !important; /* Dark background for table footer */
 }
 
-#calendar {
-  background-color: #323232; /* Dark grey background for the calendar */
-  color: #cfcfcf; /* Light grey text for the calendar */
-}
 
-.fc-scrollgrid-sync-inner a {
-  color: #ff0000;
-}
-
-.fc .fc-now-indicator-line {
-  background: red; 
-}
-
-.fc .fc-now-indicator-arrow {
-  border-top-color: red; 
-}
-
-.fc .fc-daygrid-day-bg {
-  background: #1c1c1c; /* Dark background for the calendar */
-}
 
