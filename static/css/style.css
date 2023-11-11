@@ -315,10 +315,13 @@ table th {
     color: #777;
   }
 
-
-
 #testimonial-carousel .carousel-indicators .active {
     background-color: #333; /* Active indicator color, should contrast with the regular color */
+}
+
+.bi-person-circle {
+    font-size: 5rem;
+    color: red;
 }
 
 /* ======= Media Queries ======= */

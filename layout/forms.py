@@ -54,8 +54,8 @@ class UpdateClassForm(forms.ModelForm):
             'class_description': forms.Textarea(attrs={'placeholder': 'Class Description', 'class': 'form-control item'}),
             'class_type': forms.Select(attrs={'placeholder': 'Class Type', 'class': 'form-control item'}),
             'class_date': DatePickerInput(format='%Y-%m-%d', attrs={'placeholder': 'Class Date', 'class': 'form-control item'}),
-            'class_start_time': TimePickerInput(format='%H:%M', attrs={'placeholder': 'Class Start Time', 'class': 'form-control item'}),
-            'class_end_time': TimePickerInput(format='%H:%M', attrs={'placeholder': 'Class End Time', 'class': 'form-control item'}, range_from = 'class_start_time'),
+            'class_start_time': TimePickerInput(options = {"format":'HH:mm', "stepping": 15,}, attrs={'placeholder': 'Class Start Time', 'class': 'form-control item'}),
+            'class_end_time': TimePickerInput(options = {"format":'HH:mm', "stepping": 15,}, attrs={'placeholder': 'Class End Time', 'class': 'form-control item'}, range_from = 'class_start_time'),
             'slots_available': forms.NumberInput(attrs={'placeholder': 'Slots Available', 'class': 'form-control item'}),
         }
 
