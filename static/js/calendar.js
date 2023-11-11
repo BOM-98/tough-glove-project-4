@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
       eventClick: function(info) {
             alert('Event: ' + info.event.title + '\nDescription: ' + info.event.start);
       },
+      eventColor: '#ff0000',
       nowIndicator: true,
       slotLabelFormat: {
         hour: '2-digit',

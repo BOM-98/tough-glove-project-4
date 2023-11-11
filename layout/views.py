@@ -101,6 +101,17 @@ def members_view(request):
     return render(request, 'accounts/members.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['admin', 'member'])
+def profile_view(request):
+    user = request.user
+    members = Members.objects.all()
+    bookings = user.bookings_set.all()
+    classes = [booking.class_id for booking in bookings]
+    bookings_count = bookings.count()
+    context = {'bookings': bookings, 'bookings_count': bookings_count, 'user': user, 'classes': classes, 'members': members}
+    return render(request, 'accounts/profile.html', context)
+
+@login_required(login_url='login')
 @allowed_users(allowed_roles=['member', 'admin'])
 def update_member_view(request, pk):
     user = User.objects.get(id=pk)
@@ -110,7 +121,7 @@ def update_member_view(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, 'This member has been updated successfully!')
-            return redirect('members')
+            return redirect('profile')
     context = {'form': form, 'user': user}
     return render(request, 'accounts/update_member.html', context)
 

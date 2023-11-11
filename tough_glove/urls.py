@@ -38,4 +38,5 @@ urlpatterns = [
     path("cancel_booking/<str:pk>/", cancel_booking_view, name="cancel_booking"),
     path("user_bookings/", user_bookings_view, name="user_bookings"),
     path('get_classes/', get_classes, name='get_classes'),
+    path("profile/", profile_view, name="profile"),
 ]
