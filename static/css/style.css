@@ -23,12 +23,19 @@ body {
 .bg-dark {
     background-color: #000;
 }
+.bg-black {
+    background-color: #000;
+}
 
 .bg-danger-2 {
     background-color: #ff0000;
 }
 
 .text-danger {
+    color: #ff0000;
+}
+
+.red-text {
     color: #ff0000;
 }
 
@@ -48,6 +55,17 @@ body {
 .bg-light {
     background-color: #f8f9fa;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.hero-section {
+    background-image: url('../img/hero-red-bg-boxer.webp');
+    background-size: cover;
+    background-position: center;
+    height: 75vh;
+}
+
+.home-image {
+    max-height: 60vh;
 }
 
 /* ======= Registration Form ======= */
@@ -211,8 +229,6 @@ table th {
 
 /* ======= Trainer Cards ======= */
 .trainer-section {
-    background-color: #1c1c1c;
-    /* Dark background color */
     color: white;
 }
 
