@@ -20,6 +20,11 @@ class CreateUserForm(UserCreationForm):
             'email': forms.EmailInput(attrs={'placeholder': 'Email', 'class': 'form-control item'}),
         }
         
+    def __init__(self, *args, **kwargs):
+        super(CreateUserForm, self).__init__(*args, **kwargs)
+        for fieldname in ['username', 'email', 'first_name', 'last_name', 'password1', 'password2']:
+            self.fields[fieldname].required = True
+        
 class UpdateUserForm(forms.ModelForm):
     class Meta: 
         model = User
