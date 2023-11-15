@@ -56,15 +56,14 @@
                                             <a data-bs-toggle="dropdown" href="#" class="btn p-1" aria-expanded="false">
                                                 <i class="fa fa-bars" aria-hidden="true"></i>
                                             </a>
-                                            <div class="dropdown-menu dropdown-menu-end" style="">
+                                            <div class="dropdown-menu dropdown-menu-end">
                                                 {% if user.is_staff %}
                                                 <a href="{% url 'update_class' class.id %}" class="dropdown-item">Update
                                                     {{ class.class_name }}</a>
                                                 <a href="{% url 'delete_class' class.id %}" class="dropdown-item">Delete
                                                     {{ class.class_name }}</a>
                                                 {% endif %}
-                                                <a href="{% url 'book_class' class.id %}" class="dropdown-item">Book {{
-                                                    class.class_name }}</a>
+                                                <a href="{% url 'book_class' class.id %}" class="dropdown-item">Book {{ class.class_name }}</a>
                                             </div>
                                         </div>
                                     </td>
