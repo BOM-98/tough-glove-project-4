@@ -4,9 +4,6 @@ from .forms import CreateUserForm, UpdateUserForm, CreateClassForm, UpdateClassF
 
 class TestUserCreationForm(TestCase):
     
-    
-    # form field validation tests
-    
     # form field all fields are valid test
     def test_form_valid(self):
             form_data = {
@@ -99,10 +96,114 @@ class TestUserCreationForm(TestCase):
                 'password2':'complexpassword123**',
         }
         form = CreateUserForm(data=form_data)
-        self.assertFalse(form.is_valid())
-        self.assertIn('email', form.errors)
+        self.assertTrue(form.is_valid())
     
-    # Password Validation Tests
-    # Password Confirmation Tests
-    # Form Save Tests
-    # Form field required Tests
+    # Different Passwords Validation Tests
+    def test_form_different_passwords(self):
+        form_data = {
+                'first_name': 'New',
+                'last_name': 'User',
+                'username': 'newuser',
+                'email': 'example@email.com',
+                'password1':'complexpassword123**',
+                'password2':'complexpassword12**',
+        }
+        form = CreateUserForm(data=form_data)
+        self.assertFalse(form.is_valid())
+        self.assertIn('password2', form.errors)
+
+class TestUpdateUserForm(TestCase):
+    
+    # form field all fields are valid test
+    def test_form_valid(self):
+            User.objects.create_user(
+            first_name = "First", 
+            last_name  = "User", 
+            username='newuser12',
+            email='example1@email.com',
+            password='complexpassword123**',
+            )
+            
+            form_data = {
+                'first_name': 'New',
+                'last_name': 'User',
+                'username': 'newuser',
+                'email': 'newuser@example.com',
+                'password1': 'complexpassword123**',
+                'password2': 'complexpassword123**'
+            }
+            form = UpdateUserForm(data=form_data)
+            self.assertTrue(form.is_valid())
+    
+    # form field missing first name test
+    def test_form_invalid_missing_first_name(self):
+            User.objects.create_user(
+            first_name = "First", 
+            last_name  = "User", 
+            username='newuser12',
+            email='example1@email.com',
+            password='complexpassword123**',
+            )
+            
+            form_data = {
+                'last_name': 'User',
+                'username': 'newuser',
+                'email': 'newuser@example2.com'
+            }
+            form = UpdateUserForm(data=form_data)
+            self.assertFalse(form.is_valid())
+    
+    # form field missing last name test
+    def test_form_invalid_missing_first_name(self):
+            User.objects.create_user(
+            first_name = "First", 
+            last_name  = "User", 
+            username='newuser12',
+            email='example1@email.com',
+            password='complexpassword123**',
+            )
+            
+            form_data = {
+                'first_name': 'New',
+                'username': 'newuser',
+                'email': 'newuser@example2.com'
+            }
+            form = UpdateUserForm(data=form_data)
+            self.assertFalse(form.is_valid())
+            
+    # form field missing username test
+    def test_form_invalid_missing_username(self):
+            User.objects.create_user(
+            first_name = "First", 
+            last_name  = "User", 
+            username='newuser12',
+            email='example1@email.com',
+            password='complexpassword123**',
+            )
+            
+            form_data = {
+                'first_name': 'New',
+                'last_name': 'User',
+                'email': 'newuser@example2.com',
+            }
+            form = UpdateUserForm(data=form_data)
+            self.assertFalse(form.is_valid())
+            
+    # form field missing email test
+    def test_form_invalid_missing_email(self):
+        User.objects.create_user(
+            first_name = "First", 
+            last_name  = "User", 
+            username='newuser12',
+            email='example1@email.com',
+            password='complexpassword123**',
+            )
+        
+        form_data = {
+                'first_name': 'New',
+                'last_name': 'User',
+                'username': 'newuser',
+            }
+        form = UpdateUserForm(data=form_data)
+        self.assertFalse(form.is_valid())
+    

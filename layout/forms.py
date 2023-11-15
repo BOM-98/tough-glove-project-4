@@ -35,6 +35,11 @@ class UpdateUserForm(forms.ModelForm):
             'last_name': forms.TextInput(attrs={'placeholder': 'Last Name', 'class': 'form-control item'}),
             'email': forms.EmailInput(attrs={'placeholder': 'Email', 'class': 'form-control item'}),
         }
+    
+    def __init__(self, *args, **kwargs):
+        super(UpdateUserForm, self).__init__(*args, **kwargs)
+        for fieldname in ['username', 'email', 'first_name', 'last_name']:
+            self.fields[fieldname].required = True
         
 class CreateClassForm(forms.ModelForm):
     class Meta: 
