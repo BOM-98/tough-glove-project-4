@@ -55,6 +55,11 @@ class CreateClassForm(forms.ModelForm):
             'slots_available': forms.NumberInput(attrs={'placeholder': 'Slots Available', 'class': 'form-control item'}),
         }
         
+        def __init__(self, *args, **kwargs):
+            super(CreateClassForm, self).__init__(*args, **kwargs)
+            for fieldname in ['class_type', 'class_date', 'class_start_time', 'class_end_time', 'slots_available']:
+                self.fields[fieldname].required = True
+        
 class UpdateClassForm(forms.ModelForm):
     class Meta: 
         model = Classes

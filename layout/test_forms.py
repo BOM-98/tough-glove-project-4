@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 from .forms import CreateUserForm, UpdateUserForm, CreateClassForm, UpdateClassForm, BookingForm
+from datetime import datetime, timedelta
 
 class TestUserCreationForm(TestCase):
     
@@ -206,4 +207,119 @@ class TestUpdateUserForm(TestCase):
             }
         form = UpdateUserForm(data=form_data)
         self.assertFalse(form.is_valid())
+        
+class TestCreateClassForm(TestCase):
     
+    # form field all fields are valid test
+    def test_form_valid_data(self):
+        form_data = {
+            'class_name': 'Yoga',
+            'class_description': 'A relaxing yoga session',
+            'class_type': 0,
+            'class_date': datetime.now().date(),
+            'class_start_time': datetime.now().time(),
+            'class_end_time': (datetime.now() + timedelta(hours=1)).time(),
+            'slots_available': 10
+        }
+        form = CreateClassForm(data=form_data)
+        self.assertTrue(form.is_valid())
+    
+    # form field missing class type test
+    def test_form_invalid_missing_class_type(self):
+        form_data = {
+            'class_name': 'Yoga',
+            'class_description': 'A relaxing yoga session',
+            'class_date': datetime.now().date(),
+            'class_start_time': datetime.now().time(),
+            'class_end_time': (datetime.now() + timedelta(hours=1)).time(),
+            'slots_available': 10
+        }
+        form = CreateClassForm(data=form_data)
+        self.assertFalse(form.is_valid())
+        self.assertIn('class_type', form.errors)
+        
+    # form field missing class date test
+    def test_form_invalid_missing_class_date(self):
+        """
+        This test to ensures the CREATECLASSFORM is invalid if no CLASS_DATE field is inputed.
+        This test creates a form data dictionary without the CLASS_DATE field and
+        initializes the CREATECLASSFORM with this data. It then checks two things:
+        1. The form is not valid (self.assertFalse(form.is_valid())).
+        2. The specific error for 'class_date' is included in the form's errors 
+        The absence of class_date should trigger a validation error, making the form invalid.
+        """
+        form_data = {
+            'class_name': 'Yoga',
+            'class_description': 'A relaxing yoga session',
+            'class_type': 0,
+            'class_start_time': datetime.now().time(),
+            'class_end_time': (datetime.now() + timedelta(hours=1)).time(),
+            'slots_available': 10
+        }
+        form = CreateClassForm(data=form_data)
+        self.assertFalse(form.is_valid())
+        self.assertIn('class_date', form.errors)
+        
+    # form field missing class start time test
+    def test_form_invalid_missing_class_start_time(self):
+        """
+        This test to ensures the CREATECLASSFORM is invalid if no CLASS_START_TIME field is inputed.
+        This test creates a form data dictionary without the CLASS_START_TIME field and
+        initializes the CREATECLASSFORM with this data. It then checks two things:
+        1. The form is not valid (self.assertFalse(form.is_valid())).
+        2. The specific error for 'class_start_time' is included in the form's errors 
+        The absence of class_start_time should trigger a validation error, making the form invalid.
+        """
+        form_data = {
+            'class_name': 'Yoga',
+            'class_description': 'A relaxing yoga session',
+            'class_type': 0,
+            'class_date': datetime.now().date(),
+            'class_end_time': (datetime.now() + timedelta(hours=1)).time(),
+            'slots_available': 10
+        }
+        form = CreateClassForm(data=form_data)
+        self.assertFalse(form.is_valid())
+        self.assertIn('class_start_time', form.errors)
+        
+    def test_form_invalid_missing_class_end_time(self):
+        """
+        This test to ensures the CREATECLASSFORM is invalid if no CLASS_END_TIME field is inputed.
+        This test creates a form data dictionary without the CLASS_END_TIME field and
+        initializes the CREATECLASSFORM with this data. It then checks two things:
+        1. The form is not valid (self.assertFalse(form.is_valid())).
+        2. The specific error for 'class_end_time' is included in the form's errors 
+        The absence of class_end_time should trigger a validation error, making the form invalid.
+        """
+        form_data = {
+            'class_name': 'Yoga',
+            'class_description': 'A relaxing yoga session',
+            'class_type': 0,
+            'class_date': datetime.now().date(),
+            'class_start_time': datetime.now().time(),
+            'slots_available': 10
+        }
+        form = CreateClassForm(data=form_data)
+        self.assertFalse(form.is_valid())
+        self.assertIn('class_end_time', form.errors)
+        
+    def test_form_invalid_missing_slots_available(self):
+        """
+        This test to ensures the CREATECLASSFORM is invalid if no SLOTS_AVAILABLE field is inputed.
+        This test creates a form data dictionary without the SLOTS_AVAILABLE field and
+        initializes the CREATECLASSFORM with this data. It then checks two things:
+        1. The form is not valid (self.assertFalse(form.is_valid())).
+        2. The specific error for 'slots_available' is included in the form's errors
+        The absence of slots_available should trigger a validation error, making the form invalid.
+        """
+        form_data = {
+            'class_name': 'Yoga',
+            'class_description': 'A relaxing yoga session',
+            'class_type': 0,
+            'class_date': datetime.now().date(),
+            'class_start_time': datetime.now().time(),
+            'class_end_time': (datetime.now() + timedelta(hours=1)).time(),
+        }
+        form = CreateClassForm(data=form_data)
+        self.assertFalse(form.is_valid())
+        self.assertIn('slots_available', form.errors)
