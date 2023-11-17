@@ -44,40 +44,6 @@ class Bookings(models.Model):
         verbose_name_plural = 'Bookings'
         ordering = ['-booking_date']
         unique_together = ['user', 'class_id']
-
-class BlogPosts(models.Model):
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=200, unique=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField()
-    updated_on = models.DateTimeField(auto_now_add=True)
-    category = models.CharField(max_length=200)
-    featured_image = CloudinaryField('image', default='placeholder')
-    excerpt = models.TextField(blank=True)
-    created_on = models.DateTimeField(auto_now_add=True)
-    status = models.IntegerField(choices=STATUS, default=0)
-    
-    
-    class Meta:
-        verbose_name_plural = 'BlogPosts'
-        ordering = ['-created_on']
-        
-    def __str__(self):
-        return self.title + " " + self.author + " " + self.post_date
-    
-class Comments(models.Model):
-    post = models.ForeignKey(BlogPosts, on_delete=models.CASCADE)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    email = models.EmailField(max_length=200)
-    content = models.TextField()
-    comment_date = models.DateTimeField(auto_now_add=True)
-    
-    class Meta:
-        verbose_name_plural = 'Comments'
-        ordering = ['-comment_date']
-        
-    def __str__(self):
-        return str(self.post) + " " + str(self.author) + " " + self.comment_date
       
 @receiver(post_delete, sender=Bookings)
 def decrement_slots(sender, instance, **kwargs):

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Members, Classes, Bookings, BlogPosts, Comments
+from .models import Members, Classes, Bookings
 
 
 
@@ -10,5 +10,3 @@ class MyModelAdmin(admin.ModelAdmin):
 admin.site.register(Members)
 admin.site.register(Classes)
 admin.site.register(Bookings)
-admin.site.register(BlogPosts)
-admin.site.register(Comments)
