@@ -6,45 +6,69 @@ from datetime import datetime, timedelta
 
 class TestUserCreationForm(TestCase):
     
-    # form field all fields are valid test
     def test_form_valid(self):
-            form_data = {
-                'first_name': 'New',
-                'last_name': 'User',
-                'username': 'newuser',
-                'email': 'newuser@example.com',
-                'password1': 'complexpassword123**',
-                'password2': 'complexpassword123**'
-            }
-            form = CreateUserForm(data=form_data)
-            self.assertTrue(form.is_valid())
+        """
+        This test to ensures the CREATEUSERFORM is valid if no fields are excluded.
+        This test creates a form data dictionary with all fields included and
+        initializes the CREATEUSERFORM with this data. It then checks:
+        1. The form is valid (self.assertTrue(form.is_valid()))
+        The inclusion of all fields should, ensure the form valid.
+        """
+        form_data = {
+            'first_name': 'New',
+            'last_name': 'User',
+            'username': 'newuser',
+            'email': 'newuser@example.com',
+            'password1': 'complexpassword123**',
+            'password2': 'complexpassword123**'
+        }
+        form = CreateUserForm(data=form_data)
+        self.assertTrue(form.is_valid())
     
-    # form field missing first name test
     def test_form_invalid_missing_first_name(self):
-            form_data = {
-                'last_name': 'User',
-                'username': 'newuser',
-                'email': 'newuser@example2.com',
-                'password1': 'complexpassword123**',
-                'password2': 'complexpassword123**',
-            }
-            form = CreateUserForm(data=form_data)
-            self.assertFalse(form.is_valid())
+        """
+        This test to ensures the CREATEUSERFORM is invalid if no FIRST_NAME field is inputed.
+        This test creates a form data dictionary without the FIRST_NAME field and
+        initializes the CREATEUSERFORM with this data. It then checks two things:
+        1. The form is not valid (self.assertFalse(form.is_valid())).
+        2. The specific error for 'first_name' is included in the form's errors
+        """
+        form_data = {
+            'last_name': 'User',
+            'username': 'newuser',
+            'email': 'newuser@example2.com',
+            'password1': 'complexpassword123**',
+            'password2': 'complexpassword123**',
+        }
+        form = CreateUserForm(data=form_data)
+        self.assertFalse(form.is_valid())
             
-    # form field missing username test
     def test_form_invalid_missing_username(self):
-            form_data = {
-                'first_name': 'New',
-                'last_name': 'User',
-                'email': 'newuser@example2.com',
-                'password1': 'complexpassword123**',
-                'password2': 'complexpassword123**',
-            }
-            form = CreateUserForm(data=form_data)
-            self.assertFalse(form.is_valid())
+        """
+        This test to ensures the CREATEUSERFORM is invalid if no USERNAME field is inputed.
+        This test creates a form data dictionary without the USERNAME field and
+        initializes the CREATEUSERFORM with this data. It then checks two things:
+        1. The form is not valid (self.assertFalse(form.is_valid())).
+        2. The specific error for 'username' is included in the form's errors
+        """
+        form_data = {
+            'first_name': 'New',
+            'last_name': 'User',
+            'email': 'newuser@example2.com',
+            'password1': 'complexpassword123**',
+            'password2': 'complexpassword123**',
+        }
+        form = CreateUserForm(data=form_data)
+        self.assertFalse(form.is_valid())
             
-    # form field missing email test
     def test_form_invalid_missing_email(self):
+        """
+        This test to ensures the CREATEUSERFORM is invalid if no EMAIL field is inputed.
+        This test creates a form data dictionary without the EMAIL field and
+        initializes the CREATEUSERFORM with this data. It then checks two things:
+        1. The form is not valid (self.assertFalse(form.is_valid())).
+        2. The specific error for 'email' is included in the form's errors
+        """
         form_data = {
                 'first_name': 'New',
                 'last_name': 'User',
@@ -56,8 +80,14 @@ class TestUserCreationForm(TestCase):
         self.assertFalse(form.is_valid())
 
 
-    # Form Field Unique Username Tests
     def test_form_invalid_duplicate_username(self):
+        """
+        This test to ensures the CREATEUSERFORM is invalid if no USERNAME field is inputed.
+        This test creates a form data dictionary without the USERNAME field and
+        initializes the CREATEUSERFORM with this data. It then checks two things:
+        1. The form is not valid (self.assertFalse(form.is_valid())).
+        2. The specific error for 'username' is included in the form's errors
+        """
         User.objects.create_user(
             first_name = "New", 
             last_name  = "User", 
@@ -79,8 +109,12 @@ class TestUserCreationForm(TestCase):
         self.assertIn('username', form.errors)
         
     
-    #Form Field Unique Email Tests
-    def test_form_invalid_duplicate_email(self):
+    def test_form_valid_duplicate_email(self):
+        """
+        This test to ensures the CREATEUSERFORM is valid if a duplicate EMAIL field is 
+        inputted. This test creates a form data dictionary without the EMAIL field and
+        initializes the CREATEUSERFORM with this data. It then checks two things:
+        """
         User.objects.create_user(
             first_name = "New", 
             last_name  = "User", 
@@ -100,8 +134,15 @@ class TestUserCreationForm(TestCase):
         form = CreateUserForm(data=form_data)
         self.assertTrue(form.is_valid())
     
-    # Different Passwords Validation Tests
     def test_form_different_passwords(self):
+        """
+        This test to ensures the CREATEUSERFORM is invalid if the PASSWORD1 and PASSWORD2
+        fields are different. This test creates a form data dictionary with the PASSWORD1
+        and PASSWORD2 fields different and initializes the CREATEUSERFORM with this data.
+        It then checks two things:
+        1. The form is not valid (self.assertFalse(form.is_valid())).
+        2. The specific error for 'password2' is included in the form's errors
+        """
         form_data = {
                 'first_name': 'New',
                 'last_name': 'User',
@@ -116,83 +157,123 @@ class TestUserCreationForm(TestCase):
 
 class TestUpdateUserForm(TestCase):
     
-    # form field all fields are valid test
     def test_form_valid(self):
-            user_instance = User.objects.create_user(
-            first_name = "First", 
-            last_name  = "User", 
-            username='newuser12',
-            email='example1@email.com',
-            password='complexpassword123**',
-            )
-            
-            form_data = {
-                'first_name': 'New',
-                'last_name': 'User',
-                'username': 'newuser',
-                'email': 'newuser@example.com',
-                'password1': 'complexpassword123**',
-                'password2': 'complexpassword123**'
-            }
-            form = UpdateUserForm(data=form_data, instance = user_instance)
-            self.assertTrue(form.is_valid())
+        """
+        This test to ensures the UPDATEUSERFORM is valid if no fields are excluded.
+        This test creates a user instance and creates a form data dictionary with
+        all fields included and initializes the UPDATEUSERFORM with this data.
+        It then checks:
+        1. The form is valid (self.assertTrue(form.is_valid()))
+        The inclusion of all fields should, ensure the form valid.
+        """
+        user_instance = User.objects.create_user(
+        first_name = "First", 
+        last_name  = "User", 
+        username='newuser12',
+        email='example1@email.com',
+        password='complexpassword123**',
+        )
+        
+        form_data = {
+            'first_name': 'New',
+            'last_name': 'User',
+            'username': 'newuser',
+            'email': 'newuser@example.com',
+            'password1': 'complexpassword123**',
+            'password2': 'complexpassword123**'
+        }
+        form = UpdateUserForm(data=form_data, instance = user_instance)
+        self.assertTrue(form.is_valid())
     
-    # form field missing first name test
     def test_form_invalid_missing_first_name(self):
-            user_instance =  User.objects.create_user(
-            first_name = "First", 
-            last_name  = "User", 
-            username='newuser12',
-            email='example1@email.com',
-            password='complexpassword123**',
-            )
-            
-            form_data = {
-                'last_name': 'User',
-                'username': 'newuser',
-                'email': 'newuser@example2.com'
-            }
-            form = UpdateUserForm(data=form_data, instance = user_instance)
-            self.assertFalse(form.is_valid())
+        """
+        This test to ensures the UPDATEUSERFORM is invalid if no FIRST_NAME field is inputed.
+        This test creates a user instance and creates a form data dictionary without
+        the FIRST_NAME field and initializes the UPDATEUSERFORM with this data.
+        It then checks two things:
+        1. The form is not valid (self.assertFalse(form.is_valid())).
+        2. The specific error for 'first_name' is included in the form's errors
+        """
+        user_instance =  User.objects.create_user(
+        first_name = "First", 
+        last_name  = "User", 
+        username='newuser12',
+        email='example1@email.com',
+        password='complexpassword123**',
+        )
+        
+        form_data = {
+            'last_name': 'User',
+            'username': 'newuser',
+            'email': 'newuser@example2.com'
+        }
+        form = UpdateUserForm(data=form_data, instance = user_instance)
+        self.assertFalse(form.is_valid())
+        self.assertIn('first_name', form.errors)
     
-    # form field missing last name test
     def test_form_invalid_missing_first_name(self):
-            user_instance = User.objects.create_user(
-            first_name = "First", 
-            last_name  = "User", 
-            username='newuser12',
-            email='example1@email.com',
-            password='complexpassword123**',
-            )
+        """
+        This test to ensures the UPDATEUSERFORM is invalid if no LAST_NAME field is inputed.
+        This test creates a user instance and creates a form data dictionary without
+        the LAST_NAME field and initializes the UPDATEUSERFORM with this data.
+        It then checks two things:
+        1. The form is not valid (self.assertFalse(form.is_valid())).
+        2. The specific error for 'last_name' is included in the form's errors
+        """
+        user_instance = User.objects.create_user(
+        first_name = "First", 
+        last_name  = "User", 
+        username='newuser12',
+        email='example1@email.com',
+        password='complexpassword123**',
+        )
+        
+        form_data = {
+            'first_name': 'New',
+            'username': 'newuser',
+            'email': 'newuser@example2.com'
+        }
+        form = UpdateUserForm(data=form_data, instance = user_instance)
+        self.assertFalse(form.is_valid())
+        self.assertIn('last_name', form.errors)
             
-            form_data = {
-                'first_name': 'New',
-                'username': 'newuser',
-                'email': 'newuser@example2.com'
-            }
-            form = UpdateUserForm(data=form_data, instance = user_instance)
-            self.assertFalse(form.is_valid())
-            
-    # form field missing username test
     def test_form_invalid_missing_username(self):
-            user_instance = User.objects.create_user(
-            first_name = "First", 
-            last_name  = "User", 
-            username='newuser12',
-            email='example1@email.com',
-            password='complexpassword123**',
-            )
-            
-            form_data = {
-                'first_name': 'New',
-                'last_name': 'User',
-                'email': 'newuser@example2.com',
-            }
-            form = UpdateUserForm(data=form_data, instance = user_instance)
-            self.assertFalse(form.is_valid())
+        """
+        This test to ensures the UPDATEUSERFORM is invalid if no USERNAME field is inputed.
+        This test creates a user instance and creates a form data dictionary without
+        the USERNAME field and initializes the UPDATEUSERFORM with this data.
+        It then checks two things:
+        1. The form is not valid (self.assertFalse(form.is_valid())).
+        2. The specific error for 'username' is included in the form's errors
+        """
+        user_instance = User.objects.create_user(
+        first_name = "First", 
+        last_name  = "User", 
+        username='newuser12',
+        email='example1@email.com',
+        password='complexpassword123**',
+        )
+        
+        form_data = {
+            'first_name': 'New',
+            'last_name': 'User',
+            'email': 'newuser@example2.com',
+        }
+        form = UpdateUserForm(data=form_data, instance = user_instance)
+        self.assertFalse(form.is_valid())
+        self.assertIn('username', form.errors)
             
     # form field missing email test
     def test_form_invalid_missing_email(self):
+        """
+        This test to ensures the UPDATEUSERFORM is invalid if no EMAIL field is inputed.
+        This test creates a user instance and creates a form data dictionary without
+        the EMAIL field and initializes the UPDATEUSERFORM with this data.
+        It then checks two things:
+        1. The form is not valid (self.assertFalse(form.is_valid())).
+        2. The specific error for 'email' is included in the form's errors
+        The absence of email should trigger a validation error, making the form invalid.
+        """
         user_instance = User.objects.create_user(
             first_name = "First", 
             last_name  = "User", 
@@ -208,11 +289,18 @@ class TestUpdateUserForm(TestCase):
             }
         form = UpdateUserForm(data=form_data, instance = user_instance)
         self.assertFalse(form.is_valid())
+        self.assertIn('email', form.errors)
         
 class TestCreateClassForm(TestCase):
     
-    # form field all fields are valid test
     def test_form_valid_data(self):
+        """
+        This test to ensures the CREATECLASSFORM is valid if no fields are excluded.
+        This test creates a form data dictionary with all fields included and
+        initializes the CREATECLASSFORM with this data. It then checks:
+        1. The form is valid (self.assertTrue(form.is_valid()))
+        The inclusion of all fields should, ensure the form valid.
+        """
         form_data = {
             'class_name': 'Yoga',
             'class_description': 'A relaxing yoga session',
@@ -225,8 +313,14 @@ class TestCreateClassForm(TestCase):
         form = CreateClassForm(data=form_data)
         self.assertTrue(form.is_valid())
     
-    # form field missing class type test
     def test_form_invalid_missing_class_type(self):
+        """
+        This test to ensures the CREATECLASSFORM is invalid if no CLASS_TYPE field is inputed.
+        This test creates a form data dictionary without the CLASS_TYPE field and
+        initializes the CREATECLASSFORM with this data. It then checks two things:
+        1. The form is not valid (self.assertFalse(form.is_valid())).
+        2. The specific error for 'class_type' is included in the form's errors
+        """
         form_data = {
             'class_name': 'Yoga',
             'class_description': 'A relaxing yoga session',
@@ -239,7 +333,6 @@ class TestCreateClassForm(TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn('class_type', form.errors)
         
-    # form field missing class date test
     def test_form_invalid_missing_class_date(self):
         """
         This test to ensures the CREATECLASSFORM is invalid if no CLASS_DATE field is inputed.
