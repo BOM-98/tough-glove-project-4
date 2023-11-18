@@ -353,6 +353,27 @@ def delete_member_view(request, pk):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def admin_dashboard_view(request):
+    """
+    Render the admin dashboard view with relevant data.
+
+    This view function is designed for administrators to provide an overview of the platform's key metrics. It is 
+    accessible only to authenticated users with the 'admin' role. The function performs several key operations:
+    1. Retrieves all users, classes, and members from the database.
+    2. Counts the total number of users, classes, personal training classes, and group classes.
+    3. Fetches available classes using the `get_available_classes` function.
+    4. Renders the 'layout/admin_dashboard.html' template with the context containing all the retrieved data.
+
+    Parameters:
+    - request: HttpRequest object containing metadata about the request.
+
+    Returns:
+    - HttpResponse object with the rendered 'layout/admin_dashboard.html' template.
+
+    The view is decorated with @login_required and @allowed_users decorators to ensure that only authenticated users with
+    the 'admin' role can access this functionality. It provides a comprehensive dashboard for administrators to monitor
+    and manage the platform effectively, offering insights into user engagement, class offerings, and overall platform
+    activity.
+    """
     users = User.objects.all()
     classes = Classes.objects.all()
     members = Members.objects.all()
