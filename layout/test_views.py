@@ -389,3 +389,189 @@ class TestAdminViews(TestCase):
         response = self.client.get('/admin_dashboard/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'layout/admin_dashboard.html')
+class TestClassViews(TestCase):
+    
+    def setUp(self):
+        """
+        Set up the test environment by creating two users and two groups.
+        
+        This set up method creates two users and groups. 
+        It also creates a group called 'admin' and a group called "member"
+        and adds a user to each group.
+        The admin user is then logged in.
+        """
+        Group.objects.create(name='admin')
+        Group.objects.create(name='member')
+        
+        self.user = User.objects.create_user(
+            username='testuser1',
+            first_name='Test1',
+            last_name='User1',
+            email = 'testemail@gmail.com',
+            password = 'testpassword332',
+        )
+        
+        self.user.groups.add(Group.objects.get(name='admin'))
+        self.user.save()
+        
+        self.other_user = User.objects.create_user(
+        username='testuser2',
+        first_name='Test2',
+        last_name='User2',
+        email = 'testuseremail2@email.com',
+        password='testpassword3322',
+        )
+        self.other_user.groups.add(Group.objects.get(name='member'))
+        self.other_user.save()
+        
+        response = self.client.post('/login/', {
+            'email': 'testemail@gmail.com',
+            'password': 'testpassword332',
+        })
+        
+        self.class_instance = Classes.objects.create(
+            class_name='Test Class',
+            class_description='Test Description',
+            class_type=0,
+            class_date='2024-01-01',
+            class_start_time='09:00:00',
+            class_end_time='10:00:00',
+            slots_available=10,
+            slots_filled=0,
+        )
+        self.class_instance.save()
+    
+    def test_create_class_view(self):
+        """
+        Test the create class view to ensure it returns a successful response and uses the correct template.
+        
+        This test method checks if the create class view is functioning correctly. It sends a GET request
+        to the create class URL ('/create_class/') and then asserts two conditions:
+        1. The response status code is 200, indicating a successful HTTP response.
+        2. The correct template ('classes/create_class.html') is used to render the create class page.
+        
+        Assertions:
+        - Asserts that the HTTP response status code is 200.
+        - Asserts that the 'classes/create_class.html' template is used in the response.
+        """
+            
+        response = self.client.get('/create_class/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'classes/create_class.html')
+    
+    def test_can_create_class(self):
+        """
+        Test that an admin user can create a class.
+        
+        This test method checks if admin can create a class. It sends a POST request to the create class URL
+        ('/create_class/') with the required class details and then asserts two conditions:
+        1. The response status code is 302, indicating a successful HTTP response.
+        2. The class is created in the database.
+        """
+        
+        response = self.client.post('/create_class/', {
+            'class_name': 'Test Class2',
+            'class_description': 'Test Description2',
+            'class_type': 0,
+            'class_date': '2024-01-02',
+            'class_start_time': '09:00:00',
+            'class_end_time': '10:00:00',
+            'slots_available': 10,
+            'slots_filled': 0,
+        })
+        
+        self.assertRedirects(response, '/admin_dashboard/')
+        existing_items = Classes.objects.filter(class_name='Test Class')
+        self.assertEqual(existing_items.count(), 1)
+        
+    def test_update_class_view(self):
+        """
+        Test the update class view to ensure it returns a successful response and uses the correct template.
+        
+        This test method checks if the update class view is functioning correctly. It sends a GET request
+        to the update class URL ('/update_class/') and then asserts two conditions:
+        1. The response status code is 200, indicating a successful HTTP response.
+        2. The correct template ('classes/update_class.html') is used to render the update class page.
+        
+        Assertions:
+        - Asserts that the HTTP response status code is 200.
+        - Asserts that the 'classes/update_class.html' template is used in the response.
+        """
+        
+        response = self.client.get('/update_class/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'classes/update_class.html')
+        
+    def test_can_update_class(self):
+        """
+        Test that an admin user can update a class.
+        
+        This test method checks if admin can update a class. It sends a POST request to the update class URL
+        ('/update_class/') with the required class details and then asserts two conditions:
+        1. The response status code is 302, indicating a successful HTTP response.
+        2. The class is updated in the database.
+        """
+        
+        response = self.client.post(f'/update_class/{self.class_instance.id}/', {
+            'class_name': 'Test Class2',
+            'class_description': 'Test Description2',
+            'class_type': 0,
+            'class_date': '2024-01-02',
+            'class_start_time': '09:00:00',
+            'class_end_time': '10:00:00',
+            'slots_available': 10,
+        })
+        self.assertRedirects(response, '/admin_dashboard/')
+        existing_items = Classes.objects.filter(class_name='Test Class2')
+        self.assertEqual(existing_items.count(), 1)
+        
+    def test_delete_class_view(self):
+        """
+        Test the delete class view to ensure it returns a successful response and uses the correct template.
+        
+        This test method checks if the delete class view is functioning correctly. It sends a GET request
+        to the delete class URL ('/delete_class/') and then asserts two conditions:
+        1. The response status code is 200, indicating a successful HTTP response.
+        2. The correct template ('classes/delete_class.html') is used to render the delete class page.
+        
+        Assertions:
+        - Asserts that the HTTP response status code is 200.
+        - Asserts that the 'classes/delete_class.html' template is used in the response.
+        """
+        
+        response = self.client.get(f'/delete_class/{self.class_instance.id}/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'classes/delete_class.html')
+        
+    def test_can_delete_class(self):
+        """
+        Test that an admin user can delete a class.
+        
+        This test method checks if admin can delete a class. It sends a POST request to the delete class URL
+        ('/delete_class/') with the required class details and then asserts two conditions:
+        1. The response status code is 302, indicating a successful HTTP response.
+        2. The class is deleted from the database.
+        """
+        
+        response = self.client.post(f'/delete_class/{self.class_instance.id}/')
+        self.assertRedirects(response, '/admin_dashboard/')
+        existing_items = Classes.objects.filter(class_name='Test Class')
+        self.assertEqual(existing_items.count(), 0)
+    
+    def test_classes_view(self):
+        """
+        Test the classes view to ensure it returns a successful response and uses the correct template.
+        
+        This test method checks if the classes view is functioning correctly. It sends a GET request
+        to the classes URL ('/classes/') and then asserts two conditions:
+        1. The response status code is 200, indicating a successful HTTP response.
+        2. The correct template ('classes/classes.html') is used to render the classes page.
+        
+        Assertions:
+        - Asserts that the HTTP response status code is 200.
+        - Asserts that the 'classes/classes.html' template is used in the response.
+        """
+        
+        response = self.client.get('/classes/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'classes/classes.html')
