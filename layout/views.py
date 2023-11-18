@@ -320,8 +320,29 @@ def update_member_view(request, pk):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def delete_member_view(request, pk):
+    """
+    Handle the request to delete a member's profile.
+
+    This view function is responsible for deleting a member's profile. It is accessible only to authenticated users
+    with the 'admin' role. The function performs several key operations:
+    1. Retrieves the user object based on the provided primary key (pk) or raises a 404 error if not found.
+    2. Checks if the request method is POST, indicating a confirmation to delete.
+    3. Deletes the user and displays a success message upon deletion.
+    4. Redirects to the 'members' view after successful deletion.
+    5. Renders the 'accounts/delete_member.html' template with the user context if the request is not a POST request.
+
+    Parameters:
+    - request: HttpRequest object containing metadata about the request.
+    - pk: Primary key of the user to be deleted.
+
+    Returns:
+    - HttpResponse object with the rendered 'accounts/delete_member.html' template or a redirect to the 'members' view.
+
+    The view is decorated with @login_required and @allowed_users decorators to ensure that only authenticated users with
+    the 'admin' role can access this functionality. It provides a secure and controlled way for administrators to manage
+    user profiles by deleting them when necessary.
+    """
     user = get_object_or_404(User, id=pk)
-    is_admin = request.user.groups.filter(name='admin').exists()
     if request.method == 'POST':
         user.delete()
         messages.success(request, 'This member has been deleted!')

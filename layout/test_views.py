@@ -371,3 +371,21 @@ class TestAdminViews(TestCase):
         self.assertRedirects(response, '/members/')
         existing_items = User.objects.filter(username='testuser2')
         self.assertEqual(existing_items.count(), 0)
+        
+    def test_admin_dashboard_view(self):
+        """
+        Test the admin dashboard view to ensure it returns a successful response and uses the correct template.
+        
+        This test method checks if the admin dashboard view is functioning correctly. It sends a GET request
+        to the admin dashboard URL ('/admin_dashboard/') and then asserts two conditions:
+        1. The response status code is 200, indicating a successful HTTP response.
+        2. The correct template ('layout/admin_dashboard.html') is used to render the admin dashboard page.
+        
+        Assertions:
+        - Asserts that the HTTP response status code is 200.
+        - Asserts that the 'layout/admin_dashboard.html' template is used in the response.
+        """
+        
+        response = self.client.get('/admin_dashboard/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'layout/admin_dashboard.html')
