@@ -4,11 +4,11 @@
 from django.db import models, IntegrityError
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
 from django.http import JsonResponse
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 
 # Local application/library specific imports
@@ -33,10 +33,34 @@ def homepage(request):
     Returns:
     HttpResponse: An HttpResponse object that renders the 'layout/homepage.html' template.
     """
+    
     return render(request, "layout/homepage.html")
 
 @unauthenticated_user
 def register_view(request):
+    """
+    Handle the user registration process.
+
+    This view function is responsible for displaying the user registration form and processing
+    the form data to create a new user account. It uses the `CreateUserForm` to validate the
+    user input. If the form submission is valid, a new user is created, added to the 'member'
+    group, and a success message is displayed. The user is then redirected to the login page.
+
+    Args:
+    - request (HttpRequest): The HTTP request object.
+
+    Returns:
+    - HttpResponse: An HTTP response object that renders the registration form on GET requests,
+    or redirects to the login page on successful POST requests.
+
+    Decorators:
+    - @unauthenticated_user: A decorator to restrict access to this view for already authenticated users.
+
+    The function first checks if the request method is POST. If so, it processes the form data.
+    If the form is valid, it saves the new user, adds them to the 'member' group, and redirects
+    to the login page. If the request method is not POST (i.e., GET), it displays the registration
+    form to the user.
+    """
     
     form = CreateUserForm()
     if request.method == 'POST':
@@ -54,6 +78,30 @@ def register_view(request):
 
 @allowed_users(allowed_roles=['admin'])
 def create_member_view(request):
+    """
+    Handle the creation of a new member account by an admin.
+
+    This view function is used by administrators to create new member accounts. It displays
+    the `CreateUserForm` for input and processes the submitted form data. If the form is valid,
+    a new user account is created, the user is added to the 'member' group, and a success message
+    is displayed. After successful account creation, the admin is redirected to the members page.
+
+    Args:
+    - request (HttpRequest): The HTTP request object.
+
+    Returns:
+    - HttpResponse: An HTTP response object that renders the registration form on GET requests,
+    or redirects to the members page on successful POST requests.
+
+    Decorators:
+    - @allowed_users(allowed_roles=['admin']): A decorator to restrict access to this view to users
+    with the 'admin' role.
+
+    The function checks if the request method is POST. If so, it processes the form data. If the
+    form is valid, it saves the new user, adds them to the 'member' group, and redirects to the
+    members page. If the request method is not POST (i.e., GET), it displays the registration form
+    to the admin.
+    """
     
     form = CreateUserForm()
     if request.method == 'POST':
@@ -71,6 +119,29 @@ def create_member_view(request):
 
 @unauthenticated_user
 def login_view(request):
+    """
+    Handle the user login process.
+
+    This view function is responsible for authenticating users. It displays a login form and
+    processes the submitted credentials. If the credentials are valid, the user is logged in
+    and redirected to the homepage. Otherwise, an error message is displayed.
+
+    Args:
+    - request (HttpRequest): The HTTP request object.
+
+    Returns:
+    - HttpResponse: An HTTP response object that renders the login form on GET requests,
+    or processes the login on POST requests.
+
+    Decorators:
+    - @unauthenticated_user: A decorator to ensure that this view is only accessible to
+    users who are not currently authenticated.
+
+    The function checks if the request method is POST. If so, it retrieves the email and password
+    from the request. It then attempts to find a user with the given email. If a user is found and
+    the password is correct, the user is logged in and redirected to the homepage. If the credentials
+    are incorrect, an error message is displayed. For GET requests, the login form is displayed.
+    """
     
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -94,18 +165,74 @@ def login_view(request):
     return render(request, "accounts/login.html", context)
 
 def logout_user(request):
+    """
+    Log out the current user and redirect to the homepage.
+
+    This view function is responsible for logging out the currently authenticated user.
+    It calls Django's `logout` function, which handles the process of invalidating the
+    user's session. After logging out, the user is redirected to the homepage.
+
+    Args:
+    - request (HttpRequest): The HTTP request object.
+
+    Returns:
+    - HttpResponseRedirect: A redirect to the homepage URL.
+
+    The function does not require any arguments from the request object, nor does it
+    process any data. It simply logs out the user and redirects to the homepage, making
+    it a straightforward and concise view for handling user logout.
+    """
     logout(request)
     return redirect('homepage')
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['member', 'admin'])
 def available_classes_view(request):
+    """
+    Display the available classes to the user.
+
+    This view is accessible only to authenticated users with 'member' or 'admin' roles.
+    It retrieves a list of available classes and renders them using the 
+    'layout/available_classes.html' template. The view is decorated with `login_required` 
+    and `allowed_users` to enforce access control.
+
+    Args:
+    - request (HttpRequest): The HTTP request object.
+
+    Returns:
+    - HttpResponse: An HTTP response object with the rendered template.
+
+    The function calls `get_available_classes`, which is responsible for fetching the 
+    available classes from the database. It then passes these classes to the template 
+    context. This view is crucial for users to browse and select classes they might be 
+    interested in attending.
+    """
     available_classes = get_available_classes()
     return render(request, 'layout/available_classes.html', {'available_classes': available_classes})
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def members_view(request):
+    """
+    Display the members page to admin users.
+
+    This view function is responsible for rendering the members page. It is accessible only to users with 'admin' role.
+    The function performs the following operations:
+    1. Retrieves all member records from the Members model.
+    2. Fetches all user records from the User model.
+    3. Counts the total number of users.
+    4. Passes the members, users, and user count to the 'accounts/members.html' template.
+
+    Parameters:
+    - request: HttpRequest object containing metadata about the request.
+
+    Returns:
+    - HttpResponse object with the rendered 'accounts/members.html' template.
+
+    The view is decorated with @login_required and @allowed_users decorators to ensure that only authenticated users with
+    'admin' role can access this page. If a non-authenticated user attempts to access this page, they will be redirected 
+    to the 'login' page. The view provides a comprehensive overview of members and users, useful for administrative purposes.
+    """
     members = Members.objects.all()
     users = User.objects.all()
     user_count = User.objects.count()
@@ -115,6 +242,29 @@ def members_view(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin', 'member'])
 def profile_view(request):
+    """
+    Render the profile page for logged-in users.
+
+    This view function is designed to display the profile page for authenticated users with either 'admin' or 'member' roles.
+    It performs the following operations:
+    1. Retrieves the current logged-in user's information.
+    2. Fetches all member records from the Members model.
+    3. Retrieves all bookings made by the current user.
+    4. Extracts the classes associated with these bookings.
+    5. Counts the total number of bookings made by the user.
+    6. Passes the user's bookings, booking count, user information, associated classes, and all members to the 'accounts/profile.html' template.
+
+    Parameters:
+    - request: HttpRequest object containing metadata about the request.
+
+    Returns:
+    - HttpResponse object with the rendered 'accounts/profile.html' template.
+
+    The view is decorated with @login_required and @allowed_users decorators to ensure that only authenticated users with
+    'admin' or 'member' roles can access this page. If a non-authenticated user attempts to access this page, they will be 
+    redirected to the 'login' page. This view provides a personalized user experience by displaying relevant user-specific 
+    information such as their bookings and classes.
+    """
     user = request.user
     members = Members.objects.all()
     bookings = user.bookings_set.all()
@@ -126,8 +276,38 @@ def profile_view(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['member', 'admin'])
 def update_member_view(request, pk):
-    user = User.objects.get(id=pk)
+    """
+    Handle the request to update a member's profile.
+
+    This view function is responsible for updating the profile of a member. It is accessible only to authenticated users
+    with 'member' or 'admin' roles. The function performs several key operations:
+    1. Retrieves the user object based on the provided primary key (pk).
+    2. Initializes the UpdateUserForm with the retrieved user instance.
+    3. Checks if the current user is authorized to update the profile. Unauthorized attempts result in an error message and redirection to the profile page.
+    4. Processes the POST request to update the user's information if the form is valid.
+    5. Redirects to the profile page upon successful update, displaying a success message.
+    6. Renders the 'accounts/update_member.html' template with the form and user context if the request is not a POST request.
+
+    Parameters:
+    - request: HttpRequest object containing metadata about the request.
+    - pk: Primary key of the user to be updated.
+
+    Returns:
+    - HttpResponse object with the rendered 'accounts/update_member.html' template or a redirect to the profile page.
+
+    The view is decorated with @login_required and @allowed_users decorators to ensure that only authenticated users with
+    the required roles can access this functionality. It provides a secure and user-friendly interface for members to update
+    their profiles.
+    """
+    user = get_object_or_404(User, id=pk)
     form = UpdateUserForm(instance=user)
+    is_admin = request.user.groups.filter(name='admin').exists()
+    if not (is_admin or request.user.id == user.id):
+        messages.error(
+        request, 
+        'Error, you are unauthorised to edit this account.'
+        )
+        return redirect('profile')
     if request.method == 'POST':
         form = UpdateUserForm(request.POST, instance=user)
         if form.is_valid():
@@ -140,7 +320,8 @@ def update_member_view(request, pk):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def delete_member_view(request, pk):
-    user = User.objects.get(id=pk)
+    user = get_object_or_404(User, id=pk)
+    is_admin = request.user.groups.filter(name='admin').exists()
     if request.method == 'POST':
         user.delete()
         messages.success(request, 'This member has been deleted!')

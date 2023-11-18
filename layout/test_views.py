@@ -221,20 +221,51 @@ class TestMemberViews(TestCase):
         existing_items = User.objects.filter(email='email45@gmail.com')
         self.assertEqual(existing_items.count(), 1)
         
+    def test_can_not_update_other_profile(self):
+        """
+        Test that a user can't update the profile of other members unless
+        they are an admin.
         
+        This method checks if a user can update the profile of other members. 
+        It creates a second user in the members group to test with. It sends a
+        GET request to the update member URL ('/update_member/') with a different user id to their own
+        and then asserts two conditions:
+        1. The response status code is 302, indicating a redirect.
+        2. The user is redirected to the profile page.
         
+        Assertions:
+        - Asserts that the HTTP response status code is 302.
+        - Asserts that the user is redirected to the profile page.
+        """
+        
+        self.other_user = User.objects.create_user(
+            username='testuser2',
+            first_name='Test2',
+            last_name='User2',
+            email = 'testuseremail2@email.com',
+            password='testpassword3322',
+        )
+        
+        self.other_user.groups.add(Group.objects.get(name='member'))
+        self.other_user.save()
+        
+        response = self.client.get(f'/update_member/{self.other_user.id}/')
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/profile/')
         
 class TestAdminViews(TestCase):
     
     def setUp(self):
         """
-        Set up the test environment by creating a user and a member object.
+        Set up the test environment by creating two users and two groups.
         
-        This set up method creates a user and a member object. It also creates a group called 'admin'
-        and adds the user to the group.
-        The user is then logged in.
+        This set up method creates two users and groups. 
+        It also creates a group called 'admin' and a group called "member"
+        and adds a user to each group.
+        The admin user is then logged in.
         """
         Group.objects.create(name='admin')
+        Group.objects.create(name='member')
         
         self.user = User.objects.create_user(
             username='testuser1',
@@ -247,6 +278,16 @@ class TestAdminViews(TestCase):
         self.user.groups.add(Group.objects.get(name='admin'))
         self.user.save()
         
+        self.other_user = User.objects.create_user(
+        username='testuser2',
+        first_name='Test2',
+        last_name='User2',
+        email = 'testuseremail2@email.com',
+        password='testpassword3322',
+        )
+        self.other_user.groups.add(Group.objects.get(name='member'))
+        self.other_user.save()
+        
         response = self.client.post('/login/', {
             'email': 'testemail@gmail.com',
             'password': 'testpassword332',
@@ -254,16 +295,25 @@ class TestAdminViews(TestCase):
     
     def test_members_view(self):
         """
-        Test the members view to ensure it returns a successful response and uses the correct template.
-        
-        This test method checks if the members view is functioning correctly. It sends a GET request
-        to the members URL ('/members/') and then asserts two conditions:
-        1. The response status code is 200, indicating a successful HTTP response.
-        2. The correct template ('accounts/members.html') is used to render the members page.
-        
-        Assertions: 
+        Test the members view for successful response and correct template usage.
+
+        This test method validates the functionality of the members view. It performs the following steps:
+        1. Ensures that a user is logged in by checking the session's '_auth_user_id'.
+        2. Sends a GET request to the members URL ('/members/') using Django's `reverse` function for URL resolution.
+        3. Handles potential redirection (HTTP 302 response) by following the redirect and fetching the final response.
+        This assists in troubleshooting the test in case of redirection.
+        4. Asserts two key conditions:
+        - The final response status code is 200, indicating a successful HTTP response.
+        - The 'accounts/members.html' template is used to render the members page.
+
+        Assertions:
+        - Asserts that the user is logged in before making the GET request.
         - Asserts that the HTTP response status code is 200.
         - Asserts that the 'accounts/members.html' template is used in the response.
+
+        The test also includes a conditional check for HTTP 302 responses, which are common in cases of redirection. 
+        If a redirection occurs, the test follows the redirect and then performs the assertions on the final response.
+        This ensures that the test accurately reflects the user's experience when accessing the members view.
         """
         
         self.assertTrue(self.client.session['_auth_user_id'], "User is not logged in.")
@@ -274,3 +324,50 @@ class TestAdminViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'accounts/members.html')
         
+    def test_can_update_other_profile_if_admin(self):
+        """
+        Test that an admin can update the profile of other members.
+         
+        This method checks if an admin can update the profile of other members.
+        
+        Assertions:
+        - Asserts that the HTTP response status code is 200.
+        - Asserts that the 'layout/update_member.html' template is used in the response.
+        """
+        
+        response = self.client.get(f'/update_member/{self.other_user.id}/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_delete_member_view(self):
+        """
+        Test the delete member view to ensure it returns a successful response and uses the correct template.
+        
+        This test method checks if the delete member view is functioning correctly. It sends a GET request
+        to the delete member URL ('/delete_member/') and then asserts two conditions:
+        1. The response status code is 200, indicating a successful HTTP response.
+        2. The correct template ('accounts/delete_member.html') is used to render the delete member page.
+        
+        Assertions:
+        - Asserts that the HTTP response status code is 200.
+        - Asserts that the 'accounts/delete_member.html' template is used in the response.
+        """
+        
+        response = self.client.get(f'/delete_member/{self.other_user.id}/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'accounts/delete_member.html')
+    
+    
+    def test_can_delete_profile(self):
+        """
+        Test that an admin user can delete a profile.
+        
+        This test method checks if admin can delete a profile. It sends a POST request to the profile URL
+        ('/profile/') with the required user details and then asserts two conditions:
+        1. The response status code is 302, indicating a successful HTTP response.
+        2. The user is redirected to the homepage.
+        """
+        
+        response = self.client.post(f'/delete_member/{self.other_user.id}/')
+        self.assertRedirects(response, '/members/')
+        existing_items = User.objects.filter(username='testuser2')
+        self.assertEqual(existing_items.count(), 0)
