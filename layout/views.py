@@ -388,6 +388,29 @@ def admin_dashboard_view(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def create_class_view(request):
+    """
+    Render the view for creating a new class and handle the class creation process.
+
+    This view function is accessible only to authenticated users with the 'admin' role. It serves two primary purposes:
+    1. Display the class creation form (CreateClassForm) when accessed via a GET request.
+    2. Handle the submission of the class creation form when accessed via a POST request.
+
+    If the form is submitted and valid, a new class is saved to the database, and the user is redirected to the 
+    admin dashboard with a success message. If the form is not valid, the form with errors is rendered back to the user.
+
+    Parameters:
+    - request: HttpRequest object containing metadata about the request.
+
+    Returns:
+    - HttpResponse object with the rendered 'classes/create_class.html' template.
+
+    The view is decorated with @login_required and @allowed_users decorators to ensure that only authenticated users with
+    the 'admin' role can access and perform class creation. This function is crucial for the dynamic management of class
+    offerings on the platform, allowing administrators to add new classes as per the requirements.
+
+    The context passed to the template includes the class creation form and a list of all existing classes, providing 
+    administrators with a comprehensive view for managing classes.
+    """
     if request.method == 'POST':
         form = CreateClassForm(request.POST)
         if form.is_valid():
@@ -401,6 +424,31 @@ def create_class_view(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def update_class_view(request, pk):
+    """
+    Render the view for updating an existing class and handle the class update process.
+
+    This view function is accessible only to authenticated users with the 'admin' role. It serves two primary purposes:
+    1. Display the class update form (UpdateClassForm) pre-filled with the existing class data when accessed via a GET request.
+    2. Handle the submission of the class update form when accessed via a POST request.
+
+    The function retrieves the class to be updated using the primary key (pk) provided in the URL. If the form is submitted 
+    and valid, the changes are saved to the database, and the user is redirected to the admin dashboard with a success message. 
+    If the form is not valid, the form with errors is rendered back to the user.
+
+    Parameters:
+    - request: HttpRequest object containing metadata about the request.
+    - pk: Primary key of the class to be updated.
+
+    Returns:
+    - HttpResponse object with the rendered 'classes/update_class.html' template.
+
+    The view is decorated with @login_required and @allowed_users decorators to ensure that only authenticated users with
+    the 'admin' role can access and perform class updates. This function is crucial for maintaining and modifying the 
+    details of existing classes, allowing administrators to update class information as needed.
+
+    The context passed to the template includes the class update form and the class object being updated, providing 
+    administrators with a user-friendly interface for editing class details.
+    """
     update_class = Classes.objects.get(id=pk)
     form = UpdateClassForm(instance = update_class)
     if request.method == 'POST':
@@ -415,6 +463,31 @@ def update_class_view(request, pk):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def delete_class_view(request, pk):
+    """
+    Render the view for deleting an existing class and handle the class deletion process.
+
+    This view function is accessible only to authenticated users with the 'admin' role. It serves two primary purposes:
+    1. Display a confirmation page for class deletion when accessed via a GET request.
+    2. Handle the actual deletion of the class when accessed via a POST request.
+
+    The function retrieves the class to be deleted using the primary key (pk) provided in the URL. If the deletion is 
+    confirmed through a POST request, the class is deleted from the database, and the user is redirected to the admin 
+    dashboard with a success message.
+
+    Parameters:
+    - request: HttpRequest object containing metadata about the request.
+    - pk: Primary key of the class to be deleted.
+
+    Returns:
+    - HttpResponse object with the rendered 'classes/delete_class.html' template.
+
+    The view is decorated with @login_required and @allowed_users decorators to ensure that only authenticated users with
+    the 'admin' role can access and perform class deletions. This function plays a critical role in managing the class 
+    offerings, allowing administrators to remove classes that are no longer needed or relevant.
+
+    The context passed to the template includes the class object being deleted, providing administrators with a clear 
+    and concise interface for confirming the deletion of class details.
+    """
     delete_class = Classes.objects.get(id=pk)
     if request.method == 'POST':
         delete_class.delete()
@@ -426,6 +499,31 @@ def delete_class_view(request, pk):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['member', 'admin'])
 def classes_view(request):
+    """
+    Render the view for displaying all classes, including available and total class counts.
+
+    This view function is accessible to authenticated users with either 'member' or 'admin' roles. It serves to present 
+    a comprehensive overview of all classes offered, along with additional details like the total number of classes and 
+    the number of available classes.
+
+    The function fetches all class instances from the database and calculates the total count of classes. It also 
+    retrieves the list of available classes through the `get_available_classes` function. Additionally, it fetches all 
+    user instances for potential use in the template.
+
+    Parameters:
+    - request: HttpRequest object containing metadata about the request.
+
+    Returns:
+    - HttpResponse object with the rendered 'classes/classes.html' template.
+
+    The view is decorated with @login_required and @allowed_users decorators to ensure that only authenticated users with
+    the appropriate roles can access this view. This function is crucial for providing users with a clear and detailed 
+    view of the classes, enabling them to make informed decisions about class participation or administration.
+
+    The context passed to the template includes the list of all classes, the total count of classes, the list of 
+    available classes, and all user instances. This rich context allows for a dynamic and informative user interface, 
+    catering to both regular members and administrators.
+    """
     classes = Classes.objects.all()
     classes_count = Classes.objects.count()
     available_classes = get_available_classes()
