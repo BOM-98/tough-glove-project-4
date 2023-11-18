@@ -534,6 +534,31 @@ def classes_view(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['member', 'admin'])
 def user_bookings_view(request):
+    """
+    Render the view for a user's bookings, including details of each booking and the total count.
+
+    This view function is accessible to authenticated users with either 'member' or 'admin' roles. It is designed to 
+    provide users with a personalized overview of their bookings, including details of the classes they have booked and 
+    the total number of bookings they have made.
+
+    The function retrieves the current user from the request, fetches all bookings related to this user, and calculates 
+    the total number of bookings. It also compiles a list of classes associated with these bookings for display in the 
+    template.
+
+    Parameters:
+    - request: HttpRequest object containing metadata about the request.
+
+    Returns:
+    - HttpResponse object with the rendered 'classes/user_bookings.html' template.
+
+    The view is decorated with @login_required and @allowed_users decorators to ensure that only authenticated users with
+    the appropriate roles can access this view. This function plays a key role in enhancing user experience by providing 
+    a tailored view of their bookings, allowing them to easily manage and review their scheduled classes.
+
+    The context passed to the template includes the list of the user's bookings, the total count of these bookings, the 
+    user instance, and the list of classes associated with the bookings. This comprehensive context facilitates a 
+    user-centric interface, enabling users to have a clear and detailed view of their scheduled activities.
+    """
     user = request.user
     bookings = user.bookings_set.all()
     classes = [booking.class_id for booking in bookings]
