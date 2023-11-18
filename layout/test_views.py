@@ -575,3 +575,140 @@ class TestClassViews(TestCase):
         response = self.client.get('/classes/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'classes/classes.html')
+        
+class TestBookingViews(TestCase):
+    
+    def setUp(self):
+        """
+        Set up the test environment by creating two users and two groups.
+        
+        This set up method creates two users and groups. 
+        It also creates a group called 'admin' and a group called "member"
+        and adds a user to each group.
+        The admin user is then logged in.
+        """
+        Group.objects.create(name='admin')
+        Group.objects.create(name='member')
+        
+        self.user = User.objects.create_user(
+            username='testuser1',
+            first_name='Test1',
+            last_name='User1',
+            email = 'testemail@gmail.com',
+            password = 'testpassword332',
+        )
+        
+        self.user.groups.add(Group.objects.get(name='admin'))
+        self.user.save()
+        
+        self.other_user = User.objects.create_user(
+        username='testuser2',
+        first_name='Test2',
+        last_name='User2',
+        email = 'testuseremail2@email.com',
+        password='testpassword3322',
+        )
+        self.other_user.groups.add(Group.objects.get(name='member'))
+        self.other_user.save()
+        
+        response = self.client.post('/login/', {
+            'email': 'testemail@gmail.com',
+            'password': 'testpassword332',
+        })
+        
+        self.class_instance = Classes.objects.create(
+            class_name='Test Class',
+            class_description='Test Description',
+            class_type=0,
+            class_date='2024-01-01',
+            class_start_time='09:00:00',
+            class_end_time='10:00:00',
+            slots_available=10,
+            slots_filled=0,
+        )
+        self.class_instance.save()
+        
+        self.other_class_instance = Classes.objects.create(
+            class_name='Test Class2',
+            class_description='Test Description2',
+            class_type=0,
+            class_date='2024-01-02',
+            class_start_time='09:00:00',
+            class_end_time='10:00:00',
+            slots_available=10,
+            slots_filled=0,
+        )
+        
+        self.booking_instance = Bookings.objects.create(
+            user=self.other_user,
+            class_id=self.class_instance,
+        )
+        
+    def test_bookings_view(self):
+        """
+        Test the bookings view to ensure it returns a successful response and uses the correct template.
+        
+        This test method checks if the bookings view is functioning correctly. It sends a GET request
+        to the bookings URL ('/user_bookings/') and then asserts two conditions:
+        1. The response status code is 200, indicating a successful HTTP response.
+        2. The correct template ('classes/user_bookings.html') is used to render the bookings page.
+        
+        Assertions:
+        - Asserts that the HTTP response status code is 200.
+        - Asserts that the 'classes/user_bookings.html' template is used in the response.
+        """
+            
+        response = self.client.get('/user_bookings/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'classes/user_bookings.html')
+        
+    def test_book_class_view(self):
+        """
+        Test the book class view to ensure it returns a successful response and uses the correct template.
+        
+        This test method checks if the book class view is functioning correctly. It sends a GET request
+        to the book class URL ('/book_class/') and then asserts two conditions:
+        1. The response status code is 200, indicating a successful HTTP response.
+        2. The correct template ('classes/book_class.html') is used to render the book class page.
+        
+        Assertions:
+        - Asserts that the HTTP response status code is 200.
+        - Asserts that the 'classes/book_class.html' template is used in the response.
+        """
+        
+    def test_can_book_class(self):
+        """
+        Test that a user can book a class.
+        
+        This test method checks if a user can book a class. It sends a POST request to the book class URL
+        ('/book_class/') with the required class details and then asserts two conditions:
+        1. The response status code is 302, indicating a successful HTTP response.
+        2. The class is booked in the database.
+        """
+        
+        response = self.client.post(f'/book_class/{self.class_instance.id}/', 
+                                    {'class_id': self.class_instance.id,
+                                     'user': self.user.id,}
+                                    
+        )
+        self.assertRedirects(response, '/classes/')
+        existing_items = Bookings.objects.filter(user=self.user)
+        self.assertEqual(existing_items.count(), 1)
+        
+    def test_cancel_booking_view(self):
+        """
+        Test the cancel booking view to ensure it returns a successful response and uses the correct template.
+        
+        This test method checks if the cancel booking view is functioning correctly. It sends a GET request
+        to the cancel booking URL ('/cancel_booking/') and then asserts two conditions:
+        1. The response status code is 200, indicating a successful HTTP response.
+        2. The correct template ('classes/cancel_booking.html') is used to render the cancel booking page.
+        
+        Assertions:
+        - Asserts that the HTTP response status code is 200.
+        - Asserts that the 'classes/cancel_booking.html' template is used in the response.
+        """
+        
+        response = self.client.get(f'/cancel_booking/{self.booking_instance.id}/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'classes/cancel_booking.html')
