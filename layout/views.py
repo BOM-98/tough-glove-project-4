@@ -569,17 +569,45 @@ def user_bookings_view(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['member', 'admin'])
 def book_class_view(request, pk):
-    # Get the class object
+    """
+    Handle the booking of a class by a user, including form validation and updating class availability.
+
+    This view function allows authenticated users with 'member' or 'admin' roles to book a class. It handles both the 
+    display of the booking form and the processing of the form submission. The function ensures that the booking 
+    process is robust, handling scenarios such as fully booked classes and duplicate bookings.
+
+    Parameters:
+    - request: HttpRequest object containing metadata about the request.
+    - pk: Primary key of the class to be booked.
+
+    Returns:
+    - HttpResponse object with the rendered 'classes/book_class.html' template.
+
+    The function first retrieves the class instance using the provided primary key. If the request method is POST, it 
+    processes the submitted form data. The form is validated to ensure that the booking details are correct. If the 
+    form is valid, a new booking is created and linked to the user and the class. The class's available slots are 
+    updated accordingly. If the class is fully booked or if the user has already booked the class, appropriate error 
+    messages are added to the form.
+
+    If the request method is not POST, the function initializes a pre-populated form with the class and user details.
+
+    The view is decorated with @login_required and @allowed_users decorators to ensure that only authenticated users 
+    with the appropriate roles can access this view. This function is crucial for managing class bookings, ensuring 
+    that users can easily book classes while maintaining the integrity of class availability and preventing duplicate 
+    bookings.
+
+    The context passed to the template includes the booking form and the class instance, providing the necessary 
+    information for users to make a booking and for the template to display the relevant class details.
+    """
     class_instance = Classes.objects.get(id=pk)
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
-            #create new booking
-            booking = form.save(commit=False) # create a new booking object
-            booking.user = request.user # set the user
-            booking.class_id = class_instance # set the class
-            class_instance.slots_filled += 1 # increment the slots booked
-            class_instance.slots_available -= 1 # decrement the slots available
+            booking = form.save(commit=False)
+            booking.user = request.user
+            booking.class_id = class_instance
+            class_instance.slots_filled += 1
+            class_instance.slots_available -= 1
             if "cancel" in request.POST:
                 return redirect('classes')
             else:
@@ -594,7 +622,6 @@ def book_class_view(request, pk):
                     form.add_error(None, "You have already booked this class")
             
     else:
-        #pre-populate the form with the class and user
         initial_data = {'class_id': class_instance.id, 'user': request.user.id}
         form = BookingForm(initial_data)
             
@@ -608,7 +635,20 @@ def book_class_view(request, pk):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['member', 'admin'])
 def cancel_booking_view(request, pk):
-    # get booking object
+    """
+    Handle the cancellation of a user's class booking.
+
+    This view function allows authenticated users with 'member' or 'admin' roles to cancel a class booking. It 
+    facilitates the process of canceling a booking by handling the request to delete a specific booking instance 
+    identified by its primary key.
+
+    Parameters:
+    - request: HttpRequest object containing metadata about the request.
+    - pk: Primary key of the booking to be canceled.
+
+    Returns:
+    - HttpResponse object with the rendered 'classes/cancel_booking.html' template.
+    """
     booking_instance = Bookings.objects.get(id=pk)
     if request.method == 'POST':
         if "cancel" in request.POST:
@@ -621,6 +661,20 @@ def cancel_booking_view(request, pk):
     return render(request, 'classes/cancel_booking.html', context)
 
 def get_classes(request):
+    """
+    Retrieve all class instances from the database and return them in a JSON format.
+    
+    Parameters:
+    - request: HttpRequest object containing metadata about the request.
+
+    The function performs the following operations:
+    1. Queries the Classes model to retrieve all class instances.
+    2. Iterates over each class instance, formatting the relevant information (class name, start date and 
+    time, end date and time) into a dictionary.
+    3. Compiles these dictionaries into a list.
+    
+    This list is used for displaying the classes in the calendar view.
+    """
     classes = Classes.objects.all()
     class_list = [
         {
