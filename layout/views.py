@@ -21,6 +21,18 @@ from .models import *
 
 # Create your views here.
 def homepage(request):
+    """
+    Render the homepage view.
+
+    This view returns the homepage template for the website. It is a simple view that
+    only renders the template without any additional context or processing.
+
+    Parameters:
+    request (HttpRequest): The HttpRequest object that represents the client's request.
+
+    Returns:
+    HttpResponse: An HttpResponse object that renders the 'layout/homepage.html' template.
+    """
     return render(request, "layout/homepage.html")
 
 @unauthenticated_user
