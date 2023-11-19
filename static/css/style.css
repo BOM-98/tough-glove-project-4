@@ -58,7 +58,6 @@ body {
 }
 
 .hero-section {
-    background-image: url('/static/img/hero-red-bg-boxer.webp');
     background-size: cover;
     background-position: center;
     height: 75vh;
