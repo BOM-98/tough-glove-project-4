@@ -27,7 +27,7 @@ The manager also needs this website to be a marketing channel for his new gym an
 - Competitive Analysis: Examining competing boxing gym classes and websites revealed existing offerings and their strengths and weaknesses. This informed our choice of target market, value proposition, messaging and strategy.
 - User Testing: Usability testing of existing flows were carried out with existing gym members to examine how they navigate the system and competitor solutions (Glofox & Squarespace)
 
-### Design
+## Design
 
 - I began the process by designing wireframes of the site in order to get an overall understanding of the user flows and necessary pages to achieve the client outcomes.
 - I converted the wireframes into [a figma prototype](https://www.figma.com/proto/9gEj83rMB6EfxZzyMkmk81/Tough-Glove-Medium-Fidelity-Design?page-id=0%3A1&type=design&node-id=501-39&viewport=290%2C3902%2C0.52&t=QolXKX1XZCvxny5F-1&scaling=scale-down-width) to determine the flow, color schemes and typography that would be used.
@@ -38,15 +38,15 @@ The manager also needs this website to be a marketing channel for his new gym an
 ![Colour palette](readme/colour-scheme.png)
 
 
-### Agile Development
+## Agile Development
 
 Agile software development methods were used to deliver this project and ensure that an iterative approach was taken to acheive the best results for the end-user. 
 - The project was broken down from the high level business outcomes and problem statement into epics and user stories. 
 - The end user's requirements were written from the end user's perspective to help make sure the right features were being built in a user-centric way.
 
 A github projects board was used to track and manage the expected workload involved in this project, and break it down into a list of epics, and then further into user stories that could be worked towards to build the site on time.
-- Each user story was written with a clear description following the convention of "As a ____, I want to ______, so that ____"
-- A points system was used to estimate the effort involved with each story
+- Each user story was written with a clear description following the convention of "As a ____, I want to ______, so that ____".
+- A points system was used to estimate the effort involved with each story.
 - The end user goal and end business goal was clearly articulated on each story, along with the acceptance criteria. 
 - Each story contained the necessary tasks required to complete them and achieve the acceptance criteria. 
 - #### [Link to the GitHub Project board](https://github.com/users/BOM-98/projects/4/views/1)
@@ -54,3 +54,127 @@ A github projects board was used to track and manage the expected workload invol
 
 User stories were prioritized using the MoSCow method (Must have, Should have, Could have, Won't have)
 - #### [Link to the MoSCow Prioritization Board](https://github.com/users/BOM-98/projects/4/views/3)
+
+Some user stories relating to a blog section for the website were deemed to not be necessary and therefore were not added to the project. This could be added to the project on a future date as Tough Glove continue to grow.
+
+## Data Models
+
+The database schema for the tough glove site is shown below:
+
+![Database schema](readme/drawSQL-tough-glove-database-schema.png)
+
+
+- `User` - represents a user in the tough glove gym. This is the default model provided in the Django framework. Admin users are differentiated from gym members by the groups they are added to. 
+- `Members` - represents additional information for each member in the gym, such as their phone number and date joined.
+- `Classes` - represents Classes that the gym admin creates for the gym.
+- `Bookings` - represents class bookings that members of the gym make to reserve their spot in each class.
+
+Database Relationships:
+- `Users` have a one to one relationship with `Members`
+- `Users` have a one to many relationship with `Bookings`
+- Classes have a one to many relationship with `Bookings`
+
+# Features
+
+## CRUD functionality:
+
+- Member CRUD Functionality
+  - Create:
+    - Users can create a `User` with an associated `Member` on the register page
+    - Users can create a `Bookings` for a class through the BookingForm
+  - Read: 
+    - Users can read their `User` information on their profile page
+    - Users can read all of the `Classes` that are available in the classes page
+    - Users can read their `Bookings` they have created in the user bookings page
+  - Update: 
+    - Users can update the `User` account with the update_member page and form
+  - Delete:
+    - Users can delete their `Bookings` in their cancel_bookings page
+- Admin CRUD Functionality
+  - Create:
+    - Admins can create new `Users` other than themselves with admin privileges using the CreateUserForm
+    - Admins can create `Classes` through the create_class page
+    - Admins can create `Bookings` for themselves
+  - Read: 
+    - Admins can read all of the `Users` that are currently in the gym from the admin dashboard and the members page
+    - Admins can read all of the `Classes` that are currently running from the admin dashboard and the classes page. Classes are also displayed on calendars on both pages
+  - Update: 
+    - Admins can update `Users` on the site, changing all of their details including first_name, last_name and email
+    - Admins can update `Classes` by via the UpdateClassForm on the update class page
+  - Delete:
+    - Admins can delete `Users` and the associated `Members` data on the site if they need to remove members
+    - Admins can delete `Classes` from the site
+    - Admins can delete `Bookings` that are their own, but not other user's bookings. 
+
+
+## Authentication / Authorization:
+
+Certain access restrictions were put in place across the website. 
+
+### No Login Required
+
+- Homepage is viewable by everyone 
+
+### Must Be Logged Out To View
+
+Only users who are not logged in can view:
+- The registration page to register an account
+- The login page to login to their account
+
+If a user is logged in and navigates to these pages they should be redirected to the available classes page
+
+
+### Login Required:
+
+Logins are required on a user account in order to access these pages:
+- Available classes page
+- Members page
+- Profile page (only their own profile)
+- Update Member page (only their own)
+- Classes Page
+- User Bookings Page (only their own)
+- Book Class Page
+- Cancel Bookings Page
+
+
+### Admin Only Access: 
+
+Only users logged in with an admin account can access these pages:
+
+- Profile page (Profiles other than their own)
+- Update Member page (can update everyone)
+- Delete member page
+- Admin dashboard page
+- Create Class Page
+- Update Class Page
+- Delete Class Page
+- User Bookings Page (only their own)
+- Create User Page (Admin - can create multiple accounts from the admin dashboard)
+
+## General Features: 
+
+### Navigation & Footer
+
+### Homepage
+
+### Login & Register
+
+## Admin Features: 
+
+### Admin Dashboard
+
+### Calendars
+
+### Class Management
+
+### Members Listings
+
+## Members Features: 
+
+### Classes Listings
+
+### User Creation
+
+## Member Features
+
+###
