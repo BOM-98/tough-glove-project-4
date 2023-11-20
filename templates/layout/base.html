@@ -7,6 +7,10 @@
     <title>{% block title %}Default Title{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="UTF-8">
+    <meta name="description"
+        content="Tough Glove is dedicated to teaching the sweet science of boxing while offering the benefits of a full body HIIT (High Intensity Interval Training) workout in one seamless class.">
+    <meta name="keywords" content="Boxing, Boxing Gym, Boxing Gym Dublin, Boxing Class, Boxfit">
+    <meta name="author" content="Brian OMahony">
     {% block extra_head %}
     <!-- Placeholder for optional head content -->
     {% endblock %}
@@ -24,7 +28,9 @@
     <nav class="navbar container navbar-expand-lg  navbar-light text-white py-5">
         <div class="d-flex container-fluid justify-content-between">
             <div class="logo-div">
-                <a class="navbar-brand logo-div text-white" href="{% url 'homepage' %}"><img src="{% static 'img/TG_white_red.png' %}" alt="boxing gloves" class="home-logo" style="width: 100px;"></a>
+                <a class="navbar-brand logo-div text-white" href="{% url 'homepage' %}"><img
+                        src="{% static 'img/TG_white_red.png' %}" alt="boxing gloves" class="home-logo"
+                        style="width: 100px;"></a>
             </div>
             <div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -125,13 +131,14 @@
                 <div class="col-md-4">
                     <h5>JOIN A CLASS NOW!</h5>
                     <p>Stay motivated and engaged with a little help from a supportive community of other members</p>
-                    <a href="#" class="btn btn-danger btn-red">FREE TRIAL</a>
+                    <a href="{% url 'register' %}" class="btn btn-danger btn-red">FREE TRIAL</a>
                 </div>
             </div>
             <div class="row border-top pt-3 mt-3">
                 <div class="col text-light text-center">
                     <p>COPYRIGHT © 2023 TOUGH GLOVE. ALL RIGHTS RESERVED.</p>
-                    <a href="https://www.instagram.com/toughglove_official/" class="text-light" target="_blank"><i class="bi bi-instagram"></i></a>
+                    <a href="https://www.instagram.com/toughglove_official/" class="text-light" target="_blank"><i
+                            class="bi bi-instagram"></i></a>
                 </div>
             </div>
         </div>
