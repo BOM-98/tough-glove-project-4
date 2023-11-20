@@ -330,7 +330,6 @@ Tough Glove wants to stand out as a voice of authority in Dublin on the topic of
 
 Currently the gym owners are only able to schedule one off classes. I want to add functionality to allow the gym owner to schedule recurring classes that repeat for 28 days from the current date. Classes that have already occured are still displayed on the admin dashboard and classes page. I want to archive finished classes as they are no longer relevant and should not be taking up space on the site. 
 
-
 ### Alerts If Two Classes Are Made At The Same Time
 
 The gym owner wanted to maintain the ability to schedule two classes at the same time in case two different trainers were taking different classes. However, I intend to add an alert that notifies the admin if this is happening as they are creating the second class to avoid situations were this may still be done unintentionally.
@@ -338,3 +337,59 @@ The gym owner wanted to maintain the ability to schedule two classes at the same
 ### Password Reset
 
 Currently members can't reset their passwords in case they forget them. I will need to add a password reset option for the admin and members that sends verification emails to their registered email address. 
+
+## Bugs
+
+### Bug 1: Cancel buttons posting to the Database
+
+I implemented cancel buttons on forms across the site in case any users wanted to abandon a form e.g. booking a class. I noticed that when I pressed the cancel button the form was still submitting a post request to the database and creating an instance of a booking for the user. I could not get around this for a while without placing the cancel button outside of the form, which resulted in a weird UI layout. I attempted using Javascript to get around this issue following [this resource](http://johnharbison.net/make-a-form-a-cancel-button).  When a user canceled a booking it still created a booking on their account for that Class. To resolve this issue, I had to implement logic on the views for the bookings that specifically redirected the user if "cancel" was in the post request. [This stack overflow page](https://stackoverflow.com/questions/17678689/how-to-add-a-cancel-button-to-deleteview-in-django) was helpful in implementing this approach. 
+
+```
+if "cancel" in request.POST:
+                return redirect('classes')
+```
+
+
+### Bug 2: Deleting bookings wasn’t decrementing the class slots
+
+When a user books a class these is logic in the view that increments the `slots_filled` field and decrements the `slots_available` field. I noticed that when a user canceled a booking the `slots_filled` and `slots_available` fields for the Classes model were still stuck on the previous setting. 
+
+To resolve this issue, I used Django signals following [Django's documentation](https://docs.djangoproject.com/en/4.2/topics/signals/) to check any time a user or an admin deleted a booking and used them to adjust the `slots_available` and `slots_filled` for the respective class appropriately. The following code was used: 
+
+```
+models.py:
+
+@receiver(post_delete, sender=Bookings)
+def decrement_slots(sender, instance, **kwargs):
+    """
+    Signal handler to decrement the number of filled slots and increment the 
+    number of available slots for a class when a booking is deleted.
+
+    Args:
+        sender (Model): The model class that sent the signal.
+        instance (Bookings): The instance of the Bookings model being deleted.
+        **kwargs: Additional keyword arguments provided by the signal.
+
+    Returns:
+        None
+    """
+    class_instance = instance.class_id
+    class_instance.slots_available += 1
+    class_instance.slots_filled -= 1
+    class_instance.save()
+```
+
+
+Tried changing bootstrap-datetime-picker for django-scheduler and it created issues. I needed to reset my database to fix the problem. 
+
+
+Django testing was not allowed to create new tables in elephant sql
+
+
+When creating tests for views I was getting errors saying groups and users were not added
+
+
+When creating tests for views I was getting errors that the response code was not correct. I had to put in specific code to troubleshoot to find out why: 
+if response.status_code == 302:
+            response = self.client.get(response['Location'], follow=True)
+            print(response.content
