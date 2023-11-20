@@ -1,18 +1,21 @@
+/* Global styles */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #dee9ff;
     margin-top: 20px;
 }
 
+/* Container fluid class for full-width layouts */
 .container-fluid {
     position: relative;
 }
 
+/* Navigation link hover effect */
 .nav-link:hover {
     color: #ff0000; /* Red color on hover */
 }
 
-/* Homepage styles */
+/* Styles specific to homepage */
 
 .display-2 {
     letter-spacing: 2px;
@@ -20,9 +23,8 @@ body {
     margin-bottom: 20px;
 }
 
-.bg-dark {
-    background-color: #000;
-}
+/* Background color utility classes */
+.bg-dark,
 .bg-black {
     background-color: #000;
 }
@@ -31,6 +33,7 @@ body {
     background-color: #ff0000;
 }
 
+/* Text color utility classes */
 .text-danger {
     color: #ff0000;
 }
@@ -39,30 +42,36 @@ body {
     color: #ff0000;
 }
 
+/* Button styling for a red-themed button */
 .btn-red {
     background-color: #ff0000;
     border-color: #ff0000;
 }
 
+/* Utility class for full-width elements */
 .full-width-row {
     width: 100%;
 }
 
+/* Border color utility class */
 .border-danger {
     border-color: #ff0000;
 }
 
+/* Light background utility class with shadow */
 .bg-light {
     background-color: #f8f9fa;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Styling for a hero section with a background image */
 .hero-section {
     background-size: cover;
     background-position: center;
     height: 75vh;
 }
 
+/* Image styling for homepage */
 .home-image {
     max-height: 60vh;
 }
@@ -73,6 +82,7 @@ body {
     padding: 50px 0;
 }
 
+/* Style for the form within the registration area */
 .registration-form form {
     background-color: #fff;
     max-width: 600px;
@@ -83,11 +93,14 @@ body {
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
 }
 
+/*rounded bottom corners for forms without a footer*/
+
 .rounded-bottom form {
     border-bottom-right-radius: 30px;
     border-bottom-left-radius: 30px;
 }
 
+/* Icon displayed above the registration form */
 .registration-form .form-icon {
     text-align: center;
     background-color: #ff0000;
@@ -101,11 +114,13 @@ body {
     line-height: 100px;
 }
 
+/* Common style for form items */
 .registration-form .item {
     border-radius: 20px;
     padding: 10px 20px;
 }
 
+/* Style for the create account button */
 .registration-form .create-account {
     border-radius: 30px;
     padding: 10px 20px;
@@ -117,6 +132,7 @@ body {
     margin-top: 20px;
 }
 
+/* Social media & additional links section at the bottom of the form */
 .registration-form .social-media {
     max-width: 600px;
     background-color: #fff;
@@ -130,16 +146,19 @@ body {
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
 }
 
+/* Alert style within social media section */
 .registration-form .social-media .alert {
     text-align: start;
     margin: 5%;
 }
 
+/* Social icons style */
 .registration-form .social-icons {
     margin-top: 30px;
     margin-bottom: 16px;
 }
 
+/* Individual social icon styling */
 .registration-form .social-icons a {
     font-size: 23px;
     margin: 0 3px;
@@ -154,25 +173,30 @@ body {
     line-height: 45px;
 }
 
+/* Alert list item style */
 .registration-form .alert li {
     list-style: none;
 }
 
+/* Hover effect for social icons */
 .registration-form .social-icons a:hover {
     text-decoration: none;
     opacity: 0.6;
 }
 
+/* Generic card styling for shadow effect */
 .card {
     box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
 }
 
+/* Header styles for classes and cards */
 #classes-header,
 .card-header {
     background-color: #1c1c1c;
     border-bottom: 1px solid #dee9ff;
 }
 
+/* Specific style for a card that confirms deletion */
 .card-confirm-delete {
     display: flex;
     flex-direction: row;
@@ -180,26 +204,31 @@ body {
     max-width: 100px;
 }
 
+/* Small avatar style */
 .avatar.sm {
     width: 2.25rem;
     height: 2.25rem;
     font-size: .818125rem;
 }
 
+/* Ensures table cells don't wrap text */
 .table-nowrap .table td,
 .table-nowrap .table th {
     white-space: nowrap;
 }
 
+/* Default table cell padding and border */
 .table>:not(caption)>*>* {
     padding: 0.75rem 1.25rem;
     border-bottom-width: 1px;
 }
 
+/* Table header style */
 table th {
     font-weight: 600;
 }
 
+/* Dark background utility class */
 .bg-gray-dark {
     background-color: #1d1d1d;
 }
@@ -221,6 +250,8 @@ table th {
 .footer {
     background-color: #000; /* This should match the color scheme of your website */
 }
+
+/* ===== Bootstrap Icons ===== */
 
 .bi {
     font-size: 1.5rem; /* Bootstrap Icons size */
@@ -259,76 +290,76 @@ table th {
     margin-bottom: 0.5rem;
 }
 
+/* Trainer card title styling */
 .trainer-card p.trainer-title {
     color: #aaa;
     margin-bottom: 1rem;
 }
 
+/* General paragraph styling within trainer cards */
 .trainer-card p {
     font-size: 1rem; /* Adjusted font size */
     color: #ffffff; /* White text for readability */
     line-height: 1.5; /* Improve line height for better readability */
 }
 
+/* Styling for individual social link items */
 .social-links span {
     display: block;
     color: #ddd;
     margin-bottom: 0.25rem;
 }
 
+/* General styling for the social links container */
 .social-links {
     font-size: 0.9rem;
 }
 
+/* Reviews section styling */
 .reviews-section {
-    color: #fff;
-    padding: 50px;
-    min-height: 50vh;
-  }
-  
-  .section-title {
-    color: #ff0000;
-    font-size: 2em;
-    margin-bottom: 20px;
-  }
-  
-  .review {
-    padding: 20px;
-    border-radius: 8px;
-    position: relative;
-  }
+color: #fff;
+padding: 50px;
+min-height: 50vh;
+}
 
-  .carousel-inner {
-    min-height: 400px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .review-text {
-    font-size: 1em;
-    line-height: 1.5;
-    color: #ccc;
-  }
-  
-  .carousel-inner:before {
-    content: '“';
-    font-size: 2em;
-    color: #ff0000;
-    position: absolute;
-    left: -20px;
-    top: -20px;
-  }
-  
-  .review-author strong {
-    display: block;
-    margin-top: 20px;
-    font-size: 1.2em;
-  }
-  
-  .author-details {
-    font-size: 0.8em;
-    color: #777;
-  }
+/* Section title styling */
+.section-title {
+color: #ff0000;
+font-size: 2em;
+margin-bottom: 20px;
+}
+
+/* Individual review box styling */
+.review {
+padding: 20px;
+border-radius: 8px;
+position: relative;
+}
+
+/* Carousel inner styling for review sections */
+.carousel-inner {
+min-height: 400px;
+display: flex;
+align-items: center;
+}
+
+/* Review text styling */
+.review-text {
+font-size: 1em;
+line-height: 1.5;
+color: #ccc;
+}
+
+.review-author strong {
+display: block;
+margin-top: 20px;
+font-size: 1.2em;
+}
+
+.author-details {
+font-size: 0.8em;
+color: #777;
+}
 
 #testimonial-carousel .carousel-indicators .active {
     background-color: #333; /* Active indicator color, should contrast with the regular color */
@@ -341,6 +372,7 @@ table th {
 
 /* ======= Media Queries ======= */
 
+/* registration from breakpoint for medium sized screens */
 @media (max-width: 576px) {
     .registration-form form {
         padding: 50px 20px;
