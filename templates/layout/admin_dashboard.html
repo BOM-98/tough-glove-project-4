@@ -206,10 +206,10 @@
                                             <a data-bs-toggle="dropdown" href="#" class="btn p-1" aria-expanded="false">
                                                 <i class="bi bi-list" aria-hidden="true"></i>
                                             </a>
-                                            <div class="dropdown-menu dropdown-menu-end" style="">
-                                                <a href="" class="dropdown-item">See Profile
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a href="{% url 'update_member' user.id %}" class="dropdown-item">Update
                                                     {{ user.first_name }}</a>
-                                                <a href="" class="dropdown-item">Delete
+                                                <a href="{% url 'delete_member' user.id %}" class="dropdown-item">Delete
                                                     {{ user.first_name }}</a>
                                             </div>
                                         </div>
