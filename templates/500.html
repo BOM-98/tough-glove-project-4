@@ -1,0 +1,22 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Tough Glove | 500 Error Page {% endblock %}
+
+{% block extra_head %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+    <div class="d-flex align-items-center justify-content-center vh-100">
+        <div class="text-center">
+            <h1 class="display-1 fw-bold text-danger">500 Error</h1>
+            <p class="fs-3 text-white"> <span class="text-danger">Opps!</span>We're Having Some Issues</p>
+            <p class="lead text-white">
+                Something has gone wrong on our end. We're working on it and will be back online shortly.
+            </p>
+            <a href="{% url 'homepage' %}" class="btn btn-danger">Back To Safety</a>
+        </div>
+    </div>
+
+{% endblock content %}
