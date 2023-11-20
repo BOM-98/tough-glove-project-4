@@ -155,9 +155,89 @@ Only users logged in with an admin account can access these pages:
 
 ### Navigation & Footer
 
+- A primary navigation is present on the header on all pages of the website.
+
+- <b>If a user is logged in as an admin, the user has access to all available navigation links</b>
+
+<details>
+<summary>Screenshot of Admin Navigation</summary>
+
+![Screenshot of Admin Navigation ](readme/navigation.png)
+
+</details>
+<br>
+
+- If the user is logged in as a member, the user has access to the classes, my booking and profile links
+
+<details>
+<summary>Screenshot of Member Navigation</summary>
+
+![Screenshot of Member Navigation ](readme/navigation-member.png)
+</details>
+<br>
+
+- If the user is not logged in, the navigation displays the register and login links
+<details>
+<summary>Screenshot of Logged Out Navigation</summary>
+
+![Screenshot of Logged Out Navigation ](readme/navigation-member.png)
+</details>
+<br>
+
+- The navigation collapses into a burger menu on mobile screens
+<details>
+<summary>Screenshot of Collapse Menu</summary>
+
+![Screenshot of Collapse Menu](readme/navigation-burger-menu.png)
+</details>
+<br>
+
+The footer is present on all screens of the website and follows the same conditional login for presenting links as the primary navigation
+
 ### Homepage
 
+The homepage acts as an advertising front for any visitors who are not currently members. The copy on the homepage will be optimised for SEO keywords to win search traffic from people searching for boxing gyms in Dublin.
+
+<details>
+<summary>Screenshots of The Homepage</summary>
+
+![Screenshot of Hero Section](readme/hero-section.png)
+![Screenshot of Homepage Section 3](readme/why-tough-glove.png)
+![Screenshot of Homepage Member Plans](readme/membership-program.png)
+</details>
+
 ### Login & Register
+
+Login and register pages were implemented to manage user access to class schedules and secure contact information within the gym management system
+
+The gym owner collects `first name`, `last name` and `email` for marketing purposes through the registration form. 
+
+Form validation ensures that no username can be used twice. The gym owner requested that people can create multiple accounts with the same email so that field was not restricted as a unique field.
+
+<details>
+<summary>Screenshot of The Register Form</summary>
+
+![Screenshot of The Register Form](readme/register-page.png)
+
+</details>
+<br>
+<details>
+<summary>Screenshot of The Login Form</summary>
+
+![Screenshot of The Register Form](readme/login-page.png)
+
+</details>
+
+### Error Pages
+
+Custom error pages were added to handle 400, 403, 404 and 500 errors. 
+
+<details>
+<summary>Screenshot of The 404 Page</summary>
+
+![Screenshot of The 404 Page](readme/404-page.png)
+
+</details>
 
 ## Admin Features: 
 
