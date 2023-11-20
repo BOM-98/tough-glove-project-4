@@ -72,7 +72,7 @@ The database schema for the tough glove site is shown below:
 Database Relationships:
 - `Users` have a one to one relationship with `Members`
 - `Users` have a one to many relationship with `Bookings`
-- Classes have a one to many relationship with `Bookings`
+- `Classes` have a one to many relationship with `Bookings`
 
 # Features
 
@@ -243,18 +243,69 @@ Custom error pages were added to handle 400, 403, 404 and 500 errors.
 
 ### Admin Dashboard
 
-### Calendars
+An admin dashboard is used for the gym owner to manage classes and members. A the dashboard reads the database to display high level overview of total members and classes is shown, with a breakdown of which classes are pt classes and which classes are group classes. The admin can then create, update and delete classes and members from here. 
 
-### Class Management
+<details>
+<summary>Screenshots of The Admin Dashboard</summary>
+
+![Screenshot of The Admin Dashboard Metrics](readme/admin-dashboard.png)
+![Screenshot of The Admin Dashboard Calendar](readme/admin-dashboard-calendar.png)
+
+</details>
+
 
 ### Members Listings
 
+A members management page is used for the gym owner to manage members specifically in more detail. The dashboard reads the database to display a more detailed view of the `first_name`, `last_name`, `email`, `username`, `phone` and `date_joined` fields of the `Members` model. The admin can update and delete members under the actions column of the table and can also create new users from here. Only gym admins can view this page. 
+
+<details>
+<summary>Screenshot of The Members Page</summary>
+
+![Screenshot of The Members Page](readme/members-page.png)
+
+</details>
+
+
 ## Members Features: 
 
-### Classes Listings
+Members have pages they can view to browse available classes and book classes they want to attend. Members can also manage their bookings from there and view their profile details. 
 
-### User Creation
+### Classes Page
 
-## Member Features
+A class management page is used for the gym owner to manage classes specifically in more detail. The dashboard reads the database to display a more detailed view of the `class_name`, `class_type`, `class_date`, `class_start_time`, `slots_available` and `slots_filled` of the `Classes` model. Another calendar is available for easier visual reference. Slots available and slots filled dynamically update as classes are booked by members. The admin can update, delete and book classes from this page. The gym owner requested the ability to book classes himself in case he wanted to reserve spots for people who had not registered yet. Only admins can view this page.
+
+NOTE: members can only see classes and book them. They do not see the update or create class buttons. 
+
+<details>
+<summary>Screenshot of The Classes Dashboard</summary>
+
+![Screenshot of The Admin Dashboard Metrics](readme/classes-page.png)
+
+</details>
+
+### Bookings Page
+
+Members can see a list of all of the bookings they have made on the bookings page. This allows them to cancel bookings if they need to also. 
+
+<details>
+<summary>Screenshot of The Classes Dashboard</summary>
+
+![Screenshot of The Bookings Page](readme/bookings-page.png)
+
+</details>
+
+### Profile View & Update Pages
+
+Members can view their profile details and update them in the profile section.
+
+<details>
+<summary>Screenshot of The Profile Page</summary>
+
+![Screenshot of The Profile Page](readme/profile-page.png)
+
+</details>
+
+
+
 
 ###
