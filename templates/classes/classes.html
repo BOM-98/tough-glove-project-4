@@ -14,7 +14,9 @@
             <div class="card shadow mb-4 table-nowrap table-card">
                 <div id="classes-header" class="card-header d-flex justify-content-between align-items-center">
                     <h2 class="mb-0 text-danger">Tough Glove Classes</h2>
+                    {% if user.is_staff %}
                     <a href="{% url 'create_class' %}" class="btn btn-danger btn-sm">CREATE NEW CLASS</a>
+                    {% endif %}
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
