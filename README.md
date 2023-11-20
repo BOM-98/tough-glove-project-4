@@ -78,33 +78,33 @@ Database Relationships:
 
 ## CRUD functionality:
 
-- Member CRUD Functionality
-  - Create:
-    - Users can create a `User` with an associated `Member` on the register page
-    - Users can create a `Bookings` for a class through the BookingForm
-  - Read: 
-    - Users can read their `User` information on their profile page
-    - Users can read all of the `Classes` that are available in the classes page
-    - Users can read their `Bookings` they have created in the user bookings page
-  - Update: 
-    - Users can update the `User` account with the update_member page and form
-  - Delete:
-    - Users can delete their `Bookings` in their cancel_bookings page
-- Admin CRUD Functionality
-  - Create:
-    - Admins can create new `Users` other than themselves with admin privileges using the CreateUserForm
-    - Admins can create `Classes` through the create_class page
-    - Admins can create `Bookings` for themselves
-  - Read: 
-    - Admins can read all of the `Users` that are currently in the gym from the admin dashboard and the members page
-    - Admins can read all of the `Classes` that are currently running from the admin dashboard and the classes page. Classes are also displayed on calendars on both pages
-  - Update: 
-    - Admins can update `Users` on the site, changing all of their details including first_name, last_name and email
-    - Admins can update `Classes` by via the UpdateClassForm on the update class page
-  - Delete:
-    - Admins can delete `Users` and the associated `Members` data on the site if they need to remove members
-    - Admins can delete `Classes` from the site
-    - Admins can delete `Bookings` that are their own, but not other user's bookings. 
+### Member CRUD Functionality
+- Create:
+  - Users can create a `User` with an associated `Member` on the register page
+  - Users can create a `Bookings` for a class through the BookingForm
+- Read: 
+  - Users can read their `User` information on their profile page
+  - Users can read all of the `Classes` that are available in the classes page
+  - Users can read their `Bookings` they have created in the user bookings page
+- Update: 
+  - Users can update the `User` account with the update_member page and form
+- Delete:
+  - Users can delete their `Bookings` in their cancel_bookings page
+### Admin CRUD Functionality
+- Create:
+  - Admins can create new `Users` other than themselves with admin privileges using the CreateUserForm
+  - Admins can create `Classes` through the create_class page
+  - Admins can create `Bookings` for themselves
+- Read: 
+  - Admins can read all of the `Users` that are currently in the gym from the admin dashboard and the members page
+  - Admins can read all of the `Classes` that are currently running from the admin dashboard and the classes page. Classes are also displayed on calendars on both pages
+- Update: 
+  - Admins can update `Users` on the site, changing all of their details including first_name, last_name and email
+  - Admins can update `Classes` by via the UpdateClassForm on the update class page
+- Delete:
+  - Admins can delete `Users` and the associated `Members` data on the site if they need to remove members
+  - Admins can delete `Classes` from the site
+  - Admins can delete `Bookings` that are their own, but not other user's bookings. 
 
 
 ## Authentication / Authorization:
@@ -308,4 +308,33 @@ Members can view their profile details and update them in the profile section.
 
 
 
-###
+## Roadmap
+
+### Social Media Logins
+
+It is intended to add functionality to allow members register and login using social media authentication from google and meta. This would significantly reduce the friction on sign-up for new members and improve the conversion rate of web visitors to members. 
+
+### Google Calendar Integration
+
+It is intended to add calendar events to the personal calendars of members of the gyms when they book classes. This would help remind members of upcoming classes and has built in functionality to remind members when classes are upcoming. 
+
+### Google Maps Integrations
+
+Tough Glove is moving to a new gym address. Once that address is secured I will be adding a location for the gym to the site. This will help Tough Glove to rank higher on local SEO and inform interested web visitors where the gym is. 
+
+### Implement A Blog 
+
+Tough Glove wants to stand out as a voice of authority in Dublin on the topic of boxing training. Informational blog posts will add an element of credibility to the company and also help Tough Glove rank higher on Google/Bing for targeted keywords. 
+
+### Implement Recurring Classes & Archive Finished Classes
+
+Currently the gym owners are only able to schedule one off classes. I want to add functionality to allow the gym owner to schedule recurring classes that repeat for 28 days from the current date. Classes that have already occured are still displayed on the admin dashboard and classes page. I want to archive finished classes as they are no longer relevant and should not be taking up space on the site. 
+
+
+### Alerts If Two Classes Are Made At The Same Time
+
+The gym owner wanted to maintain the ability to schedule two classes at the same time in case two different trainers were taking different classes. However, I intend to add an alert that notifies the admin if this is happening as they are creating the second class to avoid situations were this may still be done unintentionally.
+
+### Password Reset
+
+Currently members can't reset their passwords in case they forget them. I will need to add a password reset option for the admin and members that sends verification emails to their registered email address. 
