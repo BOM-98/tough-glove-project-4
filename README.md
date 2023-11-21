@@ -1,7 +1,14 @@
-# Tough Glove Project 4
+# Tough Glove Gym
+
+![Screenshot of Hero Section](readme/hero-section.png)
 
 # Table of Contents
 
+<details>
+<Summary>TOC</Summary>
+To be included 
+</details>
+<br>
 
 # Project Background
 
@@ -469,9 +476,46 @@ Test      | Result |
 
 ### Homepage Testing
 
+Test      | Result |
+| ----------- | ----------- |
+| Logo link works    | PASS    |
+| Page loads in under 3 seconds   | PASS       |
+| Navigation links all work   | PASS        |
+| All CTA Links work  | PASS       |
+| All footer navigation links work  | PASS        |
+| social link opens to a different page  | PASS        |
+
 ### Login & Register Page Testing
 
+Test      | Result |
+| ----------- | ----------- |
+| Forms create a new user    | PASS    |
+| Form validation prevents missing fields   | PASS       |
+| Form validation prevents duplicate users   | PASS       |
+| Password validation prevents easy passwords   | PASS       |
+| Password confirmation prevents mismatched fields  | PASS       |
+| User can login with a valid account  | PASS       |
+| User can't login with an invalid account  | PASS       |
+| Error messages for invalid forms display   | PASS        |
+| Login link on register form redirects  | PASS       |
+| Register link on login form redirects  | PASS       |
+| All footer navigation links work  | PASS        |
+
 ### Admin Page Testing
+
+Test      | Result |
+| ----------- | ----------- |
+| Create a class link works   | PASS    |
+| Create a member link works   | PASS    |
+| Class Deletion button deletes class   | PASS    |
+| User must confirm class deletions   | PASS    |
+| Member Deletion button deletes members   | PASS    |
+| User must confirm member deletions   | PASS    |
+| Class Update button redirects to update form  | PASS    |
+| Member Update button redirects to update form    | PASS    |
+| Class calendar displays all classes in the database   | PASS    |
+| Class calendar month, week, day and list views work   | PASS    |
+
 
 ### Members Page
 
