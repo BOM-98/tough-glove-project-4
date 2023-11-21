@@ -417,7 +417,13 @@ if 'test' in sys.argv:
 Automatic unit tests were written for the Layout back-end functionality of the app to test all of the templates, forms, models and views of the site.
 
 - 54 Unit Tests were written in total
+
+### Form Tests
+
 - All forms were tested in `test_forms.py` for appropriate form validation and to ensure the integrity of all of the data written to the database.
+
+<details>
+<summary>List of Form Unit Tests</summary>
 
  Test      | Result |
 | ----------- | ----------- |
@@ -444,11 +450,143 @@ Automatic unit tests were written for the Layout back-end functionality of the a
 | BOOKINGFORM is invalid if no USER field is inputed  | OK       |
 | BOOKINGFORM is invalid if no CLASS_ID field is inputed  | OK       |
 | CREATECLASSFORM is invalid if no SLOTS_AVAILABLE field is inputed  | OK       |
+</details>
 
 <br>
 
+### Models Tests
+
 - Models are tested in `test_models.py` to check that models created the correct instances in the system
+
+
+#### Class Model Tests:
+
+<details>
+<summary>Class Model Unit Tests</summary>
+
+| Test Description                                | Action                                                               | Expected Outcome       |
+| ----------------------------------------------- | -------------------------------------------------------------------- | ---------------------- |
+| Test Class Creation                             | Verify the class instance has correct initial settings.              |                        |
+| \- `class_name` is 'Test Class'                 | Check the `class_name` attribute.                                    | Pass                   |
+| \- `slots_available` is set to 10               | Check the `slots_available` attribute.                               | Pass                   |
+| \- `slots_filled` starts at 0                   | Check the `slots_filled` attribute.                                  | Pass                   |
+| Unique Together Constraint                      | Ensure class uniqueness based on date and time.                      |                        |
+| \- Attempt to create a duplicate class instance | Try creating a class with the same date and time as an existing one. | Exception raised, pass |
+
+</details>
+
+<br>
+
+#### Booking Model Tests:
+
+<details>
+<summary>Booking Model Unit Tests</summary>
+
+| Test Description                            | Action                                                       | Expected Outcome |
+| ------------------------------------------- | ------------------------------------------------------------ | ---------------- |
+| Test Booking Creation                       | Verify the booking instance is correctly created and linked. |                  |
+| \- `user` is linked to `other_user`         | Check the `user` attribute.                                  | Pass             |
+| \- `class_id` is linked to `class_instance` | Check the `class_id` attribute.                              | Pass             |
+
+</details>
+
+<br>
+
+#### Class Slot Management Tests:
+
+<details>
+<summary>Slot Management Unit Tests</summary>
+
+| Test Description                                        | Action                                                     | Expected Outcome |
+| ------------------------------------------------------- | ---------------------------------------------------------- | ---------------- |
+| Test Decrement Slots                                    | Validate the update of slot availability and filled slots. |                  | Pass
+| \- After booking deletion, `slots_available` increments | Delete a booking and check `slots_available`.              | Pass             |
+| \- After booking deletion, `slots_filled` decrements    | Delete a booking and check `slots_filled`.                 | Pass             |Pass             | 
+
+</details>
+
+<br>
+
+### Views Tests
+
 - Views are tested in `test_views.py` to ensure HTTP status codes, templates used and forms all performed as expected. 
+
+#### Registration and Login Tests:
+
+<details>
+<summary>Registration and Login Unit Tests</summary>
+
+| Test Case         | Description                                                                                 | Outcome |
+| ----------------- | ------------------------------------------------------------------------------------------- | ------- |
+| Homepage View     | Confirms that the homepage view uses the correct template and returns a status code of 200. | Pass    |
+| Register View     | Checks the registration page is displayed correctly with the appropriate template.          | Pass    |
+| User Registration | Ensures that a new user can register successfully and is redirected to the login page.      | Pass    |
+| Login View        | Validates the login page is displayed correctly with the appropriate template.              | Pass    |
+| User Login        | Confirms that a user can log in successfully and is redirected to the homepage.             | Pass    |
+</details>
+<br>
+
+#### Member Views Tests:
+
+<details>
+<summary>Member Views Unit Tests</summary>
+
+| Test Case                   | Description                                                                             | Outcome |
+| --------------------------- | --------------------------------------------------------------------------------------- | ------- |
+| Logout View                 | Tests if a user can logout successfully and is redirected to the homepage.              | Pass    |
+| Available Classes View      | Ensures that the list of available classes is retrieved successfully.                   | Pass    |
+| Profile View                | Checks that the user profile page is displayed correctly and uses the correct template. | Pass    |
+| Update Member View          | Confirms that the member update page is accessible and uses the correct template.       | Pass    |
+| Update Profile              | Ensures that a user can update their profile and is redirected to the profile page.     | Pass    |
+| Unauthorized Profile Update | Verifies that a user cannot update another user's profile unless they are an admin.     | Pass    | Pass    |
+</details>
+<br>
+
+#### Admin Views Tests:
+
+<details>
+<summary>Admin Views Unit Tests</summary>
+
+| Test Case            | Description                                                                     | Outcome |
+| -------------------- | ------------------------------------------------------------------------------- | ------- |
+| Members View         | Tests if the admin can view the list of members.                                | Pass    |
+| Update Other Profile | Checks that an admin can update other member profiles.                          | Pass    |
+| Delete Member View   | Confirms that the admin can access the delete member page.                      | Pass    |
+| Delete Profile       | Ensures that an admin can delete a member's profile.                            | Pass    |
+| Admin Dashboard View | Validates that the admin dashboard is accessible and uses the correct template. | Pass    |
+</details>
+<br>
+
+#### Classes Views Tests:
+
+<details>
+<summary>Classes Views Unit Tests</summary>
+
+| Test Case         | Description                                                               | Outcome |
+| ----------------- | ------------------------------------------------------------------------- | ------- |
+| Create Class View | Confirms that the class creation page is displayed correctly.             | Pass    |
+| Create Class      | Ensures that an admin can create a class successfully.                    | Pass    |
+| Update Class View | Checks that the class update page is displayed correctly.                 | Pass    |
+| Update Class      | Verifies that an admin can update class details.                          | Pass    |
+| Delete Class View | Tests if the class deletion page is displayed correctly.                  | Pass    |
+| Delete Class      | Confirms that an admin can delete a class.                                | Pass    |
+| Classes View      | Ensures that the classes list page is accessible and displayed correctly. | Pass    |
+</details>
+<br>
+
+#### Bookings Views Tests:
+
+<details>
+<summary>Bookings Views Unit Tests</summary>
+
+| Test Case           | Description                                                                   | Outcome |
+| ------------------- | ----------------------------------------------------------------------------- | ------- |
+| Bookings View       | Validates that the bookings page is accessible and uses the correct template. | Pass    |
+| Book Class View     | Checks that the class booking page is displayed correctly.                    | Pass    |
+| Book Class          | Confirms that a user can book a class successfully.                           | Pass    |
+| Cancel Booking View | Tests if the cancel booking page is displayed correctly.                      | Pass    |
+| Cancel Booking      | Ensures that a user can cancel a booking successfully.                        | Pass    |
+</details>
 <br>
 
 ### Automated Test Results: 
@@ -465,65 +603,101 @@ Overall I managed to gain 94% coverage on my layout app as seen in the image bel
 
 ### General Tests
 
-Test      | Result |
-| ----------- | ----------- |
-| URL loads    | PASS    |
-| Page loads in under 3 seconds   | PASS       |
-| Navigation links all work   | PASS        |
-| All CTA Links work  | PASS       |
-| All footer navigation links work  | PASS        |
-| social link opens to a different page  | PASS        |
+| Test                                  | Action                                                                                       | Result |
+| ------------------------------------- | -------------------------------------------------------------------------------------------- | ------ |
+| URL loads                             | Enter the website URL into a browser and press Enter.                                        | PASS   |
+| Page loads in under 3 seconds         | Measure the load time of the page from the moment the URL is entered.                        | PASS   |
+| Navigation links all work             | Click each navigation link in the header and verify it directs to the correct page.          | PASS   |
+| All CTA Links work                    | Click each Call to Action (CTA) link and verify it performs the expected action.             | PASS   |
+| All footer navigation links work      | Click each navigation link in the footer and verify it directs to the correct page.          | PASS   |
+| Social link opens to a different page | Click each social media link and verify it opens the correct social media page in a new tab. | PASS   |
 
 ### Homepage Testing
 
-Test      | Result |
-| ----------- | ----------- |
-| Logo link works    | PASS    |
-| Page loads in under 3 seconds   | PASS       |
-| Navigation links all work   | PASS        |
-| All CTA Links work  | PASS       |
-| All footer navigation links work  | PASS        |
-| social link opens to a different page  | PASS        |
+| Test                                  | Action                                                                                     | Result |
+| ------------------------------------- | ------------------------------------------------------------------------------------------ | ------ |
+| Logo link works                       | Click on the website's logo to ensure it redirects to the homepage.                        | PASS   |
+| Page loads in under 3 seconds         | Time the page load from when the URL is entered to when the page is fully loaded.          | PASS   |
+| Navigation links all work             | Test each navigation link in the site's menu to confirm they lead to the correct pages.    | PASS   |
+| All CTA Links work                    | Click on each Call to Action button/link and check it leads to the expected response/page. | PASS   |
+| All footer navigation links work      | Verify each link in the footer to ensure they navigate to the correct sections or pages.   | PASS   |
+| Social link opens to a different page | Click the social media icons and check if they open the correct profiles in new tabs.      | PASS   |
 
 ### Login & Register Page Testing
 
-Test      | Result |
-| ----------- | ----------- |
-| Forms create a new user    | PASS    |
-| Form validation prevents missing fields   | PASS       |
-| Form validation prevents duplicate users   | PASS       |
-| Password validation prevents easy passwords   | PASS       |
-| Password confirmation prevents mismatched fields  | PASS       |
-| User can login with a valid account  | PASS       |
-| User can't login with an invalid account  | PASS       |
-| Error messages for invalid forms display   | PASS        |
-| Login link on register form redirects  | PASS       |
-| Register link on login form redirects  | PASS       |
-| All footer navigation links work  | PASS        |
+| Forms create a new user                          | Complete and submit the registration form with valid details.                              | PASS |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------ | ---- |
+| Form validation prevents missing fields          | Submit forms with some fields left blank to test required field validation.                | PASS |
+| Form validation prevents duplicate users         | Attempt to register a user with a username or email that already exists.                   | PASS |
+| Password validation prevents easy passwords      | Try to create a user with common passwords to test the strength validation.                | PASS |
+| Password confirmation prevents mismatched fields | Enter mismatched passwords in the 'password' and 'confirm password' fields.                | PASS |
+| User can login with a valid account              | Attempt to login with correct user credentials.                                            | PASS |
+| User can't login with an invalid account         | Attempt to login with incorrect user credentials.                                          | PASS |
+| Error messages for invalid forms display         | Submit invalid forms to ensure that appropriate error messages are displayed.              | PASS |
+| Login link on register form redirects            | Click the login link on the registration form to ensure it redirects to the login page.    | PASS |
+| Register link on login form redirects            | Click the register link on the login form to ensure it redirects to the registration page. | PASS |
+| All footer navigation links work                 | Click each navigation link in the footer and verify it directs to the correct page.        | PASS |
 
 ### Admin Page Testing
 
-Test      | Result |
-| ----------- | ----------- |
-| Create a class link works   | PASS    |
-| Create a member link works   | PASS    |
-| Class Deletion button deletes class   | PASS    |
-| User must confirm class deletions   | PASS    |
-| Member Deletion button deletes members   | PASS    |
-| User must confirm member deletions   | PASS    |
-| Class Update button redirects to update form  | PASS    |
-| Member Update button redirects to update form    | PASS    |
-| Class calendar displays all classes in the database   | PASS    |
-| Class calendar month, week, day and list views work   | PASS    |
+| Test                                                | Action                                                                                                | Result |
+| --------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------ |
+| Create a class link works                           | Click the "Create a Class" link and verify it opens the class creation form.                          | PASS   |
+| Create a member link works                          | Click the "Create a Member" link and verify it opens the member creation form.                        | PASS   |
+| Class Deletion button deletes class                 | Use the delete button on a class entry and verify the class is removed from the database.             | PASS   |
+| User must confirm class deletions                   | Attempt to delete a class and verify that a confirmation prompt is displayed.                         | PASS   |
+| Member Deletion button deletes members              | Use the delete button on a member entry and verify the member is removed from the database.           | PASS   |
+| User must confirm member deletions                  | Attempt to delete a member and verify that a confirmation prompt is displayed.                        | PASS   |
+| Class Update button redirects to update form        | Click the "Update" button for a class and verify redirection to the update form.                      | PASS   |
+| Member Update button redirects to update form       | Click the "Update" button for a member and verify redirection to the update form.                     | PASS   |
+| Class calendar displays all classes in the database | Verify that the class calendar shows all scheduled classes.                                           | PASS   |
+| Class calendar month, week, day and list views work | Test different views (month, week, day, list) in the class calendar to ensure they display correctly. | PASS   |
 
 
 ### Members Page
 
+| Test                                           | Action                                                                                          | Result |
+| ---------------------------------------------- | ----------------------------------------------------------------------------------------------- | ------ |
+| Create New Member Link Works                   | Click the "Create New Member" link to ensure it directs to the new member creation form.        | PASS   |
+| All User Actions Work                          | Verify that all user actions (update & delete) function as intended.                | PASS   |
+| Update User Link Works                         | Click the "Update User" link for a member to check if it redirects to the user update form.     | PASS   |
+| Delete User Link Works                         | Use the "Delete User" link or button for a member to confirm it initiates the deletion process. | PASS   |
+| Total Users Column Correctly Tallies the Users | Confirm that the "Total Users" column presents an accurate count of all users.                  | PASS   |
+
+
 ### Classes Page
+
+| Test                                          | Action                                                                                                      | Result |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ------ |
+| Create a Class Button Works                   | Click the "Create a Class" button to ensure it leads to the class creation form.                            | PASS   |
+| All Class Actions (Update, Delete, Book) Work | Test each action button for a class to confirm that update, delete, and book operations function correctly. | PASS   |
+| Classes Count Correctly Tallies the Classes   | Verify the total count of classes listed matches the actual number of classes in the system.                | PASS   |
+| Slots Available Counts the Correct Numbers    | Check that the "Slots Available" count reflects the correct number of available slots per class.            | PASS   |
+| Slots Booked Counts the Correct Numbers       | Confirm that the "Slots Booked" count accurately represents the number of slots booked.                     | PASS   |
+| Class calendar displays all classes in the database | Verify that the class calendar shows all scheduled classes.                                           | PASS   |
+| Class calendar month, week, day and list views work | Test different views (month, week, day, list) in the class calendar to ensure they display correctly. | PASS   |
 
 ### My Bookings
 
+| Test                                      | Action                                                                                        | Result |
+| ----------------------------------------- | --------------------------------------------------------------------------------------------- | ------ |
+| Correctly Displays Bookings for User      | Check that the user's bookings are correctly displayed on their booking page.                 | PASS   |
+| Cancel Button on Bookings Works           | Click the "Cancel" button on a booking to ensure it initiates the cancellation process.       | PASS   |
+| Bookings Total Column is Correct          | Verify that the "Bookings Total" column sums up the correct total number of bookings made.    | PASS   |
+| Booking Page Title Displays the User Name | Ensure that the booking page title includes the user's name, indicating personalized content. | PASS   |
+
 ### Profile
+
+| Test                                       | Action                                                                                               | Result |
+| ------------------------------------------ | ---------------------------------------------------------------------------------------------------- | ------ |
+| First Name is Correct                      | Verify that the displayed first name matches the user's actual first name.                           | PASS   |
+| Last Name is Correct                       | Confirm that the displayed last name matches the user's actual last name.                            | PASS   |
+| Username is Correct                        | Check that the displayed username is accurate according to the user's profile data.                  | PASS   |
+| Email is Correct                           | Ensure the displayed email address is the one associated with the user's account.                    | PASS   |
+| Bookings Count is Correct                  | Confirm that the number displayed in the bookings count reflects the actual number of bookings made. | PASS   |
+| See Bookings Link Directs to Bookings Page | Click on the "See Bookings" link and check if it redirects to the user's bookings page.              | PASS   |
+| Edit Button Directs to Update User Page    | Use the "Edit" button and verify redirection to the user's profile update page.                      | PASS   |
+| Log Out Button Logs the User Out           | Click the "Log Out" button and confirm that it successfully logs the user out of the system.         | PASS   |
 
 ## Pagespeed Insights Report
 
