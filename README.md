@@ -408,7 +408,50 @@ if 'test' in sys.argv:
     }
 ```
 
+## Bug 5: Unable to remove secret urls and keys from .env file accidentally committed at the beginning of the project
+
+I forgot to add my .env file to the .gitignore at the beginning of the project, which resulted in the secret keys accidentally being pushed to github. I removed this file later on, but realised that the .env file is still visible in the first 7 commits in the repository, meaning someone could see them if they searched through the commit history. 
+
+To solve this issue, I attempted to rebase my commits from the 8th commit onwards. However, due to the migrations files created by django every time the database is migrated each commit was throwing an error in the rebasing program. The files need to reference the ones that came immediately before it meaning that when they are no longer in the commit history it resulted in errors. 
+
+I additionally attempted to change out the secret keys in the .env files so that they no longer were needed, but when I tried to swap the elephant sql url and ran the migrations it created errors in my program every time I tried to post something to the database. I had to revert back to the original url as a result.
+
+I could not address this issue further while working on the project and therefore had to leave the files in the commit history. While not in the current repository, I still ideally would like to have removed it somehow. 
+
 # Technologies Used
+
+I outline the different technologies involved in this project and the purpose for using each technology in this section.
+
+## Core Technologies
+
+- [Django](https://www.djangoproject.com/) the full stack framework used for this gym management system.
+- [JavaScript](https://www.ecma-international.org/publications-and-standards/standards/ecma-262/) used for rendering the fullcalendar calendar in the app.
+- [HTML](https://html.spec.whatwg.org/)/[CSS](https://www.w3.org/Style/CSS/Overview.en.html) + [Django Template Language](https://docs.djangoproject.com/en/4.2/ref/templates/language/) used for building templates on the website and rendering data from the database on the webpages.
+
+## Frameworks and Packages
+
+
+- [Bootstrap 5](https://getbootstrap.com/) - CSS library used to style the site and implement pre-built components.
+- [Bootstrap Icons](https://icons.getbootstrap.com/) - Icon library used for svg icons throughout the site.
+- [Fullcalendar](https://fullcalendar.io/) - A javascript claendar used for displaying events on web apps.
+
+
+## Django Packages
+
+- [Gunicorn](https://pypi.org/project/gunicorn/) - provides HTTP server.
+- [psycopg2](https://pypi.org/project/psycopg2/) - provides PostgreSQL connection.
+- [Whitenoise](https://pypi.org/project/whitenoise/) - used for serving static files.
+- [Coverage](https://pypi.org/project/coverage/) - used for testing and analysis.
+- [django-bootstrap-datepicker-plus](https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/Usage.html) - datepicker plugin used for selecting times and dates for classes being made. 
+- [Black](https://pypi.org/project/black/) - A PEP8 compliant code formatter.
+
+
+## Deployment Technologies
+
+- [PostgreSQL](https://www.postgresql.org/) (via Elephant SQl) - used for database.
+- [Heroku](https://www.heroku.com/) - used for hosting the application.
+- [Cloudinary](https://cloudinary.com/) - Image API platform for delivering images via CDN.
+- [Github](https://github.com/) - code repository for storing the codebase and version control
 
 # Testing
 
