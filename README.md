@@ -448,6 +448,12 @@ Automatic unit tests were written for the Layout back-end functionality of the a
 
 ![ Automated Tests Screenshot](readme/automated-tests.png)
 
+### Coverage Report: 
+
+Overall I managed to gain 94% coverage on my layout app as seen in the image below. 
+
+![ Automated Tests Coverage Report](readme/coverage-report.png)
+
 ## Manual Testing
 
 ### General Tests
@@ -475,8 +481,9 @@ Test      | Result |
 
 ### Profile
 
-## Lighthouse Testing
+## Pagespeed Insights Report
 
+![ PageSpeed Insights Report](readme/lighthouse-report.png)
 
 
 ## Responsiveness Testing
