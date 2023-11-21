@@ -338,9 +338,9 @@ The gym owner wanted to maintain the ability to schedule two classes at the same
 
 Currently members can't reset their passwords in case they forget them. I will need to add a password reset option for the admin and members that sends verification emails to their registered email address. 
 
-## Bugs
+# Bugs
 
-### Bug 1: Cancel buttons posting to the Database
+## Bug 1: Cancel buttons posting to the Database
 
 I implemented cancel buttons on forms across the site in case any users wanted to abandon a form e.g. booking a class. I noticed that when I pressed the cancel button the form was still submitting a post request to the database and creating an instance of a booking for the user. I could not get around this for a while without placing the cancel button outside of the form, which resulted in a weird UI layout. I attempted using Javascript to get around this issue following [this resource](http://johnharbison.net/make-a-form-a-cancel-button).  When a user canceled a booking it still created a booking on their account for that Class. To resolve this issue, I had to implement logic on the views for the bookings that specifically redirected the user if "cancel" was in the post request. [This stack overflow page](https://stackoverflow.com/questions/17678689/how-to-add-a-cancel-button-to-deleteview-in-django) was helpful in implementing this approach. 
 
@@ -350,7 +350,7 @@ if "cancel" in request.POST:
 ```
 
 
-### Bug 2: Deleting bookings wasn’t decrementing the class slots
+## Bug 2: Deleting bookings wasn’t decrementing the class slots
 
 When a user books a class these is logic in the view that increments the `slots_filled` field and decrements the `slots_available` field. I noticed that when a user canceled a booking the `slots_filled` and `slots_available` fields for the Classes model were still stuck on the previous setting. 
 
@@ -379,17 +379,114 @@ def decrement_slots(sender, instance, **kwargs):
     class_instance.save()
 ```
 
+## Bug 3: Deleting bookings wasn’t decrementing the class slots
 
-Tried changing bootstrap-datetime-picker for django-scheduler and it created issues. I needed to reset my database to fix the problem. 
+At one point I tried changing `bootstrap-datetime-picker` for `django-scheduler` to create my events on the calendar in my app. Halfway through this transition I realised that `django-scheduler` was not suitable for the tasks I needed it to perform - however I had already run migrations on the new models that django-scheduler had needed. I reverted back to a previous commit to undo all of the changes I had implemented. Doing this AFTER I had run the migrations caused issues, as now the program was trying to reference tables that no longer existed since I had uninstalled `django-scheduler`. Errors kept emerging when I tried to run the program. The resolve this issue - I got the help of tutor support to assist me in resetting my databases.To reset the database I had to delete all of the files in my migrations folder except for the `__init__.py` file. Once this was done I ran my migrations again from the beginning and all of my tables and fields were recreated from scratch. 
+
+## Bug 4: Django testing was not allowed to create new tables in elephant sql
+
+When running my tests for my program I was getting errors as my test suite did not have permission to create tables in elephant sql. To resolve this issue, I had to change my settings to instruct the program to use the default sqlite3 backend for running the tests.
+
+```
+DATABASES = {
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+}
+
+if 'test' in sys.argv:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'mydatabase',
+        }
+    }
+```
+
+# Technologies Used
+
+# Testing
+
+## Automatic Testing
+
+Automatic unit tests were written for the Layout back-end functionality of the app to test all of the templates, forms, models and views of the site.
+
+- 54 Unit Tests were written in total
+- All forms were tested in `test_forms.py` for appropriate form validation and to ensure the integrity of all of the data written to the database.
+
+ Test      | Result |
+| ----------- | ----------- |
+| CREATEUSERFORM is valid if no fields are excluded     | OK      |
+| CREATEUSERFORM is invalid if no FIRST_NAME field is inputed   | OK       |
+| CREATEUSERFORM is invalid if no USERNAME field is inputed   | OK       |
+| CREATEUSERFORM is invalid if no EMAIL field is inputed   | OK       |
+| CREATEUSERFORM is invalid if a duplicate USERNAME field is inputed  | OK       |
+| CREATEUSERFORM is valid if a duplicate EMAIL field is inputted  | OK       |
+| CREATEUSERFORM is invalid if the PASSWORD1 and PASSWORD2 fields are different  | OK       |
+| UPDATEUSERFORM is valid if no fields are excluded  | OK       |
+| UPDATEUSERFORM is invalid if no FIRST_NAME field is inputed  | OK       |
+| UPDATEUSERFORM is invalid if no LAST_NAME field is inputed  | OK       |
+| UPDATEUSERFORM is invalid if no USERNAME field is inputed  | OK       |
+| UPDATEUSERFORM is invalid if no EMAIL field is inputedd  | OK       |
+| CREATECLASSFORM is valid if no fields are excluded  | OK       |
+| CREATECLASSFORM is invalid if no CLASS_TYPE field is inputed  | OK       |
+| CREATECLASSFORM is invalid if no CLASS_DATE field is inputed.  | OK       |
+| CREATECLASSFORM is invalid if no CLASS_START_TIME field is inputed  | OK       |
+| CREATECLASSFORM is invalid if no CLASS_END_TIME field is inputed  | OK       |
+| CREATECLASSFORM is invalid if no SLOTS_AVAILABLE field is inputed  | OK       |
+| UPDATECLASSFORM is valid if no fields are excluded  | OK       |
+| BOOKINGFORM is valid if no fields are excluded  | OK       |
+| BOOKINGFORM is invalid if no USER field is inputed  | OK       |
+| BOOKINGFORM is invalid if no CLASS_ID field is inputed  | OK       |
+| CREATECLASSFORM is invalid if no SLOTS_AVAILABLE field is inputed  | OK       |
+
+<br>
+
+- Models are tested in `test_models.py` to check that models created the correct instances in the system
+- Views are tested in `test_views.py` to ensure HTTP status codes, templates used and forms all performed as expected. 
+<br>
+
+### Automated Test Results: 
+
+![ Automated Tests Screenshot](readme/automated-tests.png)
+
+## Manual Testing
+
+### General Tests
+
+Test      | Result |
+| ----------- | ----------- |
+| URL loads    | PASS    |
+| Page loads in under 3 seconds   | PASS       |
+| Navigation links all work   | PASS        |
+| All CTA Links work  | PASS       |
+| All footer navigation links work  | PASS        |
+| social link opens to a different page  | PASS        |
+
+### Homepage Testing
+
+### Login & Register Page Testing
+
+### Admin Page Testing
+
+### Members Page
+
+### Classes Page
+
+### My Bookings
+
+### Profile
+
+## Lighthouse Testing
 
 
-Django testing was not allowed to create new tables in elephant sql
+
+## Responsiveness Testing
+
+## Code Validation
 
 
-When creating tests for views I was getting errors saying groups and users were not added
+
+# Deployment
 
 
-When creating tests for views I was getting errors that the response code was not correct. I had to put in specific code to troubleshoot to find out why: 
-if response.status_code == 302:
-            response = self.client.get(response['Location'], follow=True)
-            print(response.content
+# Credits
+
