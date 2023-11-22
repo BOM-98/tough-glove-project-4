@@ -79,13 +79,6 @@
         {% block content %}
         <!-- Content Goes here -->
         {% endblock content %}
-        {% if messages %}
-        {% for message in messages %}
-        <div class="alert {{ message.tags }}">
-            {{ message }}
-        </div>
-        {% endfor %}
-        {% endif %}
     </main>
 
     <!-- Footer -->
