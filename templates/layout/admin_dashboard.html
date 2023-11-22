@@ -11,7 +11,20 @@
 
 <!-- Begin Page Content -->
 <div class="container">
-
+    <!-- bootstrap feedback messages -->
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags == 'success' or message.tags == 'info' %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+    {% elif message.tags == 'error' or message.tags == 'debug' or message.tags == 'warning' %}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
         <h1 class="h3 mb-0 text-white">Dashboard</h1>
@@ -107,7 +120,7 @@
                             class="btn btn-danger text-white btn-block create-account">CREATE CLASS</button></a>
                 </div>
                 <!-- Card Body -->
-                <div class="card-body">
+                <div class="card-body" style="max-height: 500px; overflow: scroll;">
                     <div class="table-responsive dashboard-table">
                         <table class="table mb-0">
                             <thead class="small text-uppercase bg-body text-muted">
@@ -178,7 +191,7 @@
                             class="btn btn-danger text-white btn-block create-account">CREATE MEMBER</button></a>
                 </div>
                 <!-- Card Body -->
-                <div class="card-body">
+                <div class="card-body" style="max-height: 500px; overflow: scroll;">
                     <div class="table-responsive">
                         <table class="table mb-0">
                             <thead class="small text-uppercase bg-body text-muted">
