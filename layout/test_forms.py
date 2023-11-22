@@ -92,9 +92,9 @@ class TestUserCreationForm(TestCase):
 
     def test_form_invalid_duplicate_username(self):
         """
-        This test to ensures the CREATEUSERFORM is invalid if no USERNAME field is inputed.
+        This test to ensures the CREATEUSERFORM is invalid if a duplicate USERNAME field is inputed.
         
-        This test creates a form data dictionary without the USERNAME field and
+        This test creates a form data dictionary with an already used USERNAME field and
         initializes the CREATEUSERFORM with this data. It then checks two things:
         1. The form is not valid (self.assertFalse(form.is_valid())).
         2. The specific error for 'username' is included in the form's errors
