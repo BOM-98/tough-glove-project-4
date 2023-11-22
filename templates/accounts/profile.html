@@ -9,6 +9,20 @@
 {% block content %}
 
 <div class="container">
+    <!-- bootstrap feedback messages -->
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags == 'success' or message.tags == 'info' %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+    {% elif message.tags == 'error' or message.tags == 'debug' or message.tags == 'warning' %}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card profile-card">
