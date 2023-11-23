@@ -920,10 +920,8 @@ def get_classes(request):
     class_list = [
         {
             "title": class_instance.class_name,
-            "start": f"{
-                class_instance.class_date} {class_instance.class_start_time}",
-            "end": f"{
-                class_instance.class_date} {class_instance.class_end_time}",
+            "start": f"{class_instance.class_date} {class_instance.class_start_time}",
+            "end": f"{class_instance.class_date} {class_instance.class_end_time}",
         }
         for class_instance in classes
     ]
