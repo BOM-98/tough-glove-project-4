@@ -5,10 +5,12 @@
 
 {% block content %}
 <div class="vh-100 d-flex justify-content-center align-items-center">
+    <!-- Delete Class Form -->
     <div class="text-center p-4 border rounded-3 bg-light shadow">
         <h1 class="mb-4">Delete Class</h1>
         <p class="fs-4 text-danger">Are you sure you want to delete "{{ class.class_name }}"?</p>
         <p>This action cannot be undone.</p>
+        <!-- Delete Class Form Action Buttons -->
         <div class="d-flex flex-row justify-content-center">
             <a href="{% url 'admin_dashboard' %}" class="btn btn-primary btn-block create-account me-3">Cancel</a>
             <form method="POST" action="">
