@@ -878,6 +878,12 @@ All python code was put through the [Code Institute Python Linter](https://pep8c
 
 <br>
 
+### Javascript
+
+Calendar.js code was put through the [jsvalidator.com](jsvalidator.com) and returned no errors.
+
+<br>
+
 # Deployment
 
 ### ElephantSQL Database
