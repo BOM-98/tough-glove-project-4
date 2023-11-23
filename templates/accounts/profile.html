@@ -23,6 +23,7 @@
     {% endif %}
     {% endfor %}
     {% endif %}
+    <!-- end of bootstrap feedback messages -->
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card profile-card">
@@ -33,6 +34,7 @@
                         <p>Active since {{ user.date_joined }}</p>
                     </div>
                     <div class="profile-info mt-4">
+                        <!-- profile form -->
                         <form>
                             <div class="mb-3">
                                 <label for="first_name " class="form-label">First Name:</label>
@@ -58,6 +60,7 @@
                             </div>
                         </form>
                     </div>
+                    <!-- Profile Action Buttons -->
                     <div class="profile-actions">
                         <a href="{% url 'update_member' user.id %}" class="btn btn-primary">Edit</a>
                         <a href="{% url 'logout' %}" class="btn btn-danger">Log Out</a>
