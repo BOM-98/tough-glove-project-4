@@ -339,7 +339,7 @@ Currently the gym owners are only able to schedule one off classes. I want to ad
 
 ### Alerts If Two Classes Are Made At The Same Time
 
-The gym owner wanted to maintain the ability to schedule two classes at the same time in case two different trainers were taking different classes. However, I intend to add an alert that notifies the admin if this is happening as they are creating the second class to avoid situations were this may still be done unintentionally.
+The gym owner wanted to maintain the ability to schedule two classes at the same time in case two different trainers were taking different classes. However, I intend to add an alert that notifies the admin if this is happening as they are creating the second class to avoid situations were this may still be done unintentionally. I have however added a constraint so that two classes can't have the same date, start time AND end time to demonstrate the capability to restrict on the server side classes made with the exact same information. 
 
 ### Password Reset
 
@@ -751,7 +751,72 @@ Overall I managed to gain 94% coverage on my layout app as seen in the image bel
 
 ## Code Validation
 
+### HTML
 
+All HTML code was put through the [W3 HTML Validator](https://validator.w3.org/nu/) and passed.
+
+![ Homepage W3 Validator Check](readme/nu-html-checker.png)
+<details>
+<summary>Pages Checked List:</summary>
+
+- create_member.html
+- delete_member.html
+- login.html
+- members.html
+- profile.html
+- register.html
+- update_member.html
+- book_classes.html
+- cancel_booking.html
+- classes.html
+- delete_class.html
+- update_class.html
+- user_bookings.html
+- admin_dashboard.html
+- available_classes.html
+- base.html (was checked on every instance of every other page with page source code inputted into the validator)
+- homepage.html
+- 400.html
+- 403.html
+- 404.html
+- 500.html
+
+</details>
+
+### CSS
+
+All CSS code was put through the [W3 CSS Validator](https://jigsaw.w3.org/css-validator/) and passed.
+
+![ style.css Validator Check](readme/css-linter-check.png)
+<details>
+<summary>Pages Checked List:</summary>
+
+- style.css
+- homepage.css
+- admin.css
+
+</details>
+
+### Python
+
+All python code was put through the [Code Institute Python Linter](https://pep8ci.herokuapp.com/#) and passed
+
+![ forms.py Python Linter Check](readme/python-linter-check.png)
+
+<details>
+<summary>Pages Checked List:</summary>
+
+- decorators.py
+- forms.py
+- models.py
+- test_forms.py
+- test_models.py
+- test_views.py
+- views.py
+
+
+
+</details>
 
 # Deployment
 
