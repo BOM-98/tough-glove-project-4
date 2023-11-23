@@ -880,7 +880,7 @@ All python code was put through the [Code Institute Python Linter](https://pep8c
 
 ### Javascript
 
-Calendar.js code was put through the [jsvalidator.com](jsvalidator.com) and returned no errors.
+Calendar.js code was put through the [https://www.jsvalidator.com](jsvalidator.com) and returned no errors.
 
 <br>
 
@@ -903,7 +903,7 @@ To obtain your own Postgres Database, sign-up with your GitHub account, then fol
 
 ### Cloudinary 
 
-> This project uses the [Cloudinary API](cloudinary.com) to store static files
+> This project uses the [Cloudinary API](https://www.cloudinary.com) to store static files
 
 To set up a Cloudinary API follow these steps:
 - Sign up or login to Cloudinary
@@ -916,7 +916,7 @@ To set up a Cloudinary API follow these steps:
 
 ### Heroku
 
-> This project uses [Heroku](heroku.com)
+> This project uses [Heroku](https://www.heroku.com)
 
 To deploy to Heroku I followed these steps: 
 
