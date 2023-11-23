@@ -744,8 +744,40 @@ Overall I managed to gain 94% coverage on my layout app as seen in the image bel
 
 ## Pagespeed Insights Report
 
-![ PageSpeed Insights Report](readme/lighthouse-report.png)
+Pagespeed Insights & Lighthouse testing revealed near perfect results for the performance of the website across all dimensions.
 
+<br>
+
+> homepage.html
+
+
+![ PageSpeed Insights Report](readme/pagespeed-insights-report.png)
+
+<details>
+<summary>Pages Tested List:</summary>
+
+- create_member.html
+- delete_member.html
+- login.html
+- members.html
+- profile.html
+- register.html
+- update_member.html
+- book_classes.html
+- cancel_booking.html
+- classes.html
+- delete_class.html
+- update_class.html
+- user_bookings.html
+- admin_dashboard.html
+- available_classes.html
+- homepage.html
+- 400.html
+- 403.html
+- 404.html
+- 500.html
+
+</details>
 
 ## Responsiveness Testing
 
@@ -754,7 +786,9 @@ Overall I managed to gain 94% coverage on my layout app as seen in the image bel
 ### HTML
 
 All HTML code was put through the [W3 HTML Validator](https://validator.w3.org/nu/) and passed.
+<br>
 
+> homepage.html
 ![ Homepage W3 Validator Check](readme/nu-html-checker.png)
 <details>
 <summary>Pages Checked List:</summary>
@@ -786,7 +820,9 @@ All HTML code was put through the [W3 HTML Validator](https://validator.w3.org/n
 ### CSS
 
 All CSS code was put through the [W3 CSS Validator](https://jigsaw.w3.org/css-validator/) and passed.
+<br>
 
+> style.css
 ![ style.css Validator Check](readme/css-linter-check.png)
 <details>
 <summary>Pages Checked List:</summary>
@@ -801,6 +837,9 @@ All CSS code was put through the [W3 CSS Validator](https://jigsaw.w3.org/css-va
 
 All python code was put through the [Code Institute Python Linter](https://pep8ci.herokuapp.com/#) and passed
 
+<br>
+
+> forms.py
 ![ forms.py Python Linter Check](readme/python-linter-check.png)
 
 <details>
@@ -817,6 +856,8 @@ All python code was put through the [Code Institute Python Linter](https://pep8c
 
 
 </details>
+
+<br>
 
 # Deployment
 
