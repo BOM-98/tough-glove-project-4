@@ -994,7 +994,7 @@ You will need to define the following variables:
 ## Courses & Tutorials
 - Denis Ivy Youtube tutorials were used to learn how to create a django project. Specifically, this Youtube Series was used to learn the ropes of Django - [Denis Ivy Youtube Series](https://www.youtube.com/watch?v=xv_bwpA_aEA&list=PL-51WBLyFTg2vW-_6XBoUpE7vpmoR3ztO)
 
-- This Codecademy Skill Path was used to learn the ins and outs of Django concepts [Codecademy Course](https://www.codecademy.com/enrolled/paths/build-python-web-apps-with-django)
+- This Codecademy Skill Path was used to learn the ins and outs of Django concepts [Codecademy Course](https://www.codecademy.com/learn/paths/build-python-web-apps-with-django)
 
 - Organising project boards - [Youtube video describing project boards](https://www.youtube.com/watch?v=C0RTISXqyAk)
 
