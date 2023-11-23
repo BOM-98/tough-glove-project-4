@@ -14,7 +14,7 @@ Tough glove has been created for a boxing gym owner who needs a way to present h
 
 Tough glove is based in Dublin, Ireland and is separating itself from other boxing gyms in Ireland by fulfilling an unmet need in people who want to improve their fitness through boxing classes, while also picking up key boxing skills and principles. 
 
-The market in Dublin has a segment of people - typically males between 18 - 50 - who do not want to competitively compete in boxing, but still want to learn the fundamental skills of the sport. Typical boxing gyms either serve as full-fledged amateur boxing gyms that prepare athletes for bouts, or ‘box-fit’ gyms that emphasise fitness over teching sound boxing principles. 
+The market in Dublin has a segment of people - typically males between 18 - 50 - who do not want to competitively compete in boxing, but still want to learn the fundamental skills of the sport. Typical boxing gyms either serve as full-fledged amateur boxing gyms that prepare athletes for bouts, or ‘box-fit’ gyms that emphasise fitness over teaching sound boxing principles. 
 
 Members want to join a gym where they can improve their fitness, but also learn how to handle themselves appropriately in the ring and ensure they don’t pick up ‘bad habits’ typically seen when people work out in boxfit classes. The goal in boxfit classes is typically to tire out members and keep their heart rate up.
 
@@ -32,8 +32,8 @@ The manager also needs this website to be a marketing channel for his new gym an
 
 ## Design
 
-- I began the process by designing wireframes of the site in order to get an overall understanding of the user flows and necessary pages to achieve the client outcomes.
-- I converted the wireframes into [a figma prototype](https://www.figma.com/proto/9gEj83rMB6EfxZzyMkmk81/Tough-Glove-Medium-Fidelity-Design?page-id=0%3A1&type=design&node-id=501-39&viewport=290%2C3902%2C0.52&t=QolXKX1XZCvxny5F-1&scaling=scale-down-width) to determine the flow, color schemes and typography that would be used.
+- I began the process by designing wire-frames of the site in order to get an overall understanding of the user flows and necessary pages to achieve the client outcomes.
+- I converted the wire-frames into [a figma prototype](https://www.figma.com/proto/9gEj83rMB6EfxZzyMkmk81/Tough-Glove-Medium-Fidelity-Design?page-id=0%3A1&type=design&node-id=501-39&viewport=290%2C3902%2C0.52&t=QolXKX1XZCvxny5F-1&scaling=scale-down-width) to determine the flow, color schemes and typography that would be used.
 - These prototypes were shared with the gym owner who gave some initial feedback to ensure it achieved their objectives. The messaging and branding was accepted by the owners. I confirmed that the business objectives were met with the figma prototype. 
 - The design was then tested with current gym members to ensure they understood the proposition and were able to navigate the prototype without confusion.
 - The logo, typeface and colour scheme were chosen to reflect the Tough Glove gym ethos of challenging oneself, respect for the science of boxing and professionalism.
@@ -43,7 +43,7 @@ The manager also needs this website to be a marketing channel for his new gym an
 
 ## Agile Development
 
-Agile software development methods were used to deliver this project and ensure that an iterative approach was taken to acheive the best results for the end-user. 
+Agile software development methods were used to deliver this project and ensure that an iterative approach was taken to achieve the best results for the end-user. 
 - The project was broken down from the high level business outcomes and problem statement into epics and user stories. 
 - The end user's requirements were written from the end user's perspective to help make sure the right features were being built in a user-centric way.
 
@@ -331,7 +331,7 @@ Tough Glove wants to stand out as a voice of authority in Dublin on the topic of
 
 ### Implement Recurring Classes & Archive Finished Classes
 
-Currently the gym owners are only able to schedule one off classes. I want to add functionality to allow the gym owner to schedule recurring classes that repeat for 28 days from the current date. Classes that have already occured are still displayed on the admin dashboard and classes page. I want to archive finished classes as they are no longer relevant and should not be taking up space on the site. 
+Currently the gym owners are only able to schedule one off classes. I want to add functionality to allow the gym owner to schedule recurring classes that repeat for 28 days from the current date. Classes that have already occurred are still displayed on the admin dashboard and classes page. I want to archive finished classes as they are no longer relevant and should not be taking up space on the site. 
 
 ### Alerts If Two Classes Are Made At The Same Time
 
@@ -429,7 +429,7 @@ I outline the different technologies involved in this project and the purpose fo
 
 - [Bootstrap 5](https://getbootstrap.com/) - CSS library used to style the site and implement pre-built components.
 - [Bootstrap Icons](https://icons.getbootstrap.com/) - Icon library used for svg icons throughout the site.
-- [Fullcalendar](https://fullcalendar.io/) - A javascript claendar used for displaying events on web apps.
+- [Fullcalendar](https://fullcalendar.io/) - A javascript calendar used for displaying events on web apps.
 
 
 ## Django Packages
@@ -467,28 +467,28 @@ Automatic unit tests were written for the Layout back-end functionality of the a
  Test      | Result |
 | ----------- | ----------- |
 | CREATEUSERFORM is valid if no fields are excluded     | OK      |
-| CREATEUSERFORM is invalid if no FIRST_NAME field is inputed   | OK       |
-| CREATEUSERFORM is invalid if no USERNAME field is inputed   | OK       |
-| CREATEUSERFORM is invalid if no EMAIL field is inputed   | OK       |
-| CREATEUSERFORM is invalid if a duplicate USERNAME field is inputed  | OK       |
+| CREATEUSERFORM is invalid if no FIRST_NAME field is inputted   | OK       |
+| CREATEUSERFORM is invalid if no USERNAME field is inputted   | OK       |
+| CREATEUSERFORM is invalid if no EMAIL field is inputted   | OK       |
+| CREATEUSERFORM is invalid if a duplicate USERNAME field is inputted  | OK       |
 | CREATEUSERFORM is valid if a duplicate EMAIL field is inputted  | OK       |
 | CREATEUSERFORM is invalid if the PASSWORD1 and PASSWORD2 fields are different  | OK       |
 | UPDATEUSERFORM is valid if no fields are excluded  | OK       |
-| UPDATEUSERFORM is invalid if no FIRST_NAME field is inputed  | OK       |
-| UPDATEUSERFORM is invalid if no LAST_NAME field is inputed  | OK       |
-| UPDATEUSERFORM is invalid if no USERNAME field is inputed  | OK       |
-| UPDATEUSERFORM is invalid if no EMAIL field is inputedd  | OK       |
+| UPDATEUSERFORM is invalid if no FIRST_NAME field is inputted  | OK       |
+| UPDATEUSERFORM is invalid if no LAST_NAME field is inputted  | OK       |
+| UPDATEUSERFORM is invalid if no USERNAME field is inputted  | OK       |
+| UPDATEUSERFORM is invalid if no EMAIL field is inputted  | OK       |
 | CREATECLASSFORM is valid if no fields are excluded  | OK       |
-| CREATECLASSFORM is invalid if no CLASS_TYPE field is inputed  | OK       |
-| CREATECLASSFORM is invalid if no CLASS_DATE field is inputed.  | OK       |
-| CREATECLASSFORM is invalid if no CLASS_START_TIME field is inputed  | OK       |
-| CREATECLASSFORM is invalid if no CLASS_END_TIME field is inputed  | OK       |
-| CREATECLASSFORM is invalid if no SLOTS_AVAILABLE field is inputed  | OK       |
+| CREATECLASSFORM is invalid if no CLASS_TYPE field is inputted  | OK       |
+| CREATECLASSFORM is invalid if no CLASS_DATE field is inputted.  | OK       |
+| CREATECLASSFORM is invalid if no CLASS_START_TIME field is inputted  | OK       |
+| CREATECLASSFORM is invalid if no CLASS_END_TIME field is inputted  | OK       |
+| CREATECLASSFORM is invalid if no SLOTS_AVAILABLE field is inputted  | OK       |
 | UPDATECLASSFORM is valid if no fields are excluded  | OK       |
 | BOOKINGFORM is valid if no fields are excluded  | OK       |
-| BOOKINGFORM is invalid if no USER field is inputed  | OK       |
-| BOOKINGFORM is invalid if no CLASS_ID field is inputed  | OK       |
-| CREATECLASSFORM is invalid if no SLOTS_AVAILABLE field is inputed  | OK       |
+| BOOKINGFORM is invalid if no USER field is inputted  | OK       |
+| BOOKINGFORM is invalid if no CLASS_ID field is inputted  | OK       |
+| CREATECLASSFORM is invalid if no SLOTS_AVAILABLE field is inputted  | OK       |
 </details>
 
 <br>
@@ -691,7 +691,7 @@ Overall I managed to gain 94% coverage on my layout app as seen in the image bel
 | Member Update button redirects to update form       | Click the "Update" button for a member and verify redirection to the update form.                     | PASS   |
 | Class calendar displays all classes in the database | Verify that the class calendar shows all scheduled classes.                                           | PASS   |
 | Class calendar month, week, day and list views work | Test different views (month, week, day, list) in the class calendar to ensure they display correctly. | PASS   |
-
+| Class calendar Renders (JAVASCRIPT TEST) | Load the webpage to ensure the javascript renders the calendar on page load. | PASS   |
 
 ### Members Page
 
@@ -715,6 +715,7 @@ Overall I managed to gain 94% coverage on my layout app as seen in the image bel
 | Slots Booked Counts the Correct Numbers       | Confirm that the "Slots Booked" count accurately represents the number of slots booked.                     | PASS   |
 | Class calendar displays all classes in the database | Verify that the class calendar shows all scheduled classes.                                           | PASS   |
 | Class calendar month, week, day and list views work | Test different views (month, week, day, list) in the class calendar to ensure they display correctly. | PASS   |
+| Class calendar Renders (JAVASCRIPT TEST) | Load the webpage to ensure the javascript renders the calendar on page load. | PASS   |
 
 ### My Bookings
 
@@ -785,8 +786,8 @@ Pagespeed Insights & Lighthouse testing revealed near perfect results for the pe
 <details>
 <summary>Homepage Responsive Checking</summary>
 
-![ Resonsive Testing 1](readme/responsive-testing-1.png)
-![ Resonsive Testing 2](readme/responsive-testing-2.png)
+![ Responsive Testing 1](readme/responsive-testing-1.png)
+![ Responsive Testing 2](readme/responsive-testing-2.png)
 
 </details>
 
@@ -794,8 +795,8 @@ Pagespeed Insights & Lighthouse testing revealed near perfect results for the pe
 <details>
 <summary>Admin Responsive Checking</summary>
 
-![ Resonsive Testing 3](readme/responsive-testing-3.png)
-![ Resonsive Testing 4](readme/responsive-testing-4.png)
+![ Responsive Testing 3](readme/responsive-testing-3.png)
+![ Responsive Testing 4](readme/responsive-testing-4.png)
 
 </details>
 
@@ -1018,7 +1019,7 @@ You will need to define the following variables:
 
 ## Code Examples & Templates
 - [Custom 404](https://www.makeuseof.com/create-custom-404-error-page-django/): The template for 404 pages
-- [Admin Dashboard](https://github.com/startbootstrap/startbootstrap-sb-admin-2): This codebase was used as inspriation and was heavily customized to suit the needs of this project
+- [Admin Dashboard](https://github.com/startbootstrap/startbootstrap-sb-admin-2): This codebase was used as inspiration and was heavily customized to suit the needs of this project
 
 ## Acknowledgements
 
