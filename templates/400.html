@@ -8,14 +8,17 @@
 {% endblock %}
 
 {% block content %}
-
+<!-- Begin Page Content -->
 <div class="d-flex align-items-center justify-content-center vh-100">
     <div class="text-center">
+        <!-- Error Type -->
         <h1 class="display-1 fw-bold text-danger">400 Error</h1>
         <p class="fs-3 text-white"> <span class="text-danger">Opps!</span>Server Error</p>
+        <!-- Error Description -->
         <p class="lead text-white">
             The server couldn't understand your request. Double-check the URL and the data you're sending.
         </p>
+        <!-- Redirect Link -->
         <a href="{% url 'homepage' %}" class="btn btn-danger">Back To Safety</a>
     </div>
 </div>
