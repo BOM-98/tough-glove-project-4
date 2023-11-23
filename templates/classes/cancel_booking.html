@@ -6,15 +6,18 @@
 {% block content %}
 
 <div class="registration-form rounded-bottom">
+    <!-- Class Booking Cancel Form -->
     <form method="POST" action="">
         {% csrf_token %}
-        <h1 class="text-center mt-4">Cancel Booking</h1>
+        <h1 class="text-center mt-4 text-danger">Cancel Booking</h1>
         <p class="text-center">Are you sure you want to cancel {{ booking.class_id.class_name }}?</p>
         <p class="text-center">On {{ booking.class_id.class_date }} at {{ booking.class_id.class_start_time }}?</p>
+        <!-- Form Action Buttons -->
         <div class="d-flex flex-row justify-content-center">
-            <input type="submit" name="cancel" value="cancel" class="btn btn-primary me-3">
-            <input type="submit" name="confirm" value="confirm" class="btn btn-danger">
+            <input type="submit" name="cancel" value="abort!" class="btn btn-primary me-3">
+            <input type="submit" name="confirm" value="confirm cancellation" class="btn btn-danger">
         </div>
+        <!-- Form Validation Error Messages -->
         {% for field, errors in form.errors.items %}
         <div class="alert alert-danger">
             <ul>
