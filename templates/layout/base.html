@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html class="h-100" lang="en">
+<!-- Header -->
 
 <head>
     <title>{% block title %}Default Title{% endblock %}</title>
@@ -20,6 +21,7 @@
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
+<!-- End Header -->
 
 <body class="d-flex flex-column h-100 bg-black main-bg py-4">
 
@@ -27,17 +29,20 @@
 
     <nav class="navbar container navbar-expand-lg  navbar-light text-white py-5">
         <div class="d-flex container-fluid justify-content-between">
+            <!-- Tough Glove Logo -->
             <div class="logo-div">
                 <a class="navbar-brand logo-div text-white" href="{% url 'homepage' %}"><img
                         src="{% static 'img/TG_white_red.png' %}" alt="boxing gloves" class="home-logo"
                         style="width: 100px;"></a>
             </div>
             <div>
+                <!-- Navigation Toggle For Responsive Screens -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                     aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="bi bi-list" style="color: white; font-size: 2.5rem;"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarText">
+                    <!-- Conditional Logic For Displays Based On User Authentication -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         {% if user.is_authenticated %}
                         {% if user.is_staff %}
@@ -86,11 +91,12 @@
         <div class="container py-4">
             <div class="row">
                 <div class="col-md-4">
+                    <!-- Gym Logo -->
                     <h2>TOUGH <span class="red-text">GLOVE</span></h2>
-                    <!-- Add logo or additional content here if necessary -->
                 </div>
                 <div class="col-md-4">
                     <ul class="list-unstyled">
+                        <!-- Conditional Logic For Displays Based On User Authentication -->
                         {% if user.is_authenticated %}
                         <li>
                             <a class="nav-link text-light" href="{% url 'admin_dashboard' %}">ADMIN DASHBOARD</a>
@@ -121,21 +127,24 @@
                         {% endif %}
                     </ul>
                 </div>
+                <!-- Footer CTA Buttons -->
                 <div class="col-md-4">
                     <h5>JOIN A CLASS NOW!</h5>
                     <p>Stay motivated and engaged with a little help from a supportive community of other members</p>
                     <a href="{% url 'register' %}" class="btn btn-danger btn-red">FREE TRIAL</a>
                 </div>
             </div>
+            <!-- Tough Glove Copyright Information -->
             <div class="row border-top pt-3 mt-3">
                 <div class="col text-light text-center">
                     <p>COPYRIGHT © 2023 TOUGH GLOVE. ALL RIGHTS RESERVED.</p>
-                    <a href="https://www.instagram.com/toughglove_official/" name="instagram" class="text-light" target="_blank"><i
+                    <a href="https://www.instagram.com/toughglove_official/" class="text-light" target="_blank"><i
                             class="bi bi-instagram"></i></a>
                 </div>
             </div>
         </div>
     </footer>
+    <!-- Javascript Files -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
