@@ -6,12 +6,14 @@
 {% block content %}
 
 <div class="vh-100 d-flex justify-content-center align-items-center">
+    <!-- Booking Context  -->
     <div class="text-center p-4 border rounded-3 bg-light shadow">
-        <h1 class="mb-4">Book Class</h1>
+        <h1 class="mb-4 text-center text-danger">Book Class</h1>
         <p class="fs-4">You are booking {{ class.class_name }}</p>
         <p class="">On {{ class.class_date }} at {{ class.class_start_time }}</p>
         <div class="d-flex flex-row justify-content-center">
             <a href="{% url 'classes' %}" class="btn btn-primary btn-block create-account me-3">Cancel</a>
+            <!-- Class Booking Form -->
             <form method="POST" action="">
                 {% csrf_token %}
                 {% for field in form %}
@@ -20,6 +22,7 @@
                 <div class="form-group">
                     <button type="submit" class="btn btn-success">Confirm</button>
                 </div>
+                <!-- Form Validation Error Messages -->
                 {% for field, errors in form.errors.items %}
                 <div class="alert alert-danger">
                     <ul>
