@@ -3,10 +3,11 @@
 {% block title %}Tough Glove | Available Classes {% endblock %}
 
 {% block content %}
-    <h1>Available Classes</h1>
-
-    {% for class in classes %}
-        <p>{{ class.name }}</p>
-    {% endfor %}
-
+<!-- Page Header -->
+<h1>Available Classes</h1>
+<!-- available classes list -->
+{% for class in classes %}
+<p>{{ class.name }}</p>
+{% endfor %}
+<!-- end list -->
 {% endblock %}
