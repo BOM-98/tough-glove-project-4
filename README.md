@@ -2,14 +2,6 @@
 
 ![Screenshot of Hero Section](readme/hero-section.png)
 
-# Table of Contents
-
-<details>
-<Summary>TOC</Summary>
-To be included 
-</details>
-<br>
-
 # Project Background
 
 ## Overview
@@ -414,9 +406,9 @@ I forgot to add my .env file to the .gitignore at the beginning of the project, 
 
 To solve this issue, I attempted to rebase my commits from the 8th commit onwards. However, due to the migrations files created by django every time the database is migrated each commit was throwing an error in the rebasing program. The files need to reference the ones that came immediately before it meaning that when they are no longer in the commit history it resulted in errors. 
 
-I additionally attempted to change out the secret keys in the .env files so that they no longer were needed, but when I tried to swap the elephant sql url and ran the migrations it created errors in my program every time I tried to post something to the database. I had to revert back to the original url as a result.
+I additionally attempted to change out the secret keys in the .env files so that they no longer were needed. I created a new database in elephant SQL but when I tried to swap the elephant sql url and ran the migrations it created errors in my program every time I tried to post something to the database. I had to revert back to the original url as a result.
 
-I could not address this issue further while working on the project and therefore had to leave the files in the commit history. While not in the current repository, I still ideally would like to have removed it somehow. 
+With the help of tutor support I was able to rotate my keys for my database and Cloudinary url and change my secret keys. Tutor support showed me how to rotate the keys, which was a different approach to what I was taking with creating a new database in elephantSQL. All keys and urls have now been changed and are no longer problematic security issues. 
 
 # Technologies Used
 
@@ -781,6 +773,28 @@ Pagespeed Insights & Lighthouse testing revealed near perfect results for the pe
 
 ## Responsiveness Testing
 
+- ResponsivelyApp and Chrome Dev Tools were used to test responsiveness.
+- The website underwent comprehensive testing in both portrait and landscape orientations across a variety of simulated mobile, tablet, and large format screen sizes.
+- All pages were tested across browsers for full responsiveness. 
+
+<br>
+<details>
+<summary>Homepage Responsive Checking</summary>
+
+![ Resonsive Testing 1](readme/responsive-testing-1.png)
+![ Resonsive Testing 2](readme/responsive-testing-2.png)
+
+</details>
+
+<br>
+<details>
+<summary>Admin Responsive Checking</summary>
+
+![ Resonsive Testing 3](readme/responsive-testing-3.png)
+![ Resonsive Testing 4](readme/responsive-testing-4.png)
+
+</details>
+
 ## Code Validation
 
 ### HTML
@@ -861,6 +875,148 @@ All python code was put through the [Code Institute Python Linter](https://pep8c
 
 # Deployment
 
+### ElephantSQL Database
+
+> This project uses [ElephantSQL](https://www.elephantsql.com) for the PostgreSQL Database.
+
+To obtain your own Postgres Database, sign-up with your GitHub account, then follow these steps:
+- Click **Create New Instance**.
+- Provide the name of your project e.g. `Tough-Glove`
+- Select the **Tiny Turtle (Free)** plan.
+- Choose your **Data Center** e.g. `eu-west-1 (Ireland)` 
+- Click "Review"
+- Once you have checked your details, click "Create Instance"
+- Once created, click on the new database name, where you can view the database URL and Password.
+ - On the details page of your Instance, copy the URL beginning with `postgres://` and Paste your ElephantSQL url in your env.py file
+ - Make sure to include your URL in your Heroku app settings as outlined in the Heroku section below
+
+### Cloudinary 
+
+> This project uses the [Cloudinary API](cloudinary.com) to store static files
+
+To set up a Cloudinary API follow these steps:
+- Sign up or login to Cloudinary
+- Your Cloudinary Dashboard provides access to your API Environment Variable, which you can copy.
+- Important: Exclude 'CLOUDINARY_URL=' from the API value, as this represents the key
+- Paste your Cloudinary url in your env.py file
+- Make sure to include your URL in you Heroku app settings as outlined in the next section
+
+
+
+### Heroku
+
+> This project uses [Heroku](heroku.com)
+
+To deploy to Heroku I followed these steps: 
+
+- Sign up or login on Heroku
+- Create a new app in Heroku by selecting "New" and "Create New App" from the admin dashboard homepage
+- Choose your name e.g. `tough-glove` as the name for the project and chose your region e.g. `EU`
+- Confirmed creation of a new app
+- Navigate to the submenu in the navigation bar and select "resources"
+- From here I was redirected to the Deploy tab
+- Navigate to Settings and click the "Reveal Config Vars" button
+- Create a new Key Value pair with the key of "CLOUDINARY_URL" and the value of the Cloudinary url in the .env file of the app repository
+- Create a second Key Value pair with the key of "DATABASE_URL" and the value of the Elephant SQL url in the .env file of the app repository
+- Create a third Key Value pair with a value of "SECRET_KEY" and the value of the SECRET_KEY variable in your .env file of the app repository
+- Create one more Key Value pair with the value of PORT and a Key of 8000
+
+| Key | Value |
+| --- | --- |
+| `CLOUDINARY_URL` | user's own value |
+| `DATABASE_URL` | user's own value |
+| `DISABLE_COLLECTSTATIC` | 1 (*this is temporary, and can be removed for the final deployment*) |
+| `SECRET_KEY` | user's own value |
+| `PORT` | 8000 |
+
+- Heroku needs two additional files in order to deploy properly.
+  - requirements.txt
+  - Procfile
+
+>You can install this project's requirements (where applicable) using:
+>
+>pip3 install -r requirements.txt
+>If you have your own packages that have been installed, then the requirements file needs >updated using:
+
+>pip3 freeze --local > requirements.txt
+>The Procfile can be created with the following command:
+
+>echo web: gunicorn app_name.wsgi > Procfile
+>replace app_name with the name of your primary Django app name; the folder where settings.py is located
+
+- In the Settings tab, ensure that the Python Buildpack is added.
+- In the Deploy tab, enable automatic deploys from the Github repository
+- Click "Deploy Branch" to deploy the app
+- Once the app has been built, click "open app" in the top right corner to test deployment
+
+
+### Local Deployment
+
+#### Forking the repository
+
+By forking the GitHub Repository you can make a copy of the original repository to view or change without it effecting the original repository.
+You can do this by: 
+-  Logging into GitHub or create an account. 
+- Locate the repository at  [here](https://github.com/BOM-98/tough-glove-project-4)  . 
+-  At the top of the repository, on the right side of the page, select "Fork" from the buttons available. 
+-  A copy of the repository should now be created in your own repository.
+
+#### Create a clone of this repository
+
+Creating a clone enables you to make a copy of the repository at that point in time - this lets you run a copy of the project locally: This can be done by:
+
+-   Navigate [Here](https://github.com/BOM-98/tough-glove-project-4)
+-   click on the arrow on the green code button at the top of the list of files
+-   select the clone by https option and copy the URL it provides to the clipboard
+-   navigate to your code editor of choice and within the terminal change the directory to the location you want to clone the repository to.
+-   type 'git clone' and paste the https link you copied from github
+-   press enter and git will clone the repository to your local machine
+
+#### Requirements
+
+For local deployment, you will need to create a .env file in the root directory of the project and set the environment variables in this file.
+You will need to define the following variables:
+
+| Key | Value |
+| --- | --- |
+| `CLOUDINARY_URL` | user's own value |
+| `DATABASE_URL` | user's own value |
+| `SECRET_KEY` | user's own value |
+
+<br>
 
 # Credits
 
+## Courses & Tutorials
+- Denis Ivy Youtube tutorials were used to learn how to create a django project. Specifically, this Youtube Series was used to learn the ropes of Django - [Denis Ivy Youtube Series](https://www.youtube.com/watch?v=xv_bwpA_aEA&list=PL-51WBLyFTg2vW-_6XBoUpE7vpmoR3ztO)
+
+- This Codecademy Skill Path was used to learn the ins and outs of Django concepts [Codecademy Course](https://www.codecademy.com/enrolled/paths/build-python-web-apps-with-django)
+
+- Organising project boards - [Youtube video describing project boards](https://www.youtube.com/watch?v=C0RTISXqyAk)
+
+## Articles & Guides
+
+- [Setting up the project boards, issues and milestones](https://www.topcoder.com/thrive/articles/project-management-on-github)
+- [Design and layout of the registration form](https://epicbootstrap.com/snippets/registration)
+- [Design and layout of the members list page](https://www.bootdey.com/snippets/view/new-customer-list#css)
+- [Datepicker](https://github.com/monim67/django-bootstrap-datepicker-plus/blob/master/README.rst#usage)
+- [Django signals](https://docs.djangoproject.com/en/4.2/topics/signals/)
+- Creating cancel buttons that don’t post [John Harbison's Blog](http://johnharbison.net/make-a-form-a-cancel-button)
+- [Stack Overflow Discussion](https://stackoverflow.com/questions/17678689/how-to-add-a-cancel-button-to-deleteview-in-django)
+- [Fullcalendar](https://www.jsdelivr.com/package/npm/fullcalendar)
+- [Carousel](https://getbootstrap.com/docs/5.0/components/carousel/)
+- [Setting fields to required](https://stackoverflow.com/questions/7682804/django-model-forms-setting-a-required-field)
+- [Guide on creating docstrings](https://realpython.com/documenting-python-code/#documenting-your-python-code-base-using-docstrings)
+- [Securing against unauthorized access](https://www.codu.co/articles/securing-django-views-from-unauthorized-access-npyb3to_)
+- [Types of assertions](https://docs.python.org/3/library/unittest.html)
+- [Testing specifically in Django](https://docs.djangoproject.com/en/4.2/topics/testing/)
+
+
+## Code Examples & Templates
+- [Custom 404](https://www.makeuseof.com/create-custom-404-error-page-django/): The template for 404 pages
+- [Admin Dashboard](https://github.com/startbootstrap/startbootstrap-sb-admin-2): This codebase was used as inspriation and was heavily customized to suit the needs of this project
+
+## Acknowledgements
+
+- I would like to thank my Code Institute mentor, Lauren Nicole Poppich for her support throughout the development of this project and her invaluable advice.
+- I would like to thank the Code Institute tutor team for their assistance with troubleshooting and debugging some project issues, particularly rotating the keys of my database and cloudinary account.
