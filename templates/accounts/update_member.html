@@ -1,7 +1,7 @@
 {% extends "layout/base.html" %}
 
 {% block title %}Tough Glove | Register {% endblock %}
-
+<!-- Simple line icons CDN -->
 {% block extra_head %}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css"
     rel="stylesheet">
@@ -9,7 +9,7 @@
 
 {% block content %}
 <h1 class="text-center text-danger">Update {{ user.first_name }} {{ user.last_name }}</h1>
-
+<!-- Member Update Form -->
 <div class="registration-form rounded-bottom">
     <form method="POST" action="">
         {% csrf_token %}
@@ -28,6 +28,7 @@
         <div class="form-group mb-3">
             {{ form.email }}
         </div>
+        <!-- Form Validation Error Messages -->
         {% for field, errors in form.errors.items %}
         <div class="alert alert-danger">
             <strong>{{ field }}</strong>
@@ -38,6 +39,7 @@
             </ul>
         </div>
         {% endfor %}
+        <!-- Form Action Buttons -->
         <div class="form-group">
             <input type="submit" value="Update Account" class="btn btn-primary btn-block create-account">
         </div>
