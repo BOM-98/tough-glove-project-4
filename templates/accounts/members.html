@@ -69,10 +69,8 @@
                                             <i class="fa fa-bars" aria-hidden="true"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <a href="{% url 'update_member' user.id %}" class="dropdown-item">Update {{
-                                                user.first_name}}</a>
-                                            <a href="{% url 'delete_member' user.id %}" class="dropdown-item">Delete {{
-                                                user.first_name}}</a>
+                                            <a href="{% url 'update_member' user.id %}" class="dropdown-item">Update {{user.first_name}}</a>
+                                            <a href="{% url 'delete_member' user.id %}" class="dropdown-item">Delete {{user.first_name}}</a>
                                         </div>
                                     </div>
                                 </td>
