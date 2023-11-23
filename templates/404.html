@@ -8,14 +8,17 @@
 {% endblock %}
 
 {% block content %}
-
+<!-- Begin Page Content -->
 <div class="d-flex align-items-center justify-content-center vh-100">
     <div class="text-center">
+        <!-- Error Type -->
         <h1 class="display-1 fw-bold text-danger">404</h1>
         <p class="fs-3 text-white"> <span class="text-danger">Opps!</span> Page not found.</p>
+        <!-- Error Description -->
         <p class="lead text-white">
             The page you’re looking for doesn’t exist.
         </p>
+        <!-- Redirect Link -->
         <a href="{% url 'homepage' %}" class="btn btn-danger">Back To Safety</a>
     </div>
 </div>
