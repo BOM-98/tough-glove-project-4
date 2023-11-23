@@ -2,6 +2,10 @@
 
 ![Screenshot of Hero Section](readme/hero-section.png)
 
+> [Live Site](https://tough-glove-b997cae2826b.herokuapp.com/)
+
+> [Repository](https://github.com/BOM-98/tough-glove-project-4)
+
 # Project Background
 
 ## Overview
