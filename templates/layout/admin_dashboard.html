@@ -25,6 +25,7 @@
     {% endif %}
     {% endfor %}
     {% endif %}
+    <!-- end bootstrap feedback messages -->
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
         <h1 class="h3 mb-0 text-white">Dashboard</h1>
@@ -110,10 +111,10 @@
 
     <div class="row">
 
-        <!-- Area Chart -->
+        <!-- Classes Card -->
         <div class="col-xl-6 col-lg-6 dashboard-table">
             <div class="card shadow mb-4 dashboard-table">
-                <!-- Card Header - Button -->
+                <!-- Card Header - Button To Create Classes -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-red">UPCOMING CLASSES</h6>
                     <a href="{% url 'create_class' %}"><button type="button"
@@ -122,6 +123,7 @@
                 <!-- Card Body -->
                 <div class="card-body" style="max-height: 500px; overflow: scroll;">
                     <div class="table-responsive dashboard-table">
+                        <!-- Classes Table -->
                         <table class="table mb-0">
                             <thead class="small text-uppercase bg-body text-muted">
                                 <tr>
@@ -139,6 +141,7 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div>
+                                                <!-- conditional displays based on class type -->
                                                 <div class="h6 mb-0 lh-1">{% if class.class_type == 0 %}
                                                     Group Class
                                                     {% else %}
@@ -154,6 +157,7 @@
                                     <td><span>{{ class.slots_available}}</span></td>
                                     <td>{{ class.slots_filled }}</td>
                                     <td class="text-end">
+                                        <!-- conditional displays based on user permissions -->
                                         <div class="drodown">
                                             <a data-bs-toggle="dropdown" href="#" class="btn p-1" aria-expanded="false">
                                                 <i class="bi bi-list" aria-hidden="true"></i>
@@ -171,6 +175,7 @@
                             </tbody>
                             <tfoot class="mt-3 mb-3">
                                 <tr>
+                                    <!-- Class Summary Statistics -->
                                     <td colspan="5">Total Classes: </td>
                                     <td>{{ classes_count }}</td>
                                 </tr>
@@ -181,16 +186,16 @@
             </div>
         </div>
 
-        <!-- Pie Chart -->
+        <!-- Members Card -->
         <div class="col-xl-6 col-lg-6">
             <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
+                <!-- Card Header - Button To Create Members -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-red">MEMBERS</h6>
                     <a href="{% url 'create_member' %}"><button type="button"
                             class="btn btn-danger text-white btn-block create-account">CREATE MEMBER</button></a>
                 </div>
-                <!-- Card Body -->
+                <!-- Members Table -->
                 <div class="card-body" style="max-height: 500px; overflow: scroll;">
                     <div class="table-responsive">
                         <table class="table mb-0">
@@ -216,6 +221,7 @@
                                     <td>{{ user.email }}</td>
                                     <td class="text-end">
                                         <div class="drodown">
+                                            <!-- conditional displays based on user permissions -->
                                             <a data-bs-toggle="dropdown" href="#" class="btn p-1" aria-expanded="false">
                                                 <i class="bi bi-list" aria-hidden="true"></i>
                                             </a>
@@ -231,6 +237,7 @@
                                 {% endfor %}
                             </tbody>
                             <tfoot class="mt-3 mb-3">
+                                <!-- Members Summary Statistics -->
                                 <tr>
                                     <td colspan="2">Total Users: </td>
                                     <td>{{ user_count }}</td>
@@ -249,7 +256,7 @@
         <!-- Content Column -->
         <div class="col-lg-12" id="calendar-divider">
 
-            <!-- Project Card Example -->
+            <!-- Class Calendars -->
             <div class="card shadow">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-red">CALENDAR</h6>
@@ -266,7 +273,7 @@
 <!-- End of Main Content -->
 
 {% endblock content %}
-
+<!-- Fullcalendar Javascript -->
 {% block extra_js %}
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
 <script src="{% static 'js/calendar.js' %}"></script>
